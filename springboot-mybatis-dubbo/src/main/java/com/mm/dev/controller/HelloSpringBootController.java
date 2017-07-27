@@ -42,7 +42,11 @@ public class HelloSpringBootController {
 
         userService.save();
         userService.saveUser();
-
+        
+        log.info("info");
+        log.warn("warn");
+        log.debug("debug");
+        log.error("error");
         return "hello SpringBoot! -- userId:";
     }
 
