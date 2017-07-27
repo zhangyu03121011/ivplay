@@ -11,9 +11,9 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-		<module>../springboot-common-base</module>
-		<module>../springboot-common-util</module>
-		<module>../spring-boot-mybatis-dubbo</module>
+		<module>springboot-common-base</module>
+		<module>springboot-common-util</module>
+		<module>spring-boot-mybatis-dubbo</module>
 	</modules>
 	
 </project>
