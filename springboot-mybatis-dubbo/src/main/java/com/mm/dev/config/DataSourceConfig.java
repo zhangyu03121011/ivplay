@@ -10,14 +10,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.StringUtils;
 
@@ -40,13 +37,13 @@ public class DataSourceConfig {
     public DataSource dataSource(){
 
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(env.getProperty("mysql.driverClassName"));
-        dataSource.setUrl(env.getProperty("mysql.url"));
-        dataSource.setUsername(env.getProperty("mysql.username"));
-        dataSource.setPassword(env.getProperty("mysql.password"));
-        dataSource.setInitialSize(Integer.parseInt(env.getProperty("mysql.initialSize")));
-        dataSource.setMinIdle(Integer.parseInt(env.getProperty("mysql.minIdle")));
-        dataSource.setMaxActive(Integer.parseInt(env.getProperty("mysql.maxActive")));
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
+        dataSource.setInitialSize(Integer.parseInt(env.getProperty("spring.datasource.initialSize")));
+        dataSource.setMinIdle(Integer.parseInt(env.getProperty("spring.datasource.minIdle")));
+        dataSource.setMaxActive(Integer.parseInt(env.getProperty("spring.datasource.maxActive")));
 
         return dataSource;
     }

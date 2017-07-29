@@ -47,19 +47,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void save() throws Exception{
-        User user = new User();
-        user.setUsername("7");
-        user.setPassword("7");
-        userDao.saveAndFlush(user);
+    	for (int i = 0; i < 50; i++) {
+    		User user = new User();
+    		user.setUsername(String.valueOf(i));
+    		user.setPassword(String.valueOf(i));
+    		userDao.saveAndFlush(user);
+		}
     }
 
     @Transactional
     @Override
     public void saveUser() throws Exception{
-        User user = new User();
-        user.setUsername("8");
-        user.setPassword("8");
-        userMapper.save(user);
+    	for (int i = 51; i < 100; i++) {
+    		User user = new User();
+    		user.setUsername(String.valueOf(i));
+    		user.setPassword(String.valueOf(i));
+    		userMapper.save(user);
+		}
     }
 
 }

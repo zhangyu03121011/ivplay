@@ -1,5 +1,7 @@
 package com.mm.dev.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -7,9 +9,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "user2")
-public class User {
+public class User implements Serializable{
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
