@@ -89,7 +89,10 @@ public class PaginationResultSetInterceptor implements Interceptor {
                 // 修改sql，用于返回总记录数
                 String sql = dialect.getCountString(originalSql);
                 Long totalRecord = getTotalRecord(configuration, sql);
-
+                
+                if (log.isDebugEnabled()) {
+                    log.debug("Generate SQL : " + sql);
+                }
 
                 Object result = invocation.proceed();
                 Page page = new PageImpl((List)result, pagination, totalRecord);

@@ -73,7 +73,18 @@ public class UserServiceTest {
 	public void testMybatisPage() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageable = new PageRequest(0,50, sort);
+		
 		Page<User> userAll = userService.getUserAll(pageable);
-		logger.info(JSONUtil.toJson(userAll));
+		logger.info("第一页"+JSONObject.toJSONString(userAll));
+		
+		logger.info("第二页"+JSONObject.toJSONString(userService.getUserAll(new PageRequest(1,50, new Sort(Direction.DESC, "id")))));
+	}
+	
+	public static void main(String[] args) {
+		Sort sort = new Sort(Direction.DESC, "id");
+		Pageable pageable = new PageRequest(0,50, sort);
+		System.out.println(pageable.getOffset());
+		System.out.println(pageable.getPageNumber());
+		System.out.println(pageable.getPageSize());
 	}
 }
