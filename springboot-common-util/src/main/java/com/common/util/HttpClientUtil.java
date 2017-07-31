@@ -412,7 +412,7 @@ public class HttpClientUtil extends BaseLogger {
             // String result = getInstance(HttpClientType.SSL).get(url);
 
             String url = "http://test.sinotms.cn:8065/cmd.svc/Api/ApiLogin";
-            Map param = new HashMap<>();
+            Map param = new HashMap<String,String>();
             param.put("Date", "2017-12-22");
             param.put("Key", "4D2F9DCB49258D0B892D561FD72AAC3E");
             param.put("User", "test");

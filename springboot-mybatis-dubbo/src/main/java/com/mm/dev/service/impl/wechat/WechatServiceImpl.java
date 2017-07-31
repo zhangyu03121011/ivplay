@@ -19,6 +19,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -597,8 +598,11 @@ public class WechatServiceImpl implements IWechatService{
     	AccessToken token=getAccessToken();
     	String url=SEND_MESSAGE.replaceAll("ACCESS_TOKEN", token.getToken());
     	JSONObject jsonObject = WeixinUtil.doPostStr(url, outStr);
-    	logger.info(jsonObject.toString());
-		return jsonObject.toString();
+    	if(null != jsonObject) {
+    		logger.info(jsonObject.toString());
+    		return jsonObject.toString();
+    	} 
+    	return null;
     }
     
     /**
@@ -836,4 +840,28 @@ public class WechatServiceImpl implements IWechatService{
     	logger.info(jsonObject.toString());
 		return jsonObject.toString();
     }
+
+	public String getAPPID() {
+		return APPID;
+	}
+
+	public void setAPPID(String aPPID) {
+		APPID = aPPID;
+	}
+
+	public String getAPPSECRET() {
+		return APPSECRET;
+	}
+
+	public void setAPPSECRET(String aPPSECRET) {
+		APPSECRET = aPPSECRET;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }
