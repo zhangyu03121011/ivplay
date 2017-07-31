@@ -38,6 +38,12 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>simpleimage</artifactId>
 			<version>1.2.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javax.media</groupId>
@@ -58,6 +64,12 @@
 			<groupId>net.sf.jmimemagic</groupId>
 			<artifactId>jmimemagic</artifactId>
 			<version>0.1.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- image end -->
 

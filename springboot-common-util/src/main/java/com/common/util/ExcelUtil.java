@@ -222,7 +222,7 @@ public class ExcelUtil extends BaseLogger {
 	public <T> List<T> readExcel(String path, Class<T> cls, Map<Integer, String> paramNameMap) throws IOException {
 		List<String[]> listArray = readExcel(path);
 		if (CollectionUtils.isNotEmpty(listArray)) {
-			List<T> listObj = new ArrayList<>();
+			List<T> listObj = new ArrayList<T>();
 			for (String[] strArray : listArray) {
 
 				try {
@@ -231,7 +231,7 @@ public class ExcelUtil extends BaseLogger {
 						try {
 							AnnotationUtil.getInstance().setFieldValue(obj, paramNameMap.get(i),
 									CommUtil.getInstance().replaceExcelBlank(strArray[i]), true);
-						} catch (IllegalArgumentException | SecurityException e) {
+						} catch (SecurityException e) {
 							logger.error(e.getMessage(), e);
 						}
 					}
@@ -284,7 +284,7 @@ public class ExcelUtil extends BaseLogger {
 	public List<String[]> readXlsx(String path) throws IOException {
 		InputStream is = new FileInputStream(path);
 		XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
-		List<String[]> list = new ArrayList<>();
+		List<String[]> list = new ArrayList<String[]>();
 		try {
 			// Read the Sheet
 			for (int numSheet = 0; numSheet < xssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -326,7 +326,7 @@ public class ExcelUtil extends BaseLogger {
 	public List<String[]> readXls(String path) throws IOException {
 		InputStream is = new FileInputStream(path);
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
-		List<String[]> list = new ArrayList<>();
+		List<String[]> list = new ArrayList<String[]>();
 		try {
 			// Read the Sheet
 			for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -399,7 +399,7 @@ public class ExcelUtil extends BaseLogger {
 			// System.out.println(buffer);
 			// }
 
-			Map<Integer, String> map = new HashMap<>();
+			Map<Integer, String> map = new HashMap<Integer, String>();
 			map.put(0, "catalogName");
 			map.put(1, "parentId");
 			// List<CatalogModel> catalogModels = getInstance()
