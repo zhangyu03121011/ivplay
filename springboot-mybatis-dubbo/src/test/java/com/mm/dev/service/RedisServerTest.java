@@ -13,7 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mm.dev.entity.User;
+import com.mm.dev.entity.user.User;
+import com.mm.dev.service.redis.IRedisService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

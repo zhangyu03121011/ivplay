@@ -1,22 +1,23 @@
-package com.mm.dev.service.impl;
+package com.mm.dev.service.impl.user;
 
-import com.mm.dev.dao.jpa.UserDao;
-import com.mm.dev.dao.mapper.UserMapper;
-import com.mm.dev.entity.User;
-import com.mm.dev.service.UserService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.mm.dev.dao.jpa.user.UserDao;
+import com.mm.dev.dao.mapper.user.UserMapper;
+import com.mm.dev.entity.user.User;
+import com.mm.dev.service.user.IUserService;
 
 /**
  * Created by Lipengfei on 2015/6/26.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserDao userDao;

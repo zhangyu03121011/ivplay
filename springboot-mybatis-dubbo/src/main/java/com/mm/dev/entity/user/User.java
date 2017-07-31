@@ -1,4 +1,4 @@
-package com.mm.dev.entity;
+package com.mm.dev.entity.user;
 
 import java.io.Serializable;
 

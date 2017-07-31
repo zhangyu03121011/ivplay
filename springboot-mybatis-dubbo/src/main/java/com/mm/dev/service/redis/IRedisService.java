@@ -1,4 +1,4 @@
-package com.mm.dev.service;
+package com.mm.dev.service.redis;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -187,7 +187,7 @@ public interface IRedisService extends BaseConstant {
      * @param key
      * @param list
      * @return   
-     * @see com.mm.dev.service.IRedisService#setList(java.lang.String, java.util.List)
+     * @see com.mm.dev.service.redis.IRedisService#setList(java.lang.String, java.util.List)
      */
     public <T> boolean setList(String key ,List<T> list) throws Exception;  
     
@@ -197,7 +197,7 @@ public interface IRedisService extends BaseConstant {
      * @param key
      * @param clz
      * @return   
-     * @see com.mm.dev.service.IRedisService#getList(java.lang.String, java.lang.Class)
+     * @see com.mm.dev.service.redis.IRedisService#getList(java.lang.String, java.lang.Class)
      */
     public <T> List<T> getList(String key,Class<T> clz) throws Exception;  
     
@@ -207,7 +207,7 @@ public interface IRedisService extends BaseConstant {
      * @param key
      * @param obj
      * @return   
-     * @see com.mm.dev.service.IRedisService#lpush(java.lang.String, java.lang.Object)
+     * @see com.mm.dev.service.redis.IRedisService#lpush(java.lang.String, java.lang.Object)
      */
     public long lpush(String key,Object obj) throws Exception;  
     
@@ -217,7 +217,7 @@ public interface IRedisService extends BaseConstant {
      * @param key
      * @param obj
      * @return   
-     * @see com.mm.dev.service.IRedisService#rpush(java.lang.String, java.lang.Object)
+     * @see com.mm.dev.service.redis.IRedisService#rpush(java.lang.String, java.lang.Object)
      */
     public long rpush(String key,Object obj) throws Exception;  
     
@@ -226,7 +226,7 @@ public interface IRedisService extends BaseConstant {
      * @Datatime 2017年7月29日 下午1:36:50 
      * @param key
      * @return   
-     * @see com.mm.dev.service.IRedisService#lpop(java.lang.String)
+     * @see com.mm.dev.service.redis.IRedisService#lpop(java.lang.String)
      */
     public String lpop(String key) throws Exception;  
 }

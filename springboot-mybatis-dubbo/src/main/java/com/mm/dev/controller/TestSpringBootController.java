@@ -2,8 +2,8 @@ package com.mm.dev.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.common.util.JSONUtil;
-import com.mm.dev.entity.User;
-import com.mm.dev.service.UserService;
+import com.mm.dev.entity.user.User;
+import com.mm.dev.service.user.IUserService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +35,7 @@ public class TestSpringBootController {
     private final static Logger log = LoggerFactory.getLogger(TestSpringBootController.class);
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Transactional
     @RequestMapping("/")
@@ -46,9 +46,9 @@ public class TestSpringBootController {
 
         User user = userService.getUser(1L);
 
-        List<User> userList = userService.getUserList();
-
-        Page<User> allList = userService.getUserAll(pageable);
+//        List<User> userList = userService.getUserList();
+//
+//        Page<User> allList = userService.getUserAll(pageable);
 
         userService.saveUser();
         

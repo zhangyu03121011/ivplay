@@ -16,9 +16,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
-import com.common.util.JSONUtil;
-import com.mm.dev.dao.mapper.UserMapper;
-import com.mm.dev.entity.User;
+import com.mm.dev.dao.mapper.user.UserMapper;
+import com.mm.dev.entity.user.User;
+import com.mm.dev.service.user.IUserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,7 +27,7 @@ public class UserServiceTest {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	
 	@Autowired
 	private UserMapper userMapper;

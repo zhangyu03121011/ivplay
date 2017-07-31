@@ -1,13 +1,17 @@
-package com.mm.dev.service.impl;
+package com.mm.dev.service.impl.redis;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.serializer.support.DeserializingConverter;
+import org.springframework.core.serializer.support.SerializingConverter;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.HashOperations;
@@ -18,11 +22,12 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Service;
 
 import com.common.util.ExceptionUtil;
 import com.common.util.JSONUtil;
-import com.mm.dev.service.IRedisService;
+import com.mm.dev.service.redis.IRedisService;
 
 /**
  * @Description: redisServer
@@ -30,7 +35,7 @@ import com.mm.dev.service.IRedisService;
  * @date 2017年7月29日 下午1:43:14
  */
 @Service
-public class RedisServiceImpl implements IRedisService {
+public class RedisServiceImpl implements IRedisService,RedisSerializer<Object>{
 	
 	Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
@@ -294,7 +299,7 @@ public class RedisServiceImpl implements IRedisService {
 	 * @param key
 	 * @param value
 	 * @return   
-	 * @see com.mm.dev.service.IRedisService#set(java.lang.String, java.lang.String)
+	 * @see com.mm.dev.service.redis.IRedisService#set(java.lang.String, java.lang.String)
 	 */
     public boolean set(final String key, final String value) {  
         boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {  
@@ -313,7 +318,7 @@ public class RedisServiceImpl implements IRedisService {
 	 * @Datatime 2017年7月29日 下午1:39:29 
 	 * @param key
 	 * @return   
-	 * @see com.mm.dev.service.IRedisService#get(java.lang.String)
+	 * @see com.mm.dev.service.redis.IRedisService#get(java.lang.String)
 	 */
     public String get(final String key){  
         String result = redisTemplate.execute(new RedisCallback<String>() {  
@@ -333,7 +338,7 @@ public class RedisServiceImpl implements IRedisService {
 	 * @param key
 	 * @param expire
 	 * @return   
-	 * @see com.mm.dev.service.IRedisService#expire(java.lang.String, long)
+	 * @see com.mm.dev.service.redis.IRedisService#expire(java.lang.String, long)
 	 */
     public boolean expire(final String key, long expire) {  
         return redisTemplate.expire(key, expire, TimeUnit.SECONDS);  
@@ -345,7 +350,7 @@ public class RedisServiceImpl implements IRedisService {
      * @param key
      * @param list
      * @return   
-     * @see com.mm.dev.service.IRedisService#setList(java.lang.String, java.util.List)
+     * @see com.mm.dev.service.redis.IRedisService#setList(java.lang.String, java.util.List)
      */
     public <T> boolean setList(String key, List<T> list) {  
         String value = JSONUtil.toJson(list);
@@ -358,7 +363,7 @@ public class RedisServiceImpl implements IRedisService {
      * @param key
      * @param clz
      * @return   
-     * @see com.mm.dev.service.IRedisService#getList(java.lang.String, java.lang.Class)
+     * @see com.mm.dev.service.redis.IRedisService#getList(java.lang.String, java.lang.Class)
      */
     public <T> List<T> getList(String key,Class<T> clz) {  
         String json = get(key);  
@@ -375,7 +380,7 @@ public class RedisServiceImpl implements IRedisService {
      * @param key
      * @param obj
      * @return   
-     * @see com.mm.dev.service.IRedisService#lpush(java.lang.String, java.lang.Object)
+     * @see com.mm.dev.service.redis.IRedisService#lpush(java.lang.String, java.lang.Object)
      */
     public long lpush(final String key, Object obj) {  
         final String value = JSONUtil.toJson(obj);  
@@ -396,7 +401,7 @@ public class RedisServiceImpl implements IRedisService {
      * @param key
      * @param obj
      * @return   
-     * @see com.mm.dev.service.IRedisService#rpush(java.lang.String, java.lang.Object)
+     * @see com.mm.dev.service.redis.IRedisService#rpush(java.lang.String, java.lang.Object)
      */
     public long rpush(final String key, Object obj) {  
         final String value = JSONUtil.toJson(obj);  
@@ -416,7 +421,7 @@ public class RedisServiceImpl implements IRedisService {
      * @Datatime 2017年7月29日 下午1:36:50 
      * @param key
      * @return   
-     * @see com.mm.dev.service.IRedisService#lpop(java.lang.String)
+     * @see com.mm.dev.service.redis.IRedisService#lpop(java.lang.String)
      */
     public String lpop(final String key) {  
         String result = redisTemplate.execute(new RedisCallback<String>() {  
@@ -429,4 +434,37 @@ public class RedisServiceImpl implements IRedisService {
         });  
         return result;  
     }  
+    
+    private Converter<Object, byte[]> serializer = new SerializingConverter();
+    private Converter<byte[], Object> deserializer = new DeserializingConverter();
+
+    static final byte[] EMPTY_ARRAY = new byte[0];
+
+    public Object deserialize(byte[] bytes) {
+      if (isEmpty(bytes)) {
+        return null;
+      }
+
+      try {
+        return deserializer.convert(bytes);
+      } catch (Exception ex) {
+        throw new SerializationException("Cannot deserialize", ex);
+      }
+    }
+
+    public byte[] serialize(Object object) {
+      if (object == null) {
+        return EMPTY_ARRAY;
+      }
+
+      try {
+        return serializer.convert(object);
+      } catch (Exception ex) {
+        return EMPTY_ARRAY;
+      }
+    }
+
+    private boolean isEmpty(byte[] data) {
+      return (data == null || data.length == 0);
+    }
 }

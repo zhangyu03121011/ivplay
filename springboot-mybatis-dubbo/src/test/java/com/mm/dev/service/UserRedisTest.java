@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mm.dev.entity.User;
+import com.mm.dev.entity.user.User;
 
 /**
  * @author

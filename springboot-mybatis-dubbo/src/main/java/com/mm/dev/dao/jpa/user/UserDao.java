@@ -1,6 +1,7 @@
-package com.mm.dev.dao.jpa;
+package com.mm.dev.dao.jpa.user;
 
-import com.mm.dev.entity.User;
+import com.mm.dev.entity.user.User;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
