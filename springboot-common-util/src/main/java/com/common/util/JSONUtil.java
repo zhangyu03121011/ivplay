@@ -41,7 +41,7 @@ public class JSONUtil {
 	
 	public static <T> Map<String, T> toMap(String json,Class<T> clz){
 		 Map<String, JsonObject> map = gson.fromJson(json, new TypeToken<Map<String,JsonObject>>(){}.getType());
-		 Map<String, T> result = new HashMap<>();
+		 Map<String, T> result = new HashMap<String, T>();
 		 for(String key:map.keySet()){
 			 result.put(key,gson.fromJson(map.get(key),clz) );
 		 }
@@ -55,7 +55,7 @@ public class JSONUtil {
 	
 	public static <T> List<T> toList(String json,Class<T> clz){
 		JsonArray array = new JsonParser().parse(json).getAsJsonArray();  
-		List<T> list  = new ArrayList<>();
+		List<T> list  = new ArrayList<T>();
 		for(final JsonElement elem : array){  
 	         list.add(gson.fromJson(elem, clz));
 	    }

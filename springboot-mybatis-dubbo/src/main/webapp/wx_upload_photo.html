@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>上传照片</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!--<link rel="stylesheet" type="text/css" href="css/webuploader.css"/>-->
+		<link rel="stylesheet" type="text/css" href="css/api.css"/>
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.btn{
+				width: 90%;
+				height: 40px;
+				line-height: 40px;
+				background-color: #1fd21d;
+				color: #fff;
+				margin: 20px auto;
+				border-radius: 7px;
+				text-align: center;
+				font-size: 18px;
+			}
+			.btn:active{
+				background-color: #1fb238;
+			}
+			.mark_body {
+				position: relative;
+				display: inline-block;
+				left: 50%;
+				top: 0px;
+				width:auto;
+				min-width: 300px;
+				-webkit-transform: translate(-50%, 0%);
+				-moz-transform: translate(-50%, 0%);
+				-ms-transform: translate(-50%, 0%);
+				-o-transform: translate(-50%, 0%);
+				transform: translate(-50%, 0%);
+				margin-top: 10px;
+				/*border: 1px solid #ccc;*/				
+			}
+			.slide {
+				width: 100%;
+				position: relative;
+				display: inline-block;
+				padding-left: 43px;
+			}
+			.text{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+			.controlbar-box {
+				position: relative;
+				width: 150px;
+				height: 14px;
+			}
+			
+			.controlbar-box .c-bg {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #08a506;
+				border-radius: 30px;
+			}
+			
+			.controlbar-box .c-bg1 {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #d3d3d3;
+				border-radius: 30px;
+				z-index: 2;
+			}
+			
+			.controlbar-box .c-round {
+				position: absolute;
+				left: 45px;
+				top: -4px;
+				z-index: 99;
+				width: 24px;
+				height: 24px;
+				line-height: 24px;
+				background-color: #09be07;
+				border-radius: 50%;
+				cursor: pointer;
+				text-align: center;
+				color: #fff;
+			}
+			.controlbar-box .c-progress{
+				position:absolute; 
+				right:-70px; 
+				top:0px; 
+				z-index:8; 
+				width:20px;
+			}
+
+			
+			.mark {
+				margin: 10px auto 0;
+				text-align: center;
+			}
+			
+			.mark input {
+				width: 50px;
+				height: 25px;
+				background-color: #e6e6e6;
+				margin: 0 7px 0 7px;
+				border-radius: 5px;
+				text-align: center;
+				color: #098707;				
+			}	
+			.suijiSelect{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				border: 1px solid #ccc;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 12px 12px;
+				margin-right: 5px;				
+			}
+			.bg_dui{
+				background-image: url(img/dui.png);
+			}
+			.erweima{
+				width: 180px;
+				height: 180px;
+				position: relative;
+				overflow: hidden;	
+				border: 1px solid #dfdfdf;
+			}
+			.erweima:after{
+				position: absolute;
+				left: 0;
+				top: 0;
+				content: '';
+				width: 100%;
+				height: 100%;
+				background-image: url(img/jiahao1.png);
+				background-size: 100px 100px;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.erweima>img{
+				position: absolute;
+				left: 0;
+				top: 0;
+				/*width: 100%;
+				height: 100%;*/
+				z-index: 2;
+			}
+			.erweima>em {
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				width: 60px;
+				height: 60px;
+				display: none;
+			}
+			.erweima>em:after{
+				position: absolute;
+				content: "";
+				right: 3px;
+				top: 3px;
+				width: 40px;
+				height: 40px;
+				color: #fff;
+				text-align: center;
+				background-color: #45c01a;
+				background-image: url(img/del.png);
+				background-size: 20px 20px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				border-radius: 50%;
+				z-index: 3;
+			}
+			.webuploader-element-invisible{
+				opacity: 0;
+			}
+			.imgErWeima{
+				display: block;
+				width: 80%;
+				margin: auto;
+				margin-top: 20px;
+			}
+			.erweimaModel{
+				width: 225px;
+				margin: auto;
+				/*background-color: #03BD00;*/
+				margin-top: 20px;
+			}
+			.erweimaModelTitle{
+				margin-left: 5px;
+			}
+			.ModelSelectContainer{
+				margin-left: 30px;
+			}
+			.ModelSelectContainer>div{
+				margin-top: 5px;
+			}
+		</style>
+		<script type="text/javascript">
+			 //图片居中显示  
+			function center_img(dom) {
+				dom.style.visibility = 'hidden';
+				var pWideth = dom.parentNode.offsetWidth;
+				var pHeight = dom.parentNode.offsetHeight;
+				var Wideth = dom.width;
+				var Height = dom.height;
+				if(Wideth >= Height){
+					dom.width = pWideth;
+//					alert(dom.height);
+					if(dom.height >= pHeight){
+						dom.width = dom.width * pHeight / dom.height;
+						dom.height = pHeight;	
+					}	
+				}else{
+					dom.height = pHeight;
+//					alert(dom.height);
+					if(dom.width >= pWideth){
+						dom.height = dom.height * pWideth / dom.width;
+						dom.width = pWideth;	
+					}	
+				}
+				dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';
+				dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
+				dom.style.visibility = 'visible';
+//				console.log(pWideth + "：" + pHeight);
+			}
+		</script>
+	</head>
+	<body ontouchstart="" onmouseover="">
+		<div id="uploader" class="wu-example" style="text-align: center;margin-top: 20px;">
+		    <div id="thelist" class="uploader-list"></div>
+		    <div class="btns">
+		        <div id="picker"style="overflow: hidden;width: 180px;height: 180px;margin: auto;">
+		        	<div class="erweima">			
+						<img id="erweimaImg" src="" onload="center_img(this)" />
+					</div>
+		        </div>
+		    </div>
+		</div>
+		<div class="mark_body">
+			<div class="slide">				
+				<div class="controlbar-box">
+					<div class="text">模糊：</div>
+					<div class="c-round" id='c_roud'></div>
+					<div class="c-bg1"></div>
+					<div class="c-bg"></div>
+					<div class="c-progress" id="blurNumber"></div>
+				</div>
+			</div>
+			<div class="mark">			
+				<div>(只能输入1到99之间)</div>
+				<div style="margin: 5px 0;">
+					打赏 :
+					<span id="dao"><input type="text" id="mininputNumber" onblur="onblurNum(this,1)"  value="2" onkeyup="inputNumberF(this,1)"  />元 到</span>
+					<input type="text" id="inputNumber" onblur="onblurNum(this,2)"  value="3" onkeyup="inputNumberF(this,2)" />元 												
+				</div>
+				
+				<span id='suijiSelect' class="suijiSelect bg_dui"></span>
+				<span>随机
+					<span id="randomNum">
+						(<label style="color: #098707;" id="minlableNumber"></label>到<label id="lableNumber" style="color: #098707;"></label>元)
+					</span>						
+				</span>
+			</div>
+		</div>
+		
+		<div class="erweimaModel">
+			<div class="erweimaModelTitle">二维码样式：</div>
+			<div class="ModelSelectContainer">
+				<div class="ModelSelect">
+					<span id="suijiSelect0" class="suijiSelect" data-id='0'></span>
+					<label>直观模式(上下黑色边幕)</label>
+				</div>
+				<div class="ModelSelect">
+					<span id="suijiSelect4" class="suijiSelect bg_dui" data-id='4'></span>
+					<label>美观模式(左下角二维码)</label>
+				</div>
+			</div>			
+		</div>
+		
+		<div class="btn" id="ctlBtn">上传</div>
+		<div>
+			<img id="imgErWeima" class="imgErWeima" />
+		</div>
+	
+		<script src="js/jquery_v2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/myc.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/webuploader.js" type="text/javascript" charset="utf-8"></script>		
+		<script type="text/javascript">
+//			window.onerror = function (message, url, line) {
+//				alert('Error at line ' + line + ': ' + JSON.stringify(message));
+//			};
+			var p = o = ap = code = '';
+			var mylimit = '';
+			if(my.getQuery()){
+				p = my.getQuery().p;
+				o = my.getQuery().o;	
+				ap = my.getQuery().ap;	
+				code = my.getQuery().code;	
+//				alert('p:' + p + ',o:' + o + ',ap:' + ap + ',code:' + code);
+			}else{
+//				alert('没有获取到url的参数');
+			}
+			var ajaxurl = 'load?z=1';
+			if(o){
+				ajaxurl = ajaxurl + '&o=' + o;
+			}
+			if(ap){
+				ajaxurl = ajaxurl + '&ap=' + ap;
+			}
+			if(code){
+				ajaxurl = ajaxurl + '&code=' + code;
+			}
+			my.ajax(ajaxurl,{},function(ret,status,err){
+				  // alert(JSON.stringify(ret));
+				if(ret.success){
+				    var preferences = ret.preferences;
+					if(preferences==null) {
+						preferences = {};
+						preferences.blur = 60;
+						preferences.price = 3;
+						preferences.priceMin = 2;
+						preferences.imageLayout = 4;
+						preferences.random = true;
+				
+					}
+					if(preferences.blur == null){
+						preferences.blur = 60;
+					}
+					if(preferences.price == null)	{
+						preferences.price = 3;
+					} 
+					if(preferences.priceMin == null){
+						preferences.priceMin = 2;
+					}
+					if(preferences.imageLayout == null){
+						preferences.imageLayout = 4;
+					}
+					if(preferences.random == null){
+						preferences.random = true;
+					}
+					mylimit = preferences.minAmountLimit;
+					// if(preferences.price <= preferences.minAmountLimit){
+					// 	preferences.price = preferences.minAmountLimit
+					// }
+					//	alert(JSON.stringify(preferences));
+					var _bar = document.querySelector('.controlbar-box'); //父元素
+					var bar_round = document.querySelector('.c-round'); //小圆
+					var bar_num = document.querySelector('.c-bg'); //白色线
+					var sigmao = preferences.blur;
+					var sigma = sigmao / 100 * $('.controlbar-box').width();
+					var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+					if(offwidth <= sigma){
+						sigma = offwidth;
+					}
+					bar_round.style.left = sigma + 45 + 'px';
+					bar_num.style.width = sigma + 'px';
+					bar_num.style.zIndex = '20';
+					document.querySelector('.c-progress').innerHTML = sigmao;
+															
+					$('#inputNumber').val(parseFloat(preferences.price));
+					$('#lableNumber').html(parseFloat(preferences.price));
+					$('#mininputNumber').val(parseFloat(preferences.priceMin));
+					$('#minlableNumber').html(parseFloat(preferences.priceMin));
+
+					// // 不能小于0.2元
+					// alert($('#inputNumber').val())
+					// $('#inputNumber').bind('input propertychange', function() { 
+			 	// 		alert($('#inputNumber').val())
+			 	// 		var lessTwo = $('#inputNumber').val();
+			 	// 		if(lessTwo < preferences.minAmountLimit){
+			 	// 			myc.toast({
+					// 			msg : '不能小于' + preferences.minAmountLimit + '元'
+					// 		});
+					// 		$('#inputNumber').blur(function () {  
+					// 		    var lessTwoo = $(this).val();
+					// 		    if(lessTwoo < preferences.minAmountLimit){
+					// 		    	// alert($(this).val());
+					// 		    	$('#inputNumber').val(parseFloat(preferences.minAmountLimit))
+					// 		    	$('#lableNumber').html(parseFloat(preferences.minAmountLimit));
+					// 		    } 
+					// 		});  
+			 	// 		}
+					// });	
+					// $('#mininputNumber').bind('input propertychange', function() { 
+			 	// 		// alert($('#inputNumber').val())
+			 	// 		var lessTwo = $('#mininputNumber').val();
+			 	// 		if(lessTwo < preferences.minAmountLimit){
+			 	// 			myc.toast({
+					// 			msg : '不能小于' + preferences.minAmountLimit + '元'
+					// 		});
+					// 		$('#mininputNumber').blur(function () {  
+					// 		    var lessTwoo = $(this).val();
+					// 		    if(lessTwoo < preferences.minAmountLimit){
+					// 		    	// alert($(this).val());
+					// 		    	$('#mininputNumber').val(parseFloat(preferences.minAmountLimit))
+					// 		    	$('#minlableNumber').html(parseFloat(preferences.minAmountLimit));
+					// 		    } 
+					// 		});  
+			 	// 		}
+					// });	
+
+					if(!preferences.random){
+						$('#suijiSelect').removeClass('bg_dui');
+						$('#randomNum').css('display','none');
+						$('#dao').css('display','none');
+					}else{
+						$('#suijiSelect').addClass('bg_dui');
+					}
+					
+					$('.ModelSelect').find('span').removeClass('bg_dui');
+					if(preferences.imageLayout == 4){
+						$('#suijiSelect4').addClass('bg_dui');											
+					}else if(preferences.imageLayout == 0){
+						$('#suijiSelect0').addClass('bg_dui');
+					}
+					
+				}
+			});
+			$(function() {	
+				var _bar = document.querySelector('.controlbar-box'); //父元素
+				var bar_round = document.querySelector('.c-round'); //小圆
+				var bar_num = document.querySelector('.c-bg'); //白色线
+				
+				var sigmao = 60;
+				var sigma = sigmao / 100 * $('.controlbar-box').width();
+				var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+				if(offwidth <= sigma){
+					sigma = offwidth;
+				}
+				bar_round.style.left = sigma + 45 + 'px';
+				bar_num.style.width = sigma + 'px';
+				bar_num.style.zIndex = '20';
+				document.querySelector('.c-progress').innerHTML = sigmao;
+				
+				mark();	
+				function mark() {
+					var mark_body = document.querySelector('.mark_body');
+					//圆宽度的一半
+					var x = parseInt(bar_round.offsetWidth) / 2;
+					var max_w = _bar.offsetWidth - x; //在没有offset().left时的最大x坐标
+					var bar_offsetLeft = $('.controlbar-box').offset().left + 45; //元素和左窗体的距离:用不到e.pageY和.offset()top
+					function drags(event) {
+						var _pagex = event.touches[0].pageX; //得到指针x轴坐标
+						
+						//判断e.pageX 
+						if (_pagex < bar_offsetLeft + x) { //最左边	：_pagex最小时
+							_pagex = bar_offsetLeft;
+						} else if (_pagex > max_w + bar_offsetLeft) { //最右边：_pagex最大时
+							_pagex = max_w + bar_offsetLeft - x;
+						} else {
+							_pagex = _pagex - x;
+						}
+						//小圆定位
+						//					bar_round.style.position = 'absolute';
+//						roundleft=_pagex - bar_offsetLeft;
+						bar_round.style.left = (_pagex - bar_offsetLeft+45) + 'px';
+						bar_num.style.width = (_pagex - bar_offsetLeft) + 'px';
+						bar_num.style.zIndex = '20';
+						//得到数值%
+						var ratio = Math.abs(_pagex - bar_offsetLeft) / (max_w - x);
+						document.querySelector('.c-progress').innerHTML = Math.ceil(ratio * 100);
+
+					}
+					//元素按下事件	
+					_bar.addEventListener('touchstart', bar_down, false);
+
+					function bar_down() {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+						//					_bar.onclick = function(event){//元素点击事件
+						//						drags(event);
+						//					}
+					}
+					_bar.addEventListener('touchmove', touchmove, false);
+
+					function touchmove(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+					}
+					//document按下弹起事件
+					_bar.addEventListener('touchend', function(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						document.removeEventListener('touchmove', touchmove, false);	
+						setBlur();
+					}, false);
+				}
+			});
+			function setBlur(){
+				var blurNumber = $('#blurNumber').html();
+				
+				if(parseInt(blurNumber) < 20){
+					myc.alert({
+						msg : '模糊度不能小于20'
+					})
+					var bar_round = document.querySelector('.c-round'); //小圆
+					var bar_num = document.querySelector('.c-bg'); //白色线
+					var sigmao = 20;
+					
+					
+					var sigma = sigmao / 100 * $('.controlbar-box').width();
+					var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+					if(offwidth <= sigma){
+						sigma = offwidth;
+					}
+					bar_round.style.left = sigma + 45 + 'px';
+					bar_num.style.width = sigma + 'px';
+					bar_num.style.zIndex = '20';
+					document.querySelector('.c-progress').innerHTML = sigmao;
+					blurNumber = sigmao;
+//					return false;
+				}
+			}
+			
+			//选择二维码样式
+			$('.ModelSelect').click(function(){
+				$('.ModelSelect').find('span').removeClass('bg_dui');
+				$(this).find('span').addClass('bg_dui');
+			});
+ 
+		    //随机
+			$('#suijiSelect').click(function(){
+				if($(this).hasClass('bg_dui')){
+					$(this).removeClass('bg_dui');
+					$('#randomNum').css('display','none');	
+					$('#dao').css('display','none');
+				}else{
+					$(this).addClass('bg_dui');
+					$('#randomNum').css('display','inline-block');
+					$('#dao').css('display','inline-block');
+				}
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+					$('#inputNumber').val(mininputNumber);
+					$('#lableNumber').html(mininputNumber);
+				}
+			});
+			function onblurNum(dom,style){
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");//最后一个点赋空
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				$('#lableNumber').html(inputNumber);
+				$('#minlableNumber').html(mininputNumber);
+	
+				if(!mininputNumber){
+					$('#mininputNumber').val(1);
+					$('#minlableNumber').html(1);
+				}
+				
+				if(!inputNumber){
+					$('#inputNumber').val(1);
+					$('#lableNumber').html(1);
+				}
+				if(!$('#suijiSelect').hasClass('bg_dui')){
+					return false;
+				}
+				if(style == 1){					
+					if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}else{					
+					if(parseFloat(inputNumber) < parseFloat(mininputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}
+			}
+			
+			function inputNumberF(dom,style) {
+				if(style == 1){
+					// 只能输入一个小数点
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#minlableNumber').html(99);						
+						}else{
+							$('#minlableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#minlableNumber').html(0);
+					}	
+				}else{
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#lableNumber').html(99);						
+						}else{
+							$('#lableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#lableNumber').html(0);
+					}	
+				}
+							
+			}
+					
+			var uploader = WebUploader.create({
+//				auto : true, //设置为 true 后，不需要手动调用上传，有文件选择即开始上传。
+			    // swf文件路径
+			    swf: '../js/Uploader.swf',
+			
+			    // 文件接收服务端。
+			    server: serverUrl + 'data/'+ p +'/wx_upload_photo/upload',
+			    // 选择文件的按钮。可选。
+			    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			    pick: {
+			    	id : '#picker',
+			    	multiple : false
+			    },
+				fileNumLimit : 1,
+				compress  : false,
+			    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+			    resize: false,
+			    // 只允许选择图片文件
+			    accept:{
+			    	title: 'Images',
+				    mimeTypes: 'image/*'
+			    }
+			});
+			
+			//开始上传
+			$('#ctlBtn').click(function(){	
+				if(!$('#erweimaImg').attr('src')){
+					myc.toast({
+						msg : '请选择您要上传的照片'
+					});
+					return false;
+				}
+				var blurNumber = $('#blurNumber').html();
+				var imageLayout = $('.ModelSelect').find('.bg_dui').attr('data-id');
+				// 最小值
+				var random = 0;
+				if($('#suijiSelect').hasClass('bg_dui')){
+					var random = 1;
+				}			
+				var amount = parseFloat($('#inputNumber').val()).toFixed(2);
+				var amount_min = parseFloat($('#mininputNumber').val()).toFixed(2);
+
+				if(random == 0){
+					amount_min = amount;
+				}
+
+				if(amount_min < mylimit){
+					myc.toast({
+						msg : '必须要大于' + mylimit +'元' 
+					});
+					return false;
+				}
+				if(amount < mylimit){
+					myc.toast({
+						msg : '必须要大于' + mylimit +'元' 
+					});
+					return false;
+				}
+
+				if(amount <= 0){
+					myc.toast({
+						msg : '请输入金额'
+					});
+					return false;
+				}
+				if(!amount){
+					myc.toast({
+						msg : '您输入的不是数字哦'
+					});
+					return false;
+				}
+				if(!amount_min){
+					myc.toast({
+						msg : '您输入的不是数字哦'
+					});
+					return false;
+				}
+				// 主要是这里添加参数
+				uploader.options.formData._sid_ = localStorage.getItem('_sid_');
+				//(0-不随,1-随)
+				uploader.options.formData.random = random;
+				uploader.options.formData.price = amount;
+				uploader.options.formData.priceMin = amount_min;
+				uploader.options.formData.blur = blurNumber;
+				uploader.options.formData.openid = o;
+				//(0-不共享,1-共享)
+				uploader.options.formData.share = 1;
+				//0-黑边;1-二维码在左下;2-二维码在中间
+				uploader.options.formData.imageLayout  = imageLayout;
+				// alert(JSON.stringify(uploader.options.formData))
+				uploader.retry();
+			});
+			//显示用户选择
+			// 显示文件d大小
+			function sizeBig(num){
+				if(num<1024){
+					return num+'B';
+				}else if(num<1024*1024){
+					return (num/1024).toFixed(2)+'KB';
+				}else if(num<1024*1024*1024){
+					return ((num/1024)/1024).toFixed(2)+'M';
+				}
+			}
+			// 当有文件被添加进队列的时候 由于webuploader不处理UI逻辑，所以需要去监听fileQueued事件来实现。
+			uploader.on( 'fileQueued', function( file ) {
+//				myc.toast({
+//					msg : '选择成功'
+//				})
+
+				$list = $('#thelist');
+				
+			     var $li = $(
+		            '<div id="' + file.id + '" class="file-item thumbnail" style="margin:20px 0" > ' +
+		                '<img>' +
+		                '<div class="info">' + file.name + '</div>' +
+		                '<p class="state" style="color:red;">'+sizeBig(file.size)+'</p>' +
+		                '<p class="state" style="color:red;">等待上传</p>' +
+		                
+		            '</div>'
+		            ),
+		        $img = $li.find('img');
+			    // $list为容器jQuery实例
+			    $list.append( $li );
+				
+			    // 创建缩略图
+			    // 如果为非图片文件，可以不用调用此方法。
+			    // thumbnailWidth x thumbnailHeight 为 100 x 100
+			    uploader.makeThumb( file, function( error, src ) {
+//			        if ( error ) {
+//			            $img.replaceWith('<span>不能预览</span>');
+//			            return;
+//			        }
+//			
+//			        $img.attr( 'src', src );
+					document.getElementById("erweimaImg").src = src;
+			    }, 100, 100 );
+			});
+			//文件上传进度 文件上传中，Web Uploader会对外派送uploadProgress事件，其中包含文件对象和该文件当前上传进度。
+			// 文件上传过程中创建进度条实时显示。
+			uploader.on( 'uploadProgress', function( file, percentage ) {
+//			     var $li = $( '#'+file.id ),
+//			        $percent = $li.find('.barContainer .bar');
+//			
+//			    // 避免重复创建
+//			    if ( !$percent.length ) {
+//			        $percent = $('<div class="barContainer"><div class="bar" style="width: 100%"></div></div>').appendTo($li).find('.bar');
+//			    }
+//			
+//			    $li.find('p.state').text('上传中');
+//
+//			    $percent.html((percentage * 100).toFixed(2) + '%');
+			   	myc.showProgress({
+			   		title : '上传中',
+			   		text : (percentage * 100).toFixed(2) + '%'
+			   	});
+			    if(percentage*100 == 100){			    	
+			    	myc.showProgress({
+			    		title:'等待服务器处理'
+			    	});
+			    }
+			});
+			
+			// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+			uploader.on( 'uploadSuccess', function( file , response ) {
+//			    $( '#'+file.id ).find('p.state').text('已上传');
+			    myc.hideProgress();
+			    myc.toast({
+					location:'middle',
+					msg:'上传成功'
+				});
+			    
+				if(response.success){
+//					$('#imgErWeima').attr('src',response.entryImage);
+//					myc.alert({
+//						msg : JSON.stringify(response)
+//					});
+					setTimeout(function(){
+						wx.closeWindow();
+					},2000);
+				}else{
+					myc.toast({
+						msg : '上传出错,请重新上传'
+					});
+				}		     			     			      
+			});
+			// 只能上传一个视频文件
+			uploader.on('error', function(file) {
+
+				if(file=="Q_EXCEED_NUM_LIMIT"){
+					myc.toast({
+						msg:'只能上传一个图片文件'
+					});
+					return false;
+				}else if(file=="Q_TYPE_DENIED"){
+					myc.toast({
+						msg:'不支持这个图片格式'
+					});
+					return false;
+				}
+			});
+			// 文件上传失败，显示上传出错。
+			uploader.on( 'uploadError', function( file ) {
+				myc.toast({
+					msg:'上传出错,请重新上传'
+				});
+			});
+			
+			// 完成上传完了，成功或者失败，先删除进度条。
+			uploader.on( 'uploadComplete', function( file ) {
+				myc.hideProgress();
+				console.log('完成上传完了，成功或者失败');
+//			    $( '#'+file.id ).find('.progress').fadeOut();
+			});
+		</script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>		
+	</body>
+	
+</html>

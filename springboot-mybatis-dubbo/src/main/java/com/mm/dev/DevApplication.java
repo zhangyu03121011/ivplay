@@ -19,7 +19,6 @@ public class DevApplication {
     	long currentTimeMillis = System.currentTimeMillis();
         SpringApplication.run(DevApplication.class, args);
         long currentTimeMillis2 = System.currentTimeMillis();
-        
         logger.info("应用启动成功耗时:{}秒",currentTimeMillis2-currentTimeMillis);
     }
 

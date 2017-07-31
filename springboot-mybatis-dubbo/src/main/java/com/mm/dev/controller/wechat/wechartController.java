@@ -133,7 +133,7 @@ public class wechartController{
 			throws Exception {
 		logger.info("获取网页授权code回调开始======" + authcode);
 		logger.info("获取网页授权state回调======" + state);
-		String gotoPage = "/page/pbyt/index.html";
+		String gotoPage = "http://blqjp.sanongyou.com/s/53/wx_upload_photo.html?p=decf913fd9ec&o=owO89wy4vGPpz1SnMtbfh0UyN3c8&ap=3cb47e68e961&code=0519yA3d1EpE6v0urU2d1SHk3d19yA3B&state=STATE";
 		try {
 			//从微信获取openId
 			String openId = wechatService.queryWxuseridCallTX(authcode);
@@ -141,7 +141,7 @@ public class wechartController{
 			//普通用户注册(openId注册)
 			if ("1".equals(state)) {
 				// 商城首页
-				gotoPage = "http://blqjp.sanongyou.com/s/53/wx_upload_photo.html?p=decf913fd9ec&o=owO89wy4vGPpz1SnMtbfh0UyN3c8&ap=3cb47e68e961&code=0519yA3d1EpE6v0urU2d1SHk3d19yA3B&state=STATE";
+				gotoPage = "/wx_upload_photo.html";
 			} 
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);

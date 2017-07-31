@@ -229,7 +229,7 @@ public class FileTypeUtil extends BaseLogger {
 		try {
 			MagicMatch match = parser.getMagicMatch(file, true);
 			System.out.println(match.getMimeType());
-		} catch (MagicParseException | MagicMatchNotFoundException | MagicException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
