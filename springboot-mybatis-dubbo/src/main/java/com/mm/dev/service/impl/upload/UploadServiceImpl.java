@@ -1,13 +1,18 @@
 package com.mm.dev.service.impl.upload;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -59,7 +64,7 @@ public class UploadServiceImpl implements IUploadService {
         	// 文件名 
         	fileName = fileNames.substring(0,split);
         	//文件格式   
-        	String fileType = fileNames.substring(split+1,fileNames.length());
+//        	String fileType = fileNames.substring(split+1,fileNames.length());
         	//文件内容 file.getBytes()
         	// 临时目录用来存放所有分片文件
         	String tempFileDir = uploadPath + File.separator + openId;
@@ -98,6 +103,9 @@ public class UploadServiceImpl implements IUploadService {
         			destTempfos.close();
         		}
         		
+        		BufferedImage destTempFile2 = ImageIO.read(destTempFile);
+        		System.out.println(destTempFile2.getWidth());
+        		System.out.println(destTempFile2.getHeight());
         		//生成模糊图片
         		FileUtils.copyFile(destTempFile, destBlurFile);
         		String blurFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() +fileNames;
@@ -106,20 +114,16 @@ public class UploadServiceImpl implements IUploadService {
         		
         		//生成二维码
         		String qrcodeFileDir = tempFileDir + File.separator + configProperties.getQrcodePrefix() + fileNames;
-        		ZxingHandler.encode2("my name is blur", configProperties.getWidth()/4, configProperties.getHeight()/4,qrcodeFileDir);
+        		ZxingHandler.encode2("张晓风是假哈多", configProperties.getWidth()/2, configProperties.getHeight()/2,qrcodeFileDir);
+        		
         		StringBuilder imagePath = new StringBuilder();
-        		imagePath.append(configProperties.getHostPath());
-        		imagePath.append(File.separator);
-        		imagePath.append("upload");
-        		imagePath.append(File.separator);
-        		imagePath.append("blurImg");
-        		imagePath.append(File.separator);
-        		imagePath.append(openId);
-        		imagePath.append(File.separator);
-        		imagePath.append(fileName);
-        		imagePath.append(File.separator);
-        		imagePath.append(fileType);
-        		logger.info("模糊图片访问路径imagePath:======",imagePath.toString());
+        		 //输出文件  
+        		String blurQrcodeFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() + "_"+ configProperties.getQrcodePrefix() + fileNames;
+                addImageLogo(blurFileDir, qrcodeFileDir, blurQrcodeFileDir, 0, 0);
+                
+                FileUtils.deleteQuietly(destBlurFile);
+                FileUtils.deleteQuietly(new File(qrcodeFileDir));
+                
         		WechatService.sendCustomMessages("<a href='"+imagePath.toString()+"'>已为您生成好模糊图，点击查看</a>",(String)UserSession.getSession("openId"));
         	} else {
         		// 临时文件创建失败
@@ -131,6 +135,96 @@ public class UploadServiceImpl implements IUploadService {
         }
         return true;
 	} 
+	
+	/** 
+	    *@param photopath : 原图存放的路径 
+	     *@param logopath : logo图像存放的路径 
+	     *@param savepath : 目标输出保存的路径 
+	     *@param x : logo图像在合并到原图中的显示位置x座标 
+	     *@param y : logo图像在合并到原图中的显示位置y座标 
+	     */  
+	public void addImageLogo(String photopath,String logopath,String savepath,int x,int y) throws IOException,FileNotFoundException{  
+		Image image = ImageIO.read(new File(photopath));
+		int pwidth = image.getWidth(null);
+		int pheight = image.getHeight(null);
+
+		BufferedImage buffimage = new BufferedImage(pwidth, pheight,BufferedImage.TYPE_INT_BGR);
+		Graphics g = buffimage.createGraphics();
+		g.drawImage(image, 0, 0, pwidth, pheight, null);
+
+		Image logo = ImageIO.read(new File(logopath));
+		int lwidth = logo.getWidth(null);
+		int lheight = logo.getHeight(null);
+		g.drawImage(logo, x, y, lwidth, lheight, null);
+		g.dispose();
+		FileOutputStream os = new FileOutputStream(savepath);
+		ImageIO.write(buffimage, "jpg", os);
+		os.close();   
+    }  
+	
+	/**  
+     * 创建图片  
+     */  
+    public static void createImage(){  
+        //设置字体样式  
+        Font font = new Font("宋体", Font.PLAIN, 25);  
+        //图片大小  
+        int width = 1000;  
+        int height = 1000;  
+          
+        //创建一个图片缓冲区  
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);  
+        //获取图片处理对象  
+        Graphics graphics = image.getGraphics();  
+        //填充背景色  
+        graphics.setColor(getRandomColor());  
+        graphics.fillRect(1, 1, width - 1, height - 1);  
+        //设定边框颜色  
+        graphics.setColor(getRandomColor());  
+        graphics.drawRect(0, 0, width - 1, height - 1);  
+        //设置干扰线  
+        graphics.setColor(getRandomColor());  
+        Random random = new Random();  
+        for(int i=0;i<20;i++){  
+            int x = random.nextInt(width - 1);  
+            int y = random.nextInt(height - 1);  
+            int x1 = random.nextInt(width - 1);  
+            int y1 = random.nextInt(height - 1);  
+            graphics.drawLine(x, y, x1, y1);  
+        }  
+        //写入文字  
+        graphics.setColor(getRandomColor());  
+        graphics.setFont(font);  
+        String content = new String("哈哈");  
+        graphics.drawString(content, 100, 100);  
+          
+        //输出文件  
+        File file = new File("E:\\temp\\123.gif");  
+        try {  
+            ImageIO.write(image, "GIF", file);  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+          
+        //释放资源  
+        graphics.dispose();  
+    }  
+    
+    public static void main(String[] args) {
+    	createImage();
+	}
+      
+    /**  
+     * 获取随机颜色  
+     * @return  
+     */  
+    public static Color getRandomColor(){  
+        Random random = new Random();  
+        int r = random.nextInt(255);   
+        int g = random.nextInt(255);  
+        int b = random.nextInt(255);  
+        return new Color(r, g, b);  
+    }  
 	
 	/**
 	 * @Description:将图片放入内存中处理，添加logo
@@ -148,7 +242,7 @@ public class UploadServiceImpl implements IUploadService {
 		//载入logo  
 		Graphics2D gs = image.createGraphics();  
 		Image img = ImageIO.read(new File(qrcodeFileDir));  
-		gs.drawImage(img, 0, 0, null);  
+		gs.drawImage(img, 0, image.getHeight(), null);  
 		gs.dispose();  
 		img.flush(); 
 		return image;

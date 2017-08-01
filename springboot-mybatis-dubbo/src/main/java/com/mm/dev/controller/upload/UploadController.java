@@ -52,7 +52,8 @@ public class UploadController {
 	@RequestMapping(value = "/image",method=RequestMethod.POST)
 	@ResponseBody
 	public ReturnMsg<Object> fileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		String openId = (String)UserSession.getSession("openId");
+//		String openId = (String)UserSession.getSession("openId");
+		String openId = "123456789";
         try {
         	if(StringUtils.isNotEmpty(openId)) {
         		StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
@@ -65,6 +66,8 @@ public class UploadController {
         				uploadService.uploadImage(openId, file);
         			}
         		}
+        	} else {
+        		 return ReturnMsgUtil.error(ExceptionEnum.business_logic_exception);
         	}
         } catch (ParseException e1) {
         	logger.error("图片上传失败", e1);
