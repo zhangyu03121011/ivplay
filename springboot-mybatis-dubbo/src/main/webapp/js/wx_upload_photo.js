@@ -502,7 +502,7 @@ var upload_photo = (function() {
 			msg:'上传成功'
 		});
 	    
-		if(response._raw){
+		if(response.status){
 //			$('#imgErWeima').attr('src',response.entryImage);
 //			myc.alert({
 //				msg : JSON.stringify(response)

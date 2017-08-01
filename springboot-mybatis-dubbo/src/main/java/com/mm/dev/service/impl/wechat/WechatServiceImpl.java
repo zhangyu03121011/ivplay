@@ -19,7 +19,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,10 +39,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.Data;
 import com.mm.dev.entity.wechat.Data_first;
@@ -76,14 +75,8 @@ public class WechatServiceImpl implements IWechatService{
 	@Autowired
 	private RedisServiceImpl redisService;
 	
-	@Value("${WECHAT.APPID}")
-	private String APPID;
-	
-	@Value("${WECHAT.APPKEY}")
-	private String APPSECRET;
-	
-	@Value("${upload.image.path}")
-	private String imageUrl;
+	@Autowired
+	private ConfigProperties configProperties;
 	
 	private static final String WEIXIN_KEY = "0026571875344ae39183e5fc4b22f590";
 
@@ -150,7 +143,7 @@ public class WechatServiceImpl implements IWechatService{
 	public WechatConfig getWechatConfig(String url) throws Exception {
 		logger.info("获取微信页签开始……" + url);
 		WechatConfig config = new WechatConfig();
-		config.setAppId(APPID);
+		config.setAppId(configProperties.getAPPID());
 		String nonceStr = UUID.randomUUID().toString().replaceAll("-", "");
 		config.setNonceStr(nonceStr);
 		String timestamp = Long.toString(System.currentTimeMillis() / 1000);
@@ -197,7 +190,7 @@ public class WechatServiceImpl implements IWechatService{
 	public AccessToken getAccessToken() throws ParseException, IOException {
 		logger.info("获取AccessToken开始：");
 		AccessToken token = new AccessToken();
-		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
+		String url = ACCESS_TOKEN_URL.replace("APPID", configProperties.getAPPID()).replace("APPSECRET", configProperties.getAPPSECRET());
 //		String accessToken = (String) CacheUtils.get(WechatConstant.EH_CACHE_KEY, WechatConstant.EH_CACHE_KEY_ACCESSTOKEN);
 //		if(StringUtils.isBlank(accessToken) || StringUtils.isEmpty(accessToken)){
 			logger.info("ehcache获取AccessToken失败：");
@@ -460,7 +453,7 @@ public class WechatServiceImpl implements IWechatService{
 	public AccessToken reshToken(String REFRESHTOKEN) throws ParseException, IOException {
 		logger.info("重新获取AccessToken开始：");
 		AccessToken token = new AccessToken();
-		String url = RESH_ACCESS_TOKEN_URL.replace("APPID", APPID).replace("REFRESH_TOKEN", REFRESHTOKEN);
+		String url = RESH_ACCESS_TOKEN_URL.replace("APPID", configProperties.getAPPID()).replace("REFRESH_TOKEN", REFRESHTOKEN);
 		JSONObject jsonObject = WeixinUtil.doGetStr(url);
 		if (jsonObject != null) {
 			token.setToken(jsonObject.getString("access_token"));
@@ -481,9 +474,9 @@ public class WechatServiceImpl implements IWechatService{
 		try {
 			if (StringUtils.isNotEmpty(code)) {
 				if (logger.isDebugEnabled()) {
-					logger.debug(" start to repace appid= {},appkey={}", APPID, APPSECRET);
+					logger.debug(" start to repace appid= {},appkey={}", configProperties.getAPPID(), configProperties.getAPPSECRET());
 				}
-				String oatu2AccessTokenUrl = OAUTH2_ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET).replace("CODE", code);
+				String oatu2AccessTokenUrl = OAUTH2_ACCESS_TOKEN_URL.replace("APPID", configProperties.getAPPID()).replace("APPSECRET", configProperties.getAPPSECRET()).replace("CODE", code);
 				// 获取openid
 				logger.info("获取OAuth授权openid开始=====" + oatu2AccessTokenUrl);
 				JSONObject oatu2AccessTokenUrlObject = WeixinUtil.doGetStr(oatu2AccessTokenUrl);
@@ -511,10 +504,10 @@ public class WechatServiceImpl implements IWechatService{
 		try {
 			if (StringUtils.isNotEmpty(code)) {
 				if (logger.isDebugEnabled()) {
-					logger.debug(" start to repace appid= {},appkey={}", APPID, APPSECRET);
+					logger.debug(" start to repace appid= {},appkey={}", configProperties.getAPPID(), configProperties.getAPPSECRET());
 				}
 
-				String oatu2AccessTokenUrl = OAUTH2_ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET).replace("CODE", code);
+				String oatu2AccessTokenUrl = OAUTH2_ACCESS_TOKEN_URL.replace("APPID", configProperties.getAPPID()).replace("APPSECRET", configProperties.getAPPSECRET()).replace("CODE", code);
 				// 获取openid
 				logger.info("获取OAuth授权openid开始=====" + oatu2AccessTokenUrl);
 				JSONObject oatu2AccessTokenUrlObject = WeixinUtil.doGetStr(oatu2AccessTokenUrl);
@@ -542,7 +535,7 @@ public class WechatServiceImpl implements IWechatService{
      * @throws
      */
     public Boolean deleteFile(String rootPath) throws Exception{
-		rootPath=imageUrl+rootPath;
+		rootPath=configProperties.getImageUrl()+rootPath;
 		logger.info("从服务器上删除图片开始……rootPath=" + rootPath);
 		File file = new File(rootPath);
 		boolean flag=false;
@@ -612,7 +605,7 @@ public class WechatServiceImpl implements IWechatService{
      * @throws
      */
     public String sendCustomMessages(String outStr,String openId) throws ParseException, IOException {
-    	logger.info("发送客服消息开始模板内容==={}===openId",outStr,openId);
+    	logger.info("发送客服消息开始模板内容:{}===openId:{}",outStr,openId);
     	HashMap<String, Object> customMessageMap = new HashMap<String, Object>();
     	HashMap<String, String> textMap = new HashMap<String, String>();
     	textMap.put("content", outStr);
@@ -633,7 +626,7 @@ public class WechatServiceImpl implements IWechatService{
      * @throws
      */
     public String sendTemplateMessages(String templateId,String openId) throws ParseException, IOException {
-    	logger.info("发送模板消息开始模板ID==={}===openId",templateId,openId);
+    	logger.info("发送模板消息开始模板ID:{}===openId:{}",templateId,openId);
     	SendTemplateMessage sendTemplateMessage = new SendTemplateMessage();
     	Data data = new Data();
     	Data_first data_first = new Data_first();
@@ -708,7 +701,7 @@ public class WechatServiceImpl implements IWechatService{
 	public WechatPayConfig getWechatPayConfig(String orderNo, String openId, String amount, HttpServletRequest request) throws Exception {
 		// amount = "0.01";
 		WechatPayConfig config = new WechatPayConfig();
-		config.setAppId(APPID);
+		config.setAppId(configProperties.getAPPID());
 		Long curTimeMillis = System.currentTimeMillis();
 
 		String timestamp = Long.toString(curTimeMillis / 1000);
@@ -717,7 +710,7 @@ public class WechatServiceImpl implements IWechatService{
 		config.setNonceStr(nonceStr);
 
 		PayInfo payInfo = new PayInfo();
-		payInfo.setAppid(APPID);
+		payInfo.setAppid(configProperties.getAPPID());
 //		payInfo.setMch_id(WEIXIN_MCH_ID);// 商户号
 		payInfo.setDevice_info("WEB");// 设备号
 		payInfo.setNonce_str(nonceStr);// 随机字符串
@@ -762,7 +755,7 @@ public class WechatServiceImpl implements IWechatService{
 		String pkg = "prepay_id=" + map.get("prepay_id");
 		config.setPkg(pkg);
 
-		String str = "appId=" + APPID + "&nonceStr=" + nonceStr + "&package=" + config.getPkg() + "&signType=MD5" + "&timeStamp=" + timestamp
+		String str = "appId=" + configProperties.getAPPID() + "&nonceStr=" + nonceStr + "&package=" + config.getPkg() + "&signType=MD5" + "&timeStamp=" + timestamp
 		// + "&time_start="+start+"&time_expire="+expire
 				+ "&key=" + WEIXIN_KEY;
 		logger.info("str:" + str);
@@ -822,9 +815,8 @@ public class WechatServiceImpl implements IWechatService{
     }
     
     /**
-     * 发送模板消息
      * @Title: sendTemplateMang 
-     * @Description: TODO
+     * @Description: 发送模板消息
      * @param @param token
      * @param @param outStr
      * @param @return
@@ -840,28 +832,4 @@ public class WechatServiceImpl implements IWechatService{
     	logger.info(jsonObject.toString());
 		return jsonObject.toString();
     }
-
-	public String getAPPID() {
-		return APPID;
-	}
-
-	public void setAPPID(String aPPID) {
-		APPID = aPPID;
-	}
-
-	public String getAPPSECRET() {
-		return APPSECRET;
-	}
-
-	public void setAPPSECRET(String aPPSECRET) {
-		APPSECRET = aPPSECRET;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 }

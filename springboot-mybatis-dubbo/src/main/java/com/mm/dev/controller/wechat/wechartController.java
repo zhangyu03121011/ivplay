@@ -78,7 +78,6 @@ public class wechartController{
 			String msgType = map.get("MsgType");
 			String content = map.get("Content");
 			String message = null;
-			logger.info(" 消息的接收与响应信息 ={} ", JSONObject.toJSONString(map));
 			if (MessageUtil.MESSAGE_TEXT.equals(msgType)) {
 				 if ("?".equals(content) || "？".equals(content)) {
 					 message = MessageUtil.initText(toUserName, fromUserName,MessageUtil.menuText());
@@ -110,10 +109,16 @@ public class wechartController{
 					
 				} else if (MessageUtil.MESSAGE_SCAN.equalsIgnoreCase(eventType)) {
 					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
+				} else {
+					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
 				}
+			} else {
+				message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
 			}
 			logger.info("消息的接收与响应结束======" + message);
-			out.print(message);
+			if(null != out) {
+				out.print(message);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
