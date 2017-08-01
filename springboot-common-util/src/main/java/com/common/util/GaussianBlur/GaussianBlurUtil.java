@@ -8,7 +8,13 @@ import javax.imageio.ImageIO;
 import com.common.util.GaussianBlur.filter.GaussianFilter;
 public class GaussianBlurUtil {
     public GaussianBlurUtil(){}
-
+    
+    /**
+     * @Description:生成高斯模糊图片
+     * @DateTime:2017年8月1日 下午2:53:56
+     * @return void
+     * @throws
+     */
     public static void setGaussianBlurImg(String imgPath, int filterNum) {
     	try{
             File file = new File(imgPath);
@@ -23,7 +29,6 @@ public class GaussianBlurUtil {
         }
     }
     
-    @SuppressWarnings("static-access")
 	public static void main(String[] args) {
         String imgPath = "target\\IMG_4214.PNG";
         int filterNum = 20;
