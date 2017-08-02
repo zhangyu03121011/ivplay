@@ -1,0 +1,71 @@
+在线配置微信菜单：https://mp.weixin.qq.com/debug/cgi-bin/apiinfo
+1.选择基础支撑->获取accesstoken->输入appid、app-secret   ===>获取accesstoken
+2.选择自定义菜单->自定义创建菜单->输入1中获取的token->输入菜单json数据
+
+APPID=wx9b70c488b856ff9f
+APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
+
+以下是pbyt 测试环境菜单json数据
+
+{
+    "button": [
+       
+        {
+            "name": "生成打赏", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "生成打赏照片", 
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9b70c488b856ff9f&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "生成打赏视频", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000106&idx=1&sn=c273d3b20fb902fcf876a4b740aea3b2&chksm=17b6ddc620c154d02837a0c8a63e60504778b5ac28fab93a128df01eec12ada0d5826eab8e0b&mpshare=1&scene=1&srcid=04232CwVz01WLWLfpnLrW6yO#rd"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "我的照片和视频", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                },
+				{
+                    "type": "view", 
+                    "name": "更多照片和视频", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                }
+            ]
+		},
+		
+		{
+            "name": "收获赏金", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "赏金提现", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000125&idx=1&sn=085cbbbd917da8e5afd43d379536e1bd&chksm=17b6ddd120c154c75efd020a940112187ebba5418399c251ee8779551b078b6dc885e20100ab&mpshare=1&scene=1&srcid=0423Scflks9CmaA7LpUSJfJo#rd"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "收支明细", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000106&idx=1&sn=c273d3b20fb902fcf876a4b740aea3b2&chksm=17b6ddc620c154d02837a0c8a63e60504778b5ac28fab93a128df01eec12ada0d5826eab8e0b&mpshare=1&scene=1&srcid=04232CwVz01WLWLfpnLrW6yO#rd"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "我的粉丝榜", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                },
+				{
+                    "type": "view", 
+                    "name": "联系客服", 
+                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                }
+            ]
+		},
+		
+		{
+			"type":"view",
+			"name": "个人中心", 
+			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9b70c488b856ff9f&redirect_uri=http%3a%2f%2fmall.m.pingbyt.cn%2ff%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=10&connect_redirect=1#wechat_redirect"
+        }
+    ]
+}
