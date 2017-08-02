@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0123)http://mnsppds.huishengdianz.com/s/53/wx_board.html?p=f928b9bed111&t=3a4489473f7afd4b4e0eb6ad433189bf&p=f928b9bed111#_motz_ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>客服留言</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="./wx_board_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="./wx_board_files/api.css">
+    <style>
+        body, html {
+            background: white;
+        }
+
+        .tare {
+            width: 90%;
+            margin: 5% 5%;
+            padding: 5px;
+            height: 150px;
+            border: 1px solid #dfdfdf;
+            font-size: 15px;
+            line-height: 150%;
+            /*text-indent: 2em;*/
+            resize: none;
+            color: lightgrey;
+            overflow: hidden;
+            text-align: justify;
+        }
+
+        .btn {
+            width: 90%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #1fd21d;
+            color: #fff;
+            margin: 20px auto;
+            border-radius: 7px;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn:active {
+            background-color: #1fb238;
+        }
+
+        .erweima {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dfdfdf;
+        }
+
+        .erweima:after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-image: url(img/jiahao1.png);
+            background-size: 100px 100px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .erweima > img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .erweima > em {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 60px;
+            height: 60px;
+            display: none;
+        }
+
+        .erweima > em:after {
+            position: absolute;
+            content: "";
+            right: 3px;
+            top: 3px;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            text-align: center;
+            background-color: #45c01a;
+            background-image: url(img/del.png);
+            background-size: 20px 20px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            z-index: 3;
+        }
+
+        .webuploader-element-invisible {
+            opacity: 0;
+            display: none;
+        }
+
+        .ModelSelectContainer > div {
+            margin-top: 5px;
+        }
+
+        .file-item {
+            display: none;
+        }
+
+        .webuploader-container div label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .msg {
+            margin-top: 30px;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-bottom: 10px;
+            position: relative;
+
+        }
+
+        .testMsg {
+            display: inline-block;
+        }
+
+        .msgHead{
+            width: 100%;
+            background-color: #f4f1f1;
+        }
+        .msgBody{
+            width: 90%;
+            float: right;
+            background-color: #f4f1f1;
+            margin-bottom: 10px;
+            /*padding-left: 15%;*/
+        }
+        #picker{
+            position: relative;
+        }
+        #picker div:nth-last-child{
+            top:0;
+        }
+    </style>
+    <script type="text/javascript">
+        var erweimaImgSrc;
+        function img_style(dom) {
+            erweimaImgSrc = dom.src;
+            dom.style.opacity = 1;
+//            console.log(erweimaImgSrc);
+        }
+    </script>
+</head>
+<body>
+<div id="line">
+
+</div>
+
+<textarea class="tare" id="tara">您碰到什么问题或者有什么需要帮助的都可以在这里留言，并且可以附带截图。我们看到之后会通过当前公众号给您回复。
+</textarea>
+<p style="display: inline-block;color: #323232;padding:0 5% 5%;
+">附带截图（可以不带）</p>
+
+<div id="uploader" class="wu-example" style="text-align: center; margin-bottom: 10px;">
+    <div id="thelist" class="uploader-list"></div>
+    <div class="btns">
+        <div id="picker" style="overflow: hidden;width: 180px;height: 180px;margin: auto;" class="webuploader-container"><div class="webuploader-pick">
+            <div class="erweima">
+                <img id="erweimaImg" src="http://mnsppds.huishengdianz.com/s/53/wx_board.html?p=f928b9bed111&amp;t=3a4489473f7afd4b4e0eb6ad433189bf&amp;p=f928b9bed111" onload="img_style(this)">
+            </div>
+        </div><div id="rt_rt_1bmhlpc1vtfh1bv51sta1vih1adl1" style="position: absolute; top: 0px; left: 0px; width: 180px; height: 180px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+    </div>
+</div>
+
+<div class="btn" id="ctlBtn">提交</div>
+<p style="padding-left: 5%;display: block;padding-top: 30px">最近的留言（<span id="num">0</span>）</p>
+<div style="display: block;width: 90%;height: 1px;background-color:#dfdfdf;margin-top:30px;margin-left: 5%;padding-right: 5%"></div>
+
+<div id="interpolation">
+
+</div>
+
+
+<script id="interpolationtmpl" type="text/x-dot-template">
+    <div class="msg">
+        <div class="msgHead">
+            <p style="display: inline-block">留言</p>
+            <p style="float: right">{{=it.careate_time}}</p>
+        </div>
+        <p style="display: block;padding-top: 10px;padding-bottom: 10px;">
+            {{=it.content}}</p>
+
+        {{? it.imgUrl}}
+        <img src="{{=it.imgUrl}}" style="display:block;width:100px;height:100px;margin-top: 10px;margin-bottom:20px;"/>
+        {{?}}
+
+        {{? it.reply}}
+        <div class="msgBody">
+            <p class="testMsg">回复</p>
+            <!--<p class="testMsg">回复客服：{{=it.reply_name}}</p>-->
+            <p class="testMsg" style="float: right">回复时间：{{=it.reply_time}}</p>
+        </div>
+        <p style="display: block;padding-top: 10px;padding-bottom: 10px;padding-left: 10%;">
+            {{=it.reply}}</p>
+        {{?}}
+
+        <!--<div class="msgBody">-->
+        <!--{{? it.reply}}-->
+        <!--<p class="testMsg">回复内容</p>-->
+        <!--&lt;!&ndash;<p class="testMsg">回复客服：{{=it.reply_name}}</p>&ndash;&gt;-->
+        <!--<p style="display: block;padding-left: 5%;padding-right: 5%;padding-top: 10px;padding-bottom: 10px;">-->
+            <!--{{=it.reply}}</p>-->
+        <!--<p class="testMsg" style="">回复时间：{{=it.reply_time}}</p>-->
+        <!--{{?}}-->
+        <!--</div>-->
+        <div style="display: block;width: 100%;height: 1px;background-color:#dfdfdf;margin-top:30px"></div>
+    </div>
+</script>
+
+
+<script src="./wx_board_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+<script src="./wx_board_files/fit_image.js.下载" type="text/javascript" charset="UTF-8"></script>
+<script src="./wx_board_files/dot.min.js.下载" type="text/javascript" charset="UTF-8"></script>
+<script src="./wx_board_files/webuploader.js.下载" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        var code = t = p = '';
+        var $tara = $("#tara");
+        var $ctlBtn = $("#ctlBtn");
+        var myServerUrl = "http://" + window.location.hostname;
+        var cslink;
+
+        if (my.getQuery()) {
+            code = my.getQuery().code;
+            t = my.getQuery().t;
+            p = my.getQuery().p;
+
+            var uploader = WebUploader.create({
+//              auto : true, //设置为 true 后，不需要手动调用上传，有文件选择即开始上传。
+                // swf文件路径
+                swf: '../js/Uploader.swf',
+
+                // 文件接收服务端。
+                server: myServerUrl + serverUrl + 'data/' + p + '/wx_board/submit?code=' + code + '&t=' + t,
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id: '#picker',
+                    multiple: false
+                },
+                fileNumLimit: 1,
+                compress: false,
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                // 只允许选择图片文件
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png,webp',
+                    mimeTypes: 'image/*'
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            function getTime(time) {
+                if (time) {
+                    var yy = time.getYear() + 1900;
+                    var MM = time.getMonth() + 1;
+                    var dd = time.getDate();
+                    var HH = time.getHours();
+                    var mm = time.getMinutes();
+                    var ss = time.getSeconds();
+
+                    return yy + "-" + bl(MM) + "-" + bl(dd) + " " + bl(HH) + ":" + bl(mm) + ":" + bl(ss);
+                }
+                else {
+                    time = new Date();
+                    var yy = time.getYear() + 1900;
+                    var MM = time.getMonth() + 1;
+                    var dd = time.getDate();
+                    var HH = time.getHours();
+                    var mm = time.getMinutes();
+                    var ss = time.getSeconds();
+
+                    return yy + "-" + bl(MM) + "-" + bl(dd) + " " + bl(HH) + ":" + bl(mm) + ":" + bl(ss);
+                }
+            }
+
+            function bl(s) {
+                return s < 10 ? '0' + s : s;
+            }
+
+            my.ajaxPost(myServerUrl + serverUrl + 'data/' + p + '/wx_board/load?code=' + code + '&t=' + t, {}, function (ret, err, status) {
+                if (ret && ret.success) {
+                    if (ret.cs_link){
+                        $("#line").html('<p style="padding-left: 5%;padding-right: 5%;margin-top: 20px;text-align:left;">点击“在线咨询”按钮可以通过QQ直接联系我们的客服，客服在线工作时间为上午9:00-12:00下午14:00-18:30（法定节假日休息）：</p><a href="" style=" display:block;width:95px;height: 153px;margin: 20px auto" id="cslink"><img src="./img/button_131.gif" style="width: 100%;height: 100%"></a><p style="padding-left: 5%;padding-right: 5%;text-align:left;">如果客服长时间没有应答，您也可以给我们留言（我们看到后会给您回复）：</p>');
+                        $("#cslink").attr("href",ret.cs_link);
+                    }
+
+
+                    var data = ret.details;
+//                    alert(data);
+//                    alert(JSON.stringify(ret));
+                    if(data && data.length){
+                        $("#num").text(data.length);
+                    }
+                    if (data) {
+                        if (data.length) {
+                            var dataInters = '';
+                            for (var i = 0; i < data.length; i++) {
+                                dataInters = {
+                                    content: data[i].content,
+                                    careate_time: getTime(new Date(data[i].careate_time)),
+                                    reply: data[i].reply,
+                                    reply_name: data[i].reply_name,
+                                    reply_time: getTime(new Date(data[i].reply_time)),
+                                    imgUrl: data[i].url,
+                                };
+//                                alert(JSON.stringify(dataInters.imgUrl));
+                                createDatas(dataInters);
+
+                            }
+                        }
+                    } else {
+//                        alert(1);
+                    }
+                }
+            });
+        });
+        function csLink() {
+            window.location.href = cslink;
+        }
+
+
+        function createDatas(dataInters) {
+            var interText = doT.template(document.getElementById("interpolationtmpl").innerText);
+            document.getElementById("interpolation").insertAdjacentHTML('beforeEnd', interText(dataInters));
+        }
+
+//        文本框内容
+        $tara.on("focus", (function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            if ($tara.val().trim() === "您碰到什么问题或者有什么需要帮助的都可以在这里留言，并且可以附带截图。我们看到之后会通过当前公众号给您回复。" || $tara.val().trim().length == 0) {
+                $tara.val("").css("color", " #323232");
+            }
+        })).on("blur", function () {
+            if ($tara.val().trim().length == 0) {
+                $tara.val("您碰到什么问题或者有什么需要帮助的都可以在这里留言，并且可以附带截图。我们看到之后会通过当前公众号给您回复。").css("color", "lightgrey");
+            }
+        });
+        // 提交
+        $ctlBtn.on("click", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var content = $("#tara").val().trim();
+            if (content.length > 500) {
+                content = content.substring(0, 500);
+                console.log(content);
+            }
+
+
+            if (content.trim() == "您碰到什么问题或者有什么需要帮助的都可以在这里留言，并且可以附带截图。我们看到之后会通过当前公众号给您回复。" || content.trim().length == 0) {
+                myc.toast({
+                    msg: '内容不能为空！'
+                });
+            } else if (!erweimaImgSrc) {
+//                alert(1)
+                my.ajaxPost(myServerUrl + serverUrl + 'data/' + p + '/wx_board/submit?code=' + code + '&t=' + t, {content: content}, function (ret, err, status) {
+                    if (ret.success) {
+                        myc.toast({
+                            msg: '提交成功！'
+                        });
+                        setTimeout(function () {
+                            wx.closeWindow();
+                        }, 2000);
+                    } else {
+                        myc.toast({
+                            msg: '提交失败！'
+                        });
+                        setTimeout(function () {
+                            wx.closeWindow();
+                        }, 2000);
+                    }
+                });
+            } else {
+                uploader.options.formData.content = content;
+                uploader.retry();
+            }
+
+
+        });
+
+        function sizeBig(num) {
+            if (num < 1024) {
+                return num + 'B';
+            } else if (num < 1024 * 1024) {
+                return (num / 1024).toFixed(2) + 'KB';
+            } else if (num < 1024 * 1024 * 1024) {
+                return ((num / 1024) / 1024).toFixed(2) + 'M';
+            }
+        }
+
+        // 当有文件被添加进队列的时候 由于webuploader不处理UI逻辑，所以需要去监听fileQueued事件来实现。
+        uploader.on('fileQueued', function (file) {
+            $list = $('#thelist');
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail" style="margin:20px 0" > ' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '<p class="state" style="color:red;">' + sizeBig(file.size) + '</p>' +
+                    '<p class="state" style="color:red;">等待上传</p>' +
+
+                    '</div>'
+                ),
+                $img = $li.find('img');
+            // $list为容器jQuery实例
+            $list.append($li);
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+
+            uploader.makeThumb(file, function (error, src) {
+
+                document.getElementById("erweimaImg").src = src;
+            }, 100, 100);
+        })
+        //文件上传进度 文件上传中，Web Uploader会对外派送uploadProgress事件，其中包含文件对象和该文件当前上传进度。
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+
+            myc.showProgress({
+                title: '上传中',
+                text: (percentage * 100).toFixed(2) + '%'
+            });
+            if (percentage * 100 == 100) {
+                myc.showProgress({
+                    title: '等待服务器处理'
+                });
+            }
+        });
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file, response) {
+            myc.hideProgress();
+            myc.toast({
+                location: 'middle',
+                msg: '上传成功'
+            });
+
+            if (response.success) {
+                setTimeout(function () {
+                    wx.closeWindow();
+                }, 2000);
+            } else {
+                myc.toast({
+                    msg: '上传出错,请重新上传'
+                });
+            }
+        });
+        // 只能上传一个视频文件
+        uploader.on('error', function (file) {
+
+            if (file == "Q_EXCEED_NUM_LIMIT") {
+                myc.toast({
+                    msg: '只能上传一个图片文件'
+                });
+                return false;
+            } else if (file == "Q_TYPE_DENIED") {
+                myc.toast({
+                    msg: '不支持这个图片格式'
+                });
+                return false;
+            }
+        });
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            myc.toast({
+                msg: '上传出错,请重新上传'
+            });
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            myc.hideProgress();
+//            alert('完成上传完了，成功或者失败');
+        });
+//        返回数据
+        uploader.on('uploadAccept', function (object, ret) {
+//            alert(JSON.stringify(ret));
+
+        });
+
+
+    })
+
+
+</script>
+<script src="./wx_board_files/jweixin-1.0.0.js.下载"></script><div id="_uuid_im_3019_" style="display: none;"></div>
+
+</body></html>

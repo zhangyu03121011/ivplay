@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)http://wafvj.cn/index.php?s=/home/user_center/balance/id/o5x6y0c5EySBDZJQgXUUEIu_DTD4.html -->
+<html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>自在打赏</title>
+    <link rel="stylesheet" href="./balance_files/weui.css">
+    <link rel="stylesheet" href="./balance_files/example.css">
+    <style>
+    .page__title { font-size: 32px;text-align: center;color: #3cc51f; }
+    </style>
+</head>
+<body ontouchstart="">
+    
+
+<div class="main-box">
+    <div class="page__hd">
+        <h1 class="page__title">余额提现</h1>
+    </div>
+
+    <div class="page__bd">
+        <div class="weui-cells__title">余额信息</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>当前余额</p>
+                </div>
+                <div class="weui-cell__ft">0.01元</div>
+            </div>
+        </div>
+
+        <div class="weui-cells__title">提现规则</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>最低提现</p>
+                </div>
+                <div class="weui-cell__ft">100元</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>最高提现</p>
+                </div>
+                <div class="weui-cell__ft">200元</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>每日限提</p>
+                </div>
+                <div class="weui-cell__ft">1次</div>
+            </div>
+        </div>
+
+        <div class="weui-cells__title">提现信息</div>
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">提现金额</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="withdraw">
+  <!--                       <option value="10">10元</option>
+                        <option value="20">20元</option>
+                        <option value="50">50元</option> -->
+                        <option value="100">100元</option>
+                        <option value="200">200元</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <label class="weui-agree">
+            <span class="weui-agree__text">
+                <p>系统扣除10%手续费，请注意到账通知！</p>
+                <p>将在1~3个工作日完成提现的发放！</p>
+            </span>
+        </label>
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:;" onclick="do_balance();" id="showTooltips">确定</a>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="./balance_files/zepto.min.js.下载"></script>
+    <script type="text/javascript" src="./balance_files/jweixin-1.0.0.js.下载"></script>
+    <script src="./balance_files/weui.min.js.下载"></script>
+    <script src="./balance_files/example.js.下载"></script>
+    <script>
+    //判断是否电脑端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }    
+    if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+
+    $(function(){
+        wx.config({
+          debug: false,
+          appId: "wxb67f3db6447637f4",
+          timestamp: "1496646138",
+          nonceStr: "img",
+          signature: "379f6879963f5665f290f7f885364d9090c8aaac",
+          jsApiList: [
+            'hideOptionMenu',
+          ],
+        });
+
+        wx.ready(function () {
+            wx.hideOptionMenu();
+        });
+    })
+
+    function do_balance() {
+        var data = {
+            withdraw: $('[name="withdraw"]').val(),
+            uid: "o5x6y0c5EySBDZJQgXUUEIu_DTD4",
+        };    
+
+        $.ajax({
+            type: "POST",
+            url: "/index.php?s=/home/user_center/do_balance.html",
+            data: data,
+            success: function(res) {
+              var obj=eval("("+res+")");
+              alert(obj.msg);
+              if(parseInt(obj.code) == -3) {
+                window.location.href = "/index.php?s=/home/user_center/bind_msg.html&id="+data.uid;
+              }
+              /*
+              switch(parseInt(obj.code)) {
+                case 1:
+                    window.location.href = "/index.php?s=/home/user_center/draw_money_succ.html";
+                    break;
+                case 0:            
+                case -1:              
+                case -2:
+                    window.location.href = "/index.php?s=/home/user_center/draw_money_err.html&msg="+obj.msg;
+                    break;
+              }
+              */
+            },
+        });
+    }
+    </script>        
+
+</body></html>

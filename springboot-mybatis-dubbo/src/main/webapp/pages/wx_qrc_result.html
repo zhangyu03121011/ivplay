@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0145)http://mnsppds.huishengdianz.com/s/53/wx_qrc_result.html?p=f928b9bed111&t=f4539fc568aa30b7e4bfbbf1cea919c9&p=f928b9bed111&k=1gn1c&ap=3cb47e68e961 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>生成结果</title>
+        <link rel="stylesheet" type="text/css" href="./wx_qrc_result_files/api.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="./wx_qrc_result_files/style.css">
+        <link rel="stylesheet" type="text/css" href="./wx_qrc_result_files/bootstrap-grid.min.css">
+        <style type="text/css">
+            html,body{
+                background-color: #fff;
+            }
+            .href{
+                padding: 10px;
+            }
+            .href ul li{
+                padding:8px 0 0 0;
+            }
+            .href ul li p{
+                padding:10px 0 0 0;
+                margin:0;
+            }
+            .example{
+                width:100%;
+                text-align: center;
+            }
+            .min{
+                width:40% !important;
+            }
+            .max{
+                width:50% !important;
+            }
+            #linkText{
+                padding-left: 10px;
+                color:blue;
+            }
+            a{
+                color:blue;
+            }
+            .link{
+                text-align: center;
+                padding:0;
+                margin-top: 2px;
+            }
+            .linkSet{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            .red{
+                display:inline-block;
+                color:red;
+                margin-top: 5px;
+            }
+            #moreUrlbox{
+                margin-top: -8px;
+            }
+            #moreUrlbox li {
+                text-align: center;
+                margin-bottom: 7px;
+                line-height: 14px;
+                font-size: 14px;
+            }
+        </style>
+        <script src="./wx_qrc_result_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="href">
+            <ul>
+                <li id="haslink"><div>短链接：</div>
+                    <ul id="moreUrlbox">
+                    </ul>
+                    <div class="link" style="margin-top: 7px;">(<span class="red">长按</span>链接可拷贝或复制)</div>
+                    <div class="link" style="margin-top: 3px;">(只须选择一个，推荐第一个)</div>
+                </li>
+                <li class="clearfix">
+                    <div>二维码：</div>
+                    <div class="example col-xs-5"><img class="min zoomify" id="qrcUrl"></div>
+                    <div class="link">(<span class="red">长按</span>图片保存到手机再转发)</div>
+                </li>
+                <li class="clearfix" id="myNull">
+                    <div>模糊图：</div>
+                    <div class="example col-xs-6"><img class="max zoomify" id="entryUrl"></div>
+                    <div class="link">(<span class="red">长按</span>图片保存到手机再转发)</div>
+                </li>
+                <li>
+                    <div>修改设置：</div>
+                    <div class="linkSet"><a href="http://mnsppds.huishengdianz.com/s/53/wx_qrc_result.html?p=f928b9bed111&amp;t=f4539fc568aa30b7e4bfbbf1cea919c9&amp;p=f928b9bed111&amp;k=1gn1c&amp;ap=3cb47e68e961" id="linkSet">点击这里设置“打赏金额”和“图片模糊度”</a></div>
+                    <div>友情提示：</div>
+                    <div>
+                        收到带二维码的模糊图需要<span class="red">长按并保存到手机</span>之后一定要发给朋友和其他人，才会被看到并扫描。如果您不把模糊图发给其他人，是不会有人看到并打赏的哦，亲~
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script src="./wx_qrc_result_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
+        <script src="./wx_qrc_result_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+        <script src="./wx_qrc_result_files/zoomify.min.js.下载" type="text/javascript" charset="utf-8"></script>
+        <script src="./wx_qrc_result_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            $('.example img').zoomify({scale:1});
+        </script>
+        <script type="text/javascript">
+                //获取url的参数
+            if(my.getQuery()){
+                p = my.getQuery().p;
+                code = my.getQuery().code;
+                k = my.getQuery().k;
+                t = my.getQuery().t;
+                  // alert("p : " + p + ',code : ' + code + ',k:' + k);      
+                getInfo(); 
+            }
+            // 获取信息
+            function getInfo(){
+                myc.showProgress();
+                my.ajax('load/' + k + '?code=' + code + '&t=' + t,{},function(ret,err,status){
+                      // alert('获取信息' + JSON.stringify(ret));
+                     myc.hideProgress();
+                    if(ret && ret.success){
+                        // alert(ret.detail.qrcUrl)
+                        // alert(ret.detail.entryUrl)
+                        var short_urlMore =ret.detail.short_url.split(" ");
+                        var moreUrl = '';
+                        for(i=0;i<short_urlMore.length;i++){
+                            // alert(short_urlMore[i])
+                            moreUrl += '<li><a href='+short_urlMore[i]+' >'+short_urlMore[i]+'</a></li>'
+                        }
+                        
+                        $("#moreUrlbox").append(moreUrl);
+
+                        // alert(ret.detail.link)
+                        // alert(ret.detail.entryUrl)
+                        // 
+                        $('#qrcUrl').attr('src' , ret.detail.qrcUrl);
+                        $('#entryUrl').attr('src' , ret.detail.entryUrl);
+                        $('#linkText').html(ret.detail.link);
+                        $('#link').attr('href' ,ret.detail.link);
+                        $('#linkSet').attr('href' , ret.detail.linkSet);
+                        if(ret.detail.entryUrl == undefined){
+                            $('#myNull').css('display','none');
+                        }else{
+                            $('#myNull').css('display','block');
+                        }
+                        if(!ret.detail.link){
+                            $('#haslink').css('display','none')
+                        }else{
+                            $('#haslink').css('display','block')
+                        }
+                    }
+               });
+            }
+
+        </script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
+    
+
+</body></html>

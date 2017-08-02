@@ -1,0 +1,100 @@
+<html lang="zh-cmn-Hans"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>自在打赏</title>
+    <link rel="stylesheet" href="./Public/static/dist/style/weui.css">
+    <link rel="stylesheet" href="./Public/static/dist/example/example.css">
+    <style>
+    .page__title { font-size: 32px;text-align: center;color: #3cc51f; }
+    </style>
+</head>
+<body ontouchstart="">
+    
+
+<div class="main-box">
+    <div class="page__hd">
+        <h1 class="page__title">绑定提现信息</h1>
+    </div>
+
+         <div class="weui-cells__title">设置提现信息</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">真实姓名</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="name" placeholder="请准确填写内容" value="">
+                    </div>
+            </div>
+     
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">支付宝账号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="phone" placeholder="请准确填写内容" value="">
+                    </div>
+            </div>     
+        </div>
+
+
+  
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_primary" href="javascript:;" onclick="bind_msg();" id="showTooltips">确定</a>
+        </div>
+    </div>
+
+
+
+
+    <script src="./Public/static/dist/example/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="./Public/static/dist/example/example.js"></script>
+    <script src="./Public/Home/js/iswx.js"></script>
+    <script>
+ 
+/*
+    $(function(){
+        wx.config({
+          debug: false,
+          appId: "wxb67f3db6447637f4",
+          timestamp: "1496646138",
+          nonceStr: "img",
+          signature: "379f6879963f5665f290f7f885364d9090c8aaac",
+          jsApiList: [
+            'hideOptionMenu',
+          ],
+        });
+
+        wx.ready(function () {
+            wx.hideOptionMenu();
+        });
+    })
+
+    function bind_msg() {
+        var data = {
+            name: $('[name="name"]').val(),
+            phone: $('[name="phone"]').val(),
+            oid: "o5x6y0c5EySBDZJQgXUUEIu_DTD4",
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/index.php?s=/home/user_center/bind_msg.html",
+            data: data,
+            success: function(res) {
+              var obj=eval("("+res+")");
+              switch(parseInt(obj.code)) {            
+                case 1:
+                    window.location.href = "/index.php?s=/home/user_center/reward.html&id="+data.oid;
+                    break;
+                case 0:
+                case -1:
+                case -2:
+                    window.location.href = "/index.php?s=/home/user_center/draw_money_err.html&msg="+obj.msg+"&tip="+obj.tip;
+                    break;
+              }
+            },
+        });
+    }
+    </script>        
+*/
+</body></html>

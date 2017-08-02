@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!-- saved from url=(0125)http://mnsppds.huishengdianz.com/s/53/wx_recommend_list.html?p=f928b9bed111&t=d163585051637527577025cd2ce76c51&p=f928b9bed111 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="./wx_recommend_list_files/api.css">
+		<title>更多的照片和视频</title>
+		<script src="./wx_recommend_list_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.nearby_container{
+				padding: 10px;
+				position: relative;
+				width: 100%;
+			}			
+			.nearby_left{
+				position: absolute;
+				left: 10px;
+				width: 45px;
+				height: 45px;
+				overflow: hidden;
+				display: inline-block;	
+			}
+			.nearby_right{
+				float: left;
+				width: 100%;
+				padding-left: 60px;
+			}
+			.nearby_right:after{
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				content: "";
+				width: 100%;
+				height: 1px;
+				-webkit-transform: scaleY(0.5);
+				-moz-transform: scaleY(0.5);
+				-ms-transform: scaleY(0.5);
+				-o-transform: scaleY(0.5);
+				transform: scaleY(0.5);
+				background-color: #dfdfdd;				
+			}
+			.nearby_right_top{
+				position: relative;
+				margin-bottom: 10px;
+			}
+			.nearby_right_top .name{
+				display: inline-block;
+				vertical-align: middle;
+				color: #576b95;
+				font-size: 18px;
+				max-width: 50%;
+				white-space:nowrap;
+				text-overflow:ellipsis;
+				overflow:hidden;
+			}
+			.nearby_right_top .boy,.nearby_right_top .girl{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/nan.png);
+				background-size: 100% 100%;
+				vertical-align: middle;
+				margin-left: 5px;
+			}
+			.nearby_right_top .girl{
+				background-image: url(img/nv.png);
+			}
+			.nearby_right_middle{
+				width: 70%;
+				/*padding-top: 70%;*/
+				/*border: 1px solid #ccc;*/
+				position: relative;
+				overflow: hidden;	
+			}
+			.nearby_right_middle>img{
+				position: absolute;
+				left: 0;
+				top: 0;
+				visibility: hidden;
+			}
+			.nearby_right_middle i{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 50px;
+				height: 50px;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				background-image: url(img/videobtn.png);
+				background-size: 100% 100%;				
+			}
+			.nearby_right_middle .shenhe{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				border-radius: 5px;
+				padding: 10px 20px;
+				background-color: #fff;
+				color: #000;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				z-index: 99;
+			}
+			.nearby_right_top .distance{
+				position: absolute;
+				top: 3px;
+				right: 0px;
+				color: #aeaeae;
+				/*background-image: url(img/point1.png);*/
+				background-size: 16px 16px;
+				background-position: 0 center;
+				background-repeat: no-repeat;
+				padding-left: 16px;
+			}
+			.right_foot{
+				position: relative;
+				height: 20px;
+				margin-top: 20px;
+			}
+			.lookNum{
+				float: left;
+				color: #888888;
+			}
+			.nearby_right .likes,.keng{
+				float: right;
+				color: #888888;
+			}
+			.likes{
+				margin-right: 5px;
+			}
+			.nearby_right .likes>i,.keng>i{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/zang.png);
+				background-size: 100% 100%;
+				background-position: center center;
+				background-repeat: no-repeat;
+				vertical-align: middle;
+				margin-right: 2px;
+			}
+			.nearby_right .keng>i{
+				height: 22px;
+				background-image: url(img/zang_down.png);
+			}
+			.nearby_right .likes>i.active{
+				background-image: url(img/zang_h.png);
+			}
+			.nearby_right .keng>i.active{
+				background-image: url(img/zang_down_h.png);
+			}
+			.nearby_right .likes>span,.keng>span{
+				color: #888888;
+			}
+			.footer_more {
+				line-height: 30px;
+				text-align: center;
+				color: #ccc;
+				display: none;
+			}
+			
+			.footer_more>i {
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/loading3.gif);
+				background-size: 100% 100%;
+				vertical-align: middle;
+				margin-right: 5px;
+			}
+		</style>
+		<script type="text/javascript">
+			function center_img(dom) {
+				dom.style.visibility = 'hidden';
+				var pWideth = dom.parentNode.offsetWidth;
+				var pHeight = dom.parentNode.offsetWidth;
+				var Wideth = dom.width;
+				var Height = dom.height;
+				if(Wideth >= Height){
+					dom.width = pWideth;
+					if(dom.height >= pHeight){
+						dom.width = dom.width * pHeight / dom.height;
+						dom.height = pHeight;	
+					}	
+				}else{
+					dom.height = pHeight;
+					if(dom.width >= pWideth){
+						dom.height = dom.height * pWideth / dom.width;
+						dom.width = pWideth;	
+					}	
+				}
+				dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';
+//				dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
+				dom.parentNode.style.height = dom.height + 'px';
+				dom.style.visibility = 'visible';
+			}
+		</script>
+	</head>
+	<body>
+		
+		<div id="recodes"></div>
+		<script id="tmprecodes" type="text/x-dot-template">
+			<div class="nearby_container clearfix" data-openid="{=it.openid}">		
+				<div class="nearby_left">
+					<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)" >
+				</div>
+				<div class="nearby_right">
+					<div class="nearby_right_top">
+						<span class="name">{{=it.nickname}}</span>
+						{{? it.sex == 2}}
+							<i class="girl"></i>
+						{{?? it.sex == 1}}
+							<i class="boy"></i>
+						{{??}}	
+						{{?}}
+						
+						<span class="distance" data-lat="{{=it.latitude}}" data-log="{{=it.longitude}}"></span>
+					</div>
+					<div class="nearby_right_middle" data-url="{{=it.url}}" data-qrcid="{{=it.qrc_id}}" >
+				<div onclick="window.location.href='{{=it.url}}';return false;"><img src="{{=it.blur_url}}"  onload="center_img(this)" class="showImg"  /></div>
+						{{? it.qrc_type == 2}}
+							<i></i>
+						{{??}}							
+						{{?}}	
+						<!--{{? it.auditing == 1}}
+							<div class="shenhe">审核中</div>
+						{{??}}							
+						{{?}}-->
+					</div>
+					<div class="right_foot">					
+						<div class="lookNum">扫描({{=it.scans}})</div>
+					</div>					
+				</div>				
+			</div>			
+		</script>
+<!-- 		<div class="nearby_container clearfix" data-openid="{=it.openid}">		
+				<div class="nearby_left">
+					<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)" >
+				</div>
+				<div class="nearby_right">
+					<div class="nearby_right_top">
+						<span class="name">{{=it.nickname}}</span>
+							<i class="girl"></i>
+						<span class="distance" data-lat="{{=it.latitude}}" data-log="{{=it.longitude}}"></span>
+					</div>
+					<div class="nearby_right_middle" data-qrcid="{{=it.qrc_id}}" onclick="qidF(this)" >
+						<img src="../image/1.jpg"  onload="center_img(this)" class="showImg" />
+					</div>
+					<div class="right_foot clearfix">
+						<div class="lookNum">扫描(0)</div>
+					</div>
+					
+				</div>				
+			</div> -->
+		<div id="tipMore" class="footer_more" style="display: none;"><i></i>加载更多</div>
+		<script src="./wx_recommend_list_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_recommend_list_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_recommend_list_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>		
+		<script type="text/javascript" src="./wx_recommend_list_files/api"></script><script type="text/javascript" src="./wx_recommend_list_files/getscript"></script>
+		<script type="text/javascript">		
+			var longitude = latitude = code = t = p = '';			
+			var start = 0 , count = 20;
+			var flag = true;
+			var closeWindowFlag = false;
+			//获取url的参数
+			if(my.getQuery()){
+				code = my.getQuery().code;
+				t = my.getQuery().t;
+				p = my.getQuery().p;
+				// alert('p:' + p + ' code:' + code + ' t:' + t);	
+				getImgInfo(1);							
+			}else{
+				// alert('没有获取到url的参数');
+			}
+			
+			function getImgInfo(type){
+				if(!flag){
+					return false;
+				}
+				myc.showProgress();
+				if(type == 1){//第一次
+					var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
+				}else{
+					var urlPost = 'load/'+ start +'/' + count;
+				}
+				my.ajax(urlPost,{},function(ret,err,status){
+				 // alert('ret:'+JSON.stringify(ret)+"err:"+JSON.stringify(err)+'status:'+JSON.stringify(status));
+					myc.hideProgress();
+					if(ret && ret.success){
+						var data = ret.details;
+						if(data){
+							if(data.length){								
+								var dataInters = '';
+								for(var i = 0; i < data.length; i++){
+									dataInters = {
+										openid : data[i].openid,
+										qrc_id: data[i].qrc_id,
+										redirect_url: data[i].redirect_url,
+										pay : data[i].pay,
+										headimgurl : data[i].headimgurl,
+										nickname : data[i].nickname,
+										blur_url : data[i].blurUrl,
+										time : getMDate(new Date(data[i].update_time)),
+										longitude : data[i].longitude,
+										latitude : data[i].latitude,
+										scans : data[i].scans,
+										likes : data[i].likes,
+										liked : data[i].liked,
+										dislikes : data[i].dislikes,
+										disliked : data[i].disliked,
+										sex : data[i].sex,
+										qrc_type : data[i].type,
+										url : data[i].url,
+									};
+									if(data[i].nickname){
+										dataInters.nickname = data[i].nickname;
+									}else{
+										dataInters.nickname = '';
+									};
+									createDatas(dataInters);
+								}
+								start += data.length;
+								callback();
+//								$('.showImg').click(function(){				
+//									window.location.href = 'wx_nearby_qrc_scan.html?url=' + $(this).attr('data-outputUrl');
+//								});
+							}
+						}else{
+							myc.toast({
+								location:'middle',
+								msg : '没有更多了'
+							});
+							flag = false;
+						}						
+					}
+					$('#tipMore').css('display','none');					
+				});
+			}
+			function qidF(obj){
+				if($(obj).attr('data-qrcid')){
+					window.location.href = $(obj).attr('data-redirect_url');
+				}				
+			}
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+				return scrollTop;
+			}
+			//获取当前可是范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0;
+				if (document.body.clientHeight && document.documentElement.clientHeight) {
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+				} else {
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+				}
+				return clientHeight;
+			}
+			//获取文档完整的高度 
+			function getScrollHeight() {
+				return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			}
+			window.onscroll = function() {			
+				if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX			
+					getImgInfo();
+				}
+			} 
+			
+			//传入数据源，利用模版生成HTML
+			function createDatas(dataInters) {
+				var interText = doT.template(document.getElementById("tmprecodes").innerText);
+				document.getElementById("recodes").insertAdjacentHTML('beforeEnd', interText(dataInters));
+			}
+			//两点经纬度计算两点距离
+			function getFlatternDistance(lat1,lng1,lat2,lng2){	
+				return Math.round(6378.138*2*Math.asin(Math.sqrt(Math.pow(Math.sin( (lat1*Math.PI/180-lat2*Math.PI/180)/2),2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)* Math.pow(Math.sin((lng1*Math.PI/180-lng2*Math.PI/180)/2),2)))*1000);											
+			} 
+			/***
+			 * parallel module
+			 */
+			function parallel() {
+				var tasks = [];
+				var results = [];
+				var callback = null;
+				for (var i = 0; i < arguments.length; i++) {
+					tasks = tasks.concat(arguments[i]);
+				}
+				return {
+					all: function(handler) {
+						callback = handler;
+						if (tasks.length > 0) {
+							for (var i = 0; i < tasks.length; i++) {
+								var task = tasks[i];
+								task(function(data) {
+									results.push(data);
+									if (results.length == tasks.length) {
+										callback(results);
+									}
+								});
+							}
+						}
+						else {
+							callback(results);
+						}
+					},
+					any: function(handler) {
+						callback = handler;
+						for (var i = 0; i < tasks.length; i++) {
+							var task = tasks[i];
+							task(function(data) {
+								results.push(data);
+								if (results.length == 1) {
+									callback(results[0]);
+								}
+							});
+						}
+					}
+				};
+			}
+			
+			//点击喜欢
+		    function check_feeling(dom){	
+		    	if($(dom).attr('data-pay') == 0){
+		    		myc.toast({
+		    			location:'middle',
+		    			msg : '打赏查看之后才能评价'
+		    		});
+		    		return false;
+		    	}
+		    	if($(dom).prev().attr('data-disliked') == 1){
+		    		myc.toast({
+		    			location:'middle',
+		    			msg : '您已点了坑。'
+		    		});
+		    		return false;
+		    	}
+		    	if($(dom).attr('data-liked') == 1){
+//		    		alert($(dom).attr('data-qrcid') + '已赞' + serverUrl + 'web/wx_dt_detail_unlike?qid=' + $(dom).attr('data-qrcid'));
+		    		my.ajaxGet(serverUrl + 'web/wx_dt_detail_unlike_v2?qid=' + $(dom).attr('data-qrcid'),function(ret,err,status){
+			    		if(ret && ret.success){			    			
+				    		$(dom).find('.likeText').html('赞');
+//				    		$(dom).find('i').removeClass('active');	
+				    		$(dom).find('.likeNum').html(parseInt($(dom).find('.likeNum').html()) - 1);
+				    		if(parseInt($(dom).find('.likeNum').html()) == 0){
+				    			$(dom).find('i').removeClass('active');	
+				    		}
+				    		$(dom).attr('data-liked',0);
+			    		}else{
+			    			myc.toast({
+			    				location:'middle',
+				    			msg : '请求失败，请重新点赞。'
+				    		});
+			    		}
+			    	});	
+		    	}else{
+//		    		alert($(dom).attr('data-qrcid') + '没喜欢' + serverUrl + 'web/wx_dt_detail_like?qid=' + $(dom).attr('data-qrcid'));
+		    		my.ajaxGet(serverUrl + 'web/wx_dt_detail_like_v3?qid=' + $(dom).attr('data-qrcid'),function(ret,err,status){		    			
+			    		if(ret && ret.success){			    		
+				    		$(dom).find('.likeText').html('已赞');
+				    		$(dom).find('i').addClass('active');
+				    		$(dom).find('.likeNum').html(parseInt($(dom).find('.likeNum').html()) + 1);
+				    		$(dom).attr('data-liked',1);
+			    		}else{
+			    			myc.toast({
+			    				location:'middle',
+				    			msg : '请求失败，请重新点赞。'
+				    		});
+			    		}
+			    	});	
+		    	}		    	   		    					
+		    }
+			//点击坑
+		    function check_kenging(dom){
+		    	if($(dom).attr('data-pay') == 0){
+		    		myc.toast({
+		    			location:'middle',
+		    			msg : '打赏查看之后才能评价'
+		    		});
+		    		return false;
+		    	}
+		    	if($(dom).next().attr('data-liked') == 1){
+		    		myc.toast({
+		    			location:'middle',
+		    			msg : '您已点了赞。'
+		    		});
+		    		return false;
+		    	}
+		    	if($(dom).attr('data-disliked') == 1){
+		    		my.ajaxGet(serverUrl + 'web/wx_dt_detail_undislike_v2?qid=' + $(dom).attr('data-qrcid'),function(ret,err,status){
+//		    			alert($(dom).attr('data-qrcid') + '已喜欢' + serverUrl + 'web/wx_dt_detail_unlike?qid=' + $(dom).attr('data-qrcid'));
+//						alert(JSON.stringify(ret) + 'err:' + JSON.stringify(err) + 'status' + JSON.stringify(status));
+			    		if(ret && ret.success){			    			
+				    		$(dom).find('.kengText').html('坑');
+				    		$(dom).find('.kengNum').html(parseInt($(dom).find('.kengNum').html()) - 1);
+				    		if(parseInt($(dom).find('.kengNum').html()) == 0){
+				    			$(dom).find('i').removeClass('active');	
+				    		}
+				    		$(dom).attr('data-disliked',0);
+			    		}else{
+			    			myc.toast({
+			    				location:'middle',
+				    			msg : '请求失败，请重新点坑。'
+				    		});
+			    		}
+			    	});	
+		    	}else{
+		    		my.ajaxGet(serverUrl + 'web/wx_dt_detail_dislike_v3?qid=' + $(dom).attr('data-qrcid'),function(ret,err,status){	
+//		    			alert($(dom).attr('data-qrcid') + '没喜欢' + serverUrl + 'web/wx_dt_detail_like?qid=' + $(dom).attr('data-qrcid'));
+//		    			alert(JSON.stringify(ret) + 'err:' + JSON.stringify(err) + 'status' + JSON.stringify(status));
+			    		if(ret && ret.success){			    		
+				    		$(dom).find('.kengText').html('已坑');
+				    		$(dom).find('i').addClass('active');
+				    		$(dom).find('.kengNum').html(parseInt($(dom).find('.kengNum').html()) + 1);
+				    		$(dom).attr('data-disliked',1);
+			    		}else{
+			    			myc.toast({
+			    				location:'middle',
+				    			msg : '请求失败，请重新点坑。'
+				    		});
+			    		}
+			    	});	
+		    	}		    	   		    					
+		    }
+			//格式化消息日期
+			function getMDate(time) {	
+			    var yy = time.getYear() + 1900;
+			    var MM = time.getMonth() + 1;
+			    var dd = time.getDate();
+			    var HH = time.getHours();
+			    var mm = time.getMinutes();
+			    var ss = time.getSeconds();
+			    var xq = time.getDay();
+			
+			    var nowtime = new Date();
+			    var yes1time = new Date(nowtime - 24 * 60 * 60 * 1000);
+			    var yes2time = new Date(yes1time - 24 * 60 * 60 * 1000);
+			    var yes3time = new Date(yes2time - 24 * 60 * 60 * 1000);
+			    var yes4time = new Date(yes3time - 24 * 60 * 60 * 1000);
+			    var yes5time = new Date(yes4time - 24 * 60 * 60 * 1000);
+			    var yes6time = new Date(yes5time - 24 * 60 * 60 * 1000);
+			    var yes7time = new Date(yes6time - 24 * 60 * 60 * 1000);
+			
+			    if (time.getMonth() == nowtime.getMonth() && time.getDate() == nowtime.getDate()) {
+			        return bl(HH) + ":" + bl(mm);
+			    } else if (time.getMonth() == yes1time.getMonth() && time.getDate() == yes1time.getDate()) {
+			        return "昨天";
+			    } else if (time.getMonth() == yes2time.getMonth() && time.getDate() == yes2time.getDate()) {
+			        return getxq(xq);
+			    } else if (time.getMonth() == yes3time.getMonth() && time.getDate() == yes3time.getDate()) {
+			        return getxq(xq);
+			    } else if (time.getMonth() == yes4time.getMonth() && time.getDate() == yes4time.getDate()) {
+			        return getxq(xq);
+			    } else if (time.getMonth() == yes5time.getMonth() && time.getDate() == yes5time.getDate()) {
+			        return yy + "/" + bl(MM) + "/" + bl(dd);
+			    } else if (time.getMonth() == yes6time.getMonth() && time.getDate() == yes6time.getDate()) {
+			        return yy + "/" + bl(MM) + "/" + bl(dd);
+			    } else if (time.getMonth() == yes7time.getMonth() && time.getDate() == yes7time.getDate()) {
+			        return yy + "/" + bl(MM) + "/" + bl(dd);
+			    } else{
+			        return yy + "/" + bl(MM) + "/" + bl(dd);
+			    }
+			}
+			//获取星期
+			function getxq(xq) {
+			    if (xq == 0) {
+			        return "星期日";
+			    } else if (xq == 1) {
+			        return "星期一";
+			    } else if (xq == 2) {
+			        return "星期二";
+			    } else if (xq == 3) {
+			        return "星期三";
+			    } else if (xq == 4) {
+			        return "星期四";
+			    } else if (xq == 5) {
+			        return "星期五";
+			    } else if (xq == 6) {
+			        return "星期六";
+			    }else{
+			    	alert('ddddd')
+			    }
+			}
+			//补零(2位)
+			function bl(s) {
+			    return s < 10 ? '0' + s: s;
+			}
+		</script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>	
+		<script src="./wx_recommend_list_files/jweixin-1.0.0.js.下载"></script>		
+		<script type="text/javascript">		
+			window.onload = function(){
+				
+				my.ajaxGet(serverUrl + 'web/jsapisign?url=' + encodeURIComponent(window.location.href.split('#')[0]),
+				function(ret,err,status){
+					if(ret && ret.success){
+						wx.config({
+						    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+						    appId: ret.appId, // 必填，公众号的唯一标识
+						    timestamp: ret.timestamp, // 必填，生成签名的时间戳
+						    nonceStr: ret.nonceStr, // 必填，生成签名的随机串
+						    signature: ret.signature,// 必填，签名，见附录1
+						    jsApiList: [						        
+						        'closeWindow'					        
+						      ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+						});
+					}else{
+	//					alert(JSON.stringify("err：" + err + "status:" + status));
+					}				
+				});
+				
+				wx.ready(function(){
+					if(closeWindowFlag){
+						wx.closeWindow();	
+					}							
+				});	
+			
+			}				
+		</script>
+	
+
+</body></html>

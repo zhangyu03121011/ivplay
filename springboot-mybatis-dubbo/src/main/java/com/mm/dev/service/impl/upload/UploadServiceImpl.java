@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -209,10 +211,6 @@ public class UploadServiceImpl implements IUploadService {
         //释放资源  
         graphics.dispose();  
     }  
-    
-    public static void main(String[] args) {
-    	createImage();
-	}
       
     /**  
      * 获取随机颜色  
@@ -246,6 +244,11 @@ public class UploadServiceImpl implements IUploadService {
 		gs.dispose();  
 		img.flush(); 
 		return image;
+	}
+	
+	public static void main(String[] args) {
+		String ss = "http%3A%2F%2Fmnsppds.huishengdianz.com%2Fs%2F53%2Fwx_board.html%3Fp%3Df928b9bed111%26t%3D3a4489473f7afd4b4e0eb6ad433189bf%26p%3Df928b9bed111&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+		System.out.println(URLDecoder.decode(ss));
 	}
 
 }

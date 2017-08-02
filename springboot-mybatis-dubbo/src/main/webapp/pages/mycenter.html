@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)http://wafvj.cn/index.php?s=/home/user_center/reward/name/Jacky/id/o5x6y0c5EySBDZJQgXUUEIu_DTD4.html -->
+<html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>自在打赏</title>
+    <link rel="stylesheet" href="./mycenter_files/weui.css">
+    <link rel="stylesheet" href="./mycenter_files/example.css">
+    <style>
+    .page__title { font-size: 32px;text-align: center;color: #3cc51f; }
+    .weui-cells .weui-cells__title { padding:2px 15px 5px 15px; }
+    .weui-cell .weui-cell__hd img {border: 1px solid #e5e5e5;border-radius:5px; }
+    </style>
+</head>
+<body ontouchstart="">
+    
+
+<div class="main-box">
+    <div class="page__hd">
+        <h1 class="page__title">个人中心</h1>
+    </div>
+    <div class="page__bd">
+
+        <div class="weui-cell" style="background-color: #fff;border-bottom: 1px solid #e5e5e5;border-top: 1px solid #e5e5e5;padding: 15px 15px;">
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <img src="./mycenter_files/0" style="width: 60px;height:60px;display: block;">                
+            </div>
+            <div class="weui-cell__bd">
+                <p>Jacky</p>
+                <p style="font-size: 13px;color: #888888;">发布了1张图片,收获了0.01元</p>
+            </div>
+        </div>
+
+        <div class="weui-cells" style="margin-top: 0.6em;">
+            <div class="weui-cells__title">
+                <p>功能列表</p>
+            </div>
+            <a class="weui-cell weui-cell_access" href="http://wafvj.cn/index.php?s=/home/user_center/balance/id/o5x6y0c5EySBDZJQgXUUEIu_DTD4.html">
+                <div class="weui-cell__bd">
+                    <p>余额提现</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://wafvj.cn/index.php?s=/home/user_center/own_img/id/o5x6y0c5EySBDZJQgXUUEIu_DTD4.html">
+                <div class="weui-cell__bd">
+                    <p>我的图片</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <!--
+            <a class="weui-cell weui-cell_access" href="/index.php?s=/home/user_center/view_img.html">
+                <div class="weui-cell__bd">
+                    <p>已看图片</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            -->
+            <a class="weui-cell weui-cell_access" href="http://wafvj.cn/index.php?s=/home/user_center/ranking.html">
+                <div class="weui-cell__bd">
+                    <p>用户排行</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>
+            <a class="weui-cell weui-cell_access" href="http://wafvj.cn/index.php?s=/home/user_center/bind_msg/id/o5x6y0c5EySBDZJQgXUUEIu_DTD4.html">
+                <div class="weui-cell__bd">
+                    <p>绑定提现信息</p>
+                </div>
+                <div class="weui-cell__ft">
+                </div>
+            </a>            
+        </div>
+
+    </div>
+</div>
+
+
+
+    <script src="./mycenter_files/zepto.min.js.下载"></script>
+    <script type="text/javascript" src="./mycenter_files/jweixin-1.0.0.js.下载"></script>
+    <script type="text/javascript" src="./mycenter_files/jweixin-1.2.0.js.下载"></script>
+    <script src="./mycenter_files/weui.min.js.下载"></script>
+    <script src="./mycenter_files/example.js.下载"></script>
+    <script src="./mycenter_files/jquery.min.js.下载"></script>
+    <script>
+    //判断是否电脑端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }    
+    //if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+            
+    $(function(){
+        wx.config({
+          debug: false,
+          appId: "wxb67f3db6447637f4",
+          timestamp: "1496646138",
+          nonceStr: "img",
+          signature: "379f6879963f5665f290f7f885364d9090c8aaac",
+          jsApiList: [
+            'hideOptionMenu',
+          ],
+        });
+
+        wx.ready(function () {
+            wx.hideOptionMenu();
+        });
+    })
+    </script>
+
+</body></html>

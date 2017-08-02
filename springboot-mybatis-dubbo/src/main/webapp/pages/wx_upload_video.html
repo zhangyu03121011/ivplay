@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)http://mnsppds.huishengdianz.com/s/53/wx_upload_video.html?p=f928b9bed111&o=oBMWcxO6fWkRPvZVxIlk2DRJ2WKs -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>上传视频</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<!--<link rel="stylesheet" type="text/css" href="css/webuploader.css"/>-->
+		<link rel="stylesheet" type="text/css" href="./wx_upload_video_files/api.css">
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.webuploader-container {
+				position: relative;
+			}
+			.webuploader-element-invisible {
+				position: absolute !important;
+				clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+			    clip: rect(1px,1px,1px,1px);
+			}
+			.webuploader-pick {
+				position: relative;
+				display: inline-block;
+				cursor: pointer;
+				/*background-color: #0db60c;*/
+				border: 1px solid #dfdfdf;
+				padding: 30px 30px;
+				color: #000;
+				font-weight: 700;
+				font-size: 16px;
+				text-align: center;
+				border-radius: 3px;
+				overflow: hidden;
+			}
+			.webuploader-pick-hover {
+				/*background-color: #0e920d;*/
+			}
+			
+			.webuploader-pick-disable {
+				opacity: 0.6;
+				pointer-events:none;
+			}
+			.btn{
+				width: 90%;
+				height: 40px;
+				line-height: 40px;
+				background-color: #1fd21d;
+				color: #fff;
+				margin: 20px auto;
+				border-radius: 7px;
+				text-align: center;
+				font-size: 18px;
+			}
+			.btn:active{
+				background-color: #1fb238;
+			}
+			.mark_body {
+				position: relative;
+				display: inline-block;
+				left: 50%;
+				top: 0px;
+				width:auto;
+				min-width: 300px;
+				-webkit-transform: translate(-50%, 0%);
+				-moz-transform: translate(-50%, 0%);
+				-ms-transform: translate(-50%, 0%);
+				-o-transform: translate(-50%, 0%);
+				transform: translate(-50%, 0%);
+				margin-top: 10px;
+				/*border: 1px solid #ccc;*/				
+			}
+			.slide {
+				width: 100%;
+				position: relative;
+				display: inline-block;
+				padding-left: 43px;
+			}
+			.text{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+			.controlbar-box {
+				position: relative;
+				width: 150px;
+				height: 14px;
+			}
+			
+			.controlbar-box .c-bg {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #08a506;
+				border-radius: 30px;
+			}
+			
+			.controlbar-box .c-bg1 {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #d3d3d3;
+				border-radius: 30px;
+				z-index: 2;
+			}
+			
+			.controlbar-box .c-round {
+				position: absolute;
+				left: 45px;
+				top: -4px;
+				z-index: 99;
+				width: 24px;
+				height: 24px;
+				line-height: 24px;
+				background-color: #09be07;
+				border-radius: 50%;
+				cursor: pointer;
+				text-align: center;
+				color: #fff;
+			}
+			.controlbar-box .c-progress{
+				position:absolute; 
+				right:-70px; 
+				top:0px; 
+				z-index:8; 
+				width:20px;
+			}
+
+			
+			.mark {
+				margin: 10px auto 0;
+				text-align: center;
+			}
+			
+			.mark input {
+				width: 50px;
+				height: 25px;
+				background-color: #e6e6e6;
+				margin: 0 7px 0 7px;
+				border-radius: 5px;
+				text-align: center;
+				color: #098707;				
+			}	
+			.suijiSelect{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				border: 1px solid #ccc;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 12px 12px;
+				margin-right: 5px;				
+			}
+			.bg_dui{
+				background-image: url(img/dui.png);
+			}
+			.imgErWeima{
+				display: block;
+				width: 80%;
+				margin: auto;
+				margin-top: 20px;
+			}
+			
+			.erweimaModel,.videoBox{
+				width: 225px;
+				margin: auto;
+				/*background-color: #03BD00;*/
+				margin-top: 20px;
+			}
+			.erweimaModelTitle,.downTitle{
+				margin-left: 5px;
+			}
+			.ModelSelectContainer,.downContainer{
+				margin-left: 30px;
+			}
+			.ModelSelectContainer>div{
+				margin-top: 5px;
+			}
+			.downVideo{
+				margin-top: 5px;
+			}
+			.max-text{
+				text-align: center;
+				font-size: 12px;
+				padding:5px 0;
+			}
+			label{
+				vertical-align: middle;
+			}
+			.previewinput{
+				display:inline-block;
+				width:40px;
+				padding:1px 10px;
+				vertical-align: middle;
+				text-align: center;
+				border-radius: 5px;
+				background-color: #e6e6e6;
+			}
+			.previewinputbox{
+				display:inline-block;
+				display:none;
+			}
+		</style>
+	</head>
+	<body ontouchstart="" onmouseover="">
+		<div id="uploader" class="wu-example" style="text-align: center;margin-top: 20px;">
+		    <div id="thelist" class="uploader-list"></div>
+		    <div class="btns">
+		        <div id="picker" class="webuploader-container"><div class="webuploader-pick webuploader-pick-hover">
+		        	点击这里
+		        	<br>
+		        	选择您要上传的视频
+		        </div><div id="rt_rt_1bmhkcnld57r1pgu1k0fuc612qd1" style="position: absolute; top: 0px; left: 97px; width: 206px; height: 104px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" accept="video/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+		    </div>
+		</div>
+			<div class="max-text">最大可以上传<span style="color:#f00;">100M</span>的视频文件</div>
+		<div class="mark_body">
+			<div class="slide">				
+				<div class="controlbar-box">
+					<div class="text">模糊：</div>
+					<div class="c-round" id="c_roud" style="left: 120px;"></div>
+					<div class="c-bg1"></div>
+					<div class="c-bg" style="width: 75px; z-index: 20;"></div>
+					<div class="c-progress" id="blurNumber">50</div>
+				</div>
+			</div>
+			<div class="mark">			
+				<div>(只能输入1到99之间)</div>
+				<div style="margin: 5px 0;">
+					打赏 :
+					<span id="dao"><input type="text" id="mininputNumber" onblur="onblurNum(this,1)" value="2" onkeyup="inputNumberF(this,1)">元 到</span>
+					<input type="text" id="inputNumber" onblur="onblurNum(this,2)" value="5" onkeyup="inputNumberF(this,2)">元 												
+				</div>
+				
+				<span id="suijiSelect" class="suijiSelect bg_dui"></span>
+				<span>随机
+					<span id="randomNum">
+						(<label style="color: #098707;" id="minlableNumber">2</label>到<label id="lableNumber" style="color: #098707;">3</label>元)
+					</span>						
+				</span>
+			</div>
+		</div>
+		
+		<div class="erweimaModel">
+			<div class="erweimaModelTitle">二维码样式：</div>
+			<div class="ModelSelectContainer">
+				<div class="ModelSelect">
+					<span id="suijiSelect0" class="suijiSelect" data-id="0"></span>
+					<label>直观模式(上下黑色边幕)</label>
+				</div>
+				<div class="ModelSelect">
+					<span id="suijiSelect4" class="suijiSelect bg_dui" data-id="4"></span>
+					<label>美观模式(左下角二维码)</label>
+				</div>
+			</div>			
+		</div>
+
+		<div class="videoBox">
+			<div class="downTitle">服务器选项：</div>
+			<div class="downContainer">
+				<div class="downVideo">
+					<span id="downVideo" class="suijiSelect"></span>
+					<label>提供下载</label>
+				</div>
+			</div>
+			<div class="downContainer">
+				<div class="downVideo">
+					<span id="preview" class="suijiSelect"></span>
+					<label>预览视频</label>
+					<div class="previewinputbox" id="previewinput">
+						<input type="text" maxlength="2" value="10" class="previewinput" id="previewinputNumber">
+						<label>秒</label>
+					</div>
+			</div>
+			</div>
+			<div class="downContainer">
+				<div class="downVideo">
+					<span id="compress" class="suijiSelect bg_dui"></span>
+					<label>压缩视频</label>
+				</div>
+			</div>			
+		</div>
+
+		<div class="btn" id="ctlBtn">上传</div>
+		<div>
+			<img id="imgErWeima" class="imgErWeima">
+		</div>
+		<script src="./wx_upload_video_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_upload_video_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_upload_video_files/webuploader.js.下载" type="text/javascript" charset="utf-8"></script>		
+		<script type="text/javascript">
+//			window.onerror = function (message, url, line) {
+//				alert('Error at line ' + line + ': ' + JSON.stringify(message));
+//			};
+			var p = o = ap = code = '';
+			var mylimit = '';
+			if(my.getQuery()){
+				p = my.getQuery().p;
+				o = my.getQuery().o;	
+				ap = my.getQuery().ap;	
+				code = my.getQuery().code;	
+//				alert('p:' + p + ',o:' + o + ',ap:' + ap + ',code:' + code);
+			}else{
+//				alert('没有获取到url的参数');
+			}
+			var ajaxurl = 'load?z=1';
+			if(o){
+				ajaxurl = ajaxurl + '&o=' + o;
+			}
+			if(ap){
+				ajaxurl = ajaxurl + '&ap=' + ap;
+			}
+			if(code){
+				ajaxurl = ajaxurl + '&code=' + code;
+			}
+			
+			my.ajax(ajaxurl,{},function(ret,status,err){
+				 // alert(JSON.stringify(ret));
+				if(ret.success){
+					var preferences = ret.preferences;
+					if(preferences == null) {
+						preferences = {};
+						preferences.blur = 30;
+						preferences.price = 5;
+						preferences.priceMin = 2;
+						preferences.imageLayout = 4;
+						preferences.random = true;
+						preferences.preview = 0;
+					}
+					if(preferences.blur == null){
+						preferences.blur = 30;
+					}
+					if(preferences.price == null)	{
+						preferences.price = 5;
+					} 
+					if(preferences.priceMin == null){
+						preferences.priceMin = 2;
+					}
+					if(preferences.imageLayout == null){
+						preferences.imageLayout = 4;
+					}
+					if(preferences.random == null){
+						preferences.random = true;
+					}
+					if(preferences.preview == null){
+						preferences.preview = 0;
+					}
+					mylimit = preferences.minAmountLimit;
+
+					var _bar = document.querySelector('.controlbar-box'); //父元素
+					var bar_round = document.querySelector('.c-round'); //小圆
+					var bar_num = document.querySelector('.c-bg'); //白色线
+					
+					var sigmao = preferences.blur;
+					var sigma = sigmao / 100 * $('.controlbar-box').width();
+					var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+					if(offwidth <= sigma){
+						sigma = offwidth;
+					}
+					bar_round.style.left = sigma + 45 + 'px';
+					bar_num.style.width = sigma + 'px';
+					bar_num.style.zIndex = '20';
+					document.querySelector('.c-progress').innerHTML = sigmao;
+															
+					$('#inputNumber').val(parseFloat(preferences.price));
+					$('#lableNumber').html(parseFloat(preferences.price));
+					$('#mininputNumber').val(parseFloat(preferences.priceMin));
+					$('#minlableNumber').html(parseFloat(preferences.priceMin));
+					if(preferences.preview > 0 ){
+						$('#previewinputNumber').val(preferences.preview);
+					}else{
+						$('#previewinputNumber').val(10);
+					}
+					
+				
+					// 金额记住
+					if(!preferences.random){
+						$('#suijiSelect').removeClass('bg_dui');
+						$('#randomNum').css('display','none');
+						$('#dao').css('display','none');
+					}else{
+						$('#suijiSelect').addClass('bg_dui');
+					}
+
+					// 二维码样式
+					$('.ModelSelect').find('span').removeClass('bg_dui');
+					if(preferences.imageLayout == 4){
+						$('#suijiSelect4').addClass('bg_dui');											
+					}else if(preferences.imageLayout == 0){
+						$('#suijiSelect0').addClass('bg_dui');
+					}
+
+					// 下载记住
+					if(!preferences.download){
+						$('#downVideo').removeClass('bg_dui');
+					}else{
+						$('#downVideo').addClass('bg_dui');
+					}
+					if(preferences.download == 1){
+						// alert(preferences.download + '下载')
+						$('#download').addClass('bg_dui');											
+					}else if(preferences.download == 0){
+						// alert(preferences.download + '不下载')
+						$('#downVideo').removeClass('bg_dui');
+					}
+
+					// 视频压缩
+					if(!preferences.compress == 1){
+						 // alert(preferences.compress + '压缩')
+						$('#compress').addClass('bg_dui');											
+					}else if(preferences.compress == 0){
+						 // alert(preferences.compress + '不压缩')
+						$('#compress').removeClass('bg_dui');
+					}
+
+					// 预览视频
+					if(preferences.preview > 0){
+						 // alert(preferences.compress + '压缩')
+						$('#preview').addClass('bg_dui');
+						$('#previewinput').css('display','inline-block');										
+					}else if(preferences.preview){
+						 // alert(preferences.compress + '不压缩')
+						$('#preview').removeClass('bg_dui');
+						$('#previewinput').css('display','inline-block');
+					}
+				}
+			});
+			
+			$(function() {
+				var _bar = document.querySelector('.controlbar-box'); //父元素
+				var bar_round = document.querySelector('.c-round'); //小圆
+				var bar_num = document.querySelector('.c-bg'); //白色线
+				
+				var sigmao = 30;
+				var sigma = sigmao / 100 * $('.controlbar-box').width();
+				var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+				if(offwidth <= sigma){
+					sigma = offwidth;
+				}
+				bar_round.style.left = sigma + 45 + 'px';
+				bar_num.style.width = sigma + 'px';
+				bar_num.style.zIndex = '20';
+				document.querySelector('.c-progress').innerHTML = sigmao;
+
+				mark();	
+				function mark() {
+					var mark_body = document.querySelector('.mark_body');
+					//圆宽度的一半
+					var x = parseInt(bar_round.offsetWidth) / 2;
+					var max_w = _bar.offsetWidth - x; //在没有offset().left时的最大x坐标
+					var bar_offsetLeft = $('.controlbar-box').offset().left + 45; //元素和左窗体的距离:用不到e.pageY和.offset()top
+					function drags(event) {
+						var _pagex = event.touches[0].pageX; //得到指针x轴坐标
+						
+						//判断e.pageX 
+						if (_pagex < bar_offsetLeft + x) { //最左边	：_pagex最小时
+							_pagex = bar_offsetLeft;
+						} else if (_pagex > max_w + bar_offsetLeft) { //最右边：_pagex最大时
+							_pagex = max_w + bar_offsetLeft - x;
+						} else {
+							_pagex = _pagex - x;
+						}
+						//小圆定位
+						//					bar_round.style.position = 'absolute';
+//						roundleft=_pagex - bar_offsetLeft;
+						bar_round.style.left = (_pagex - bar_offsetLeft+45) + 'px';
+						bar_num.style.width = (_pagex - bar_offsetLeft) + 'px';
+						bar_num.style.zIndex = '20';
+						//得到数值%
+						var ratio = Math.abs(_pagex - bar_offsetLeft) / (max_w - x);
+						document.querySelector('.c-progress').innerHTML = Math.ceil(ratio * 100);
+
+					}
+					//元素按下事件	
+					_bar.addEventListener('touchstart', bar_down, false);
+
+					function bar_down() {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+						//					_bar.onclick = function(event){//元素点击事件
+						//						drags(event);
+						//					}
+					}
+					_bar.addEventListener('touchmove', touchmove, false);
+
+					function touchmove(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+					}
+					//document按下弹起事件
+					_bar.addEventListener('touchend', function(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						document.removeEventListener('touchmove', touchmove, false);	
+						setBlur();
+					}, false);
+				}
+			});
+			
+			function setBlur(){
+				var blurNumber = $('#blurNumber').html();
+				
+				if(parseInt(blurNumber) < 20){
+					myc.alert({
+						msg : '模糊度不能小于20'
+					})
+					var bar_round = document.querySelector('.c-round'); //小圆
+					var bar_num = document.querySelector('.c-bg'); //白色线
+					var sigmao = 20;
+					
+					
+					var sigma = sigmao / 100 * $('.controlbar-box').width();
+					var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+					if(offwidth <= sigma){
+						sigma = offwidth;
+					}
+					bar_round.style.left = sigma + 45 + 'px';
+					bar_num.style.width = sigma + 'px';
+					bar_num.style.zIndex = '20';
+					document.querySelector('.c-progress').innerHTML = sigmao;
+					blurNumber = sigmao;
+//					return false;
+				}
+			}
+			
+			//选择二维码样式
+			$('.ModelSelect').click(function(){
+				$('.ModelSelect').find('span').removeClass('bg_dui');
+				$(this).find('span').addClass('bg_dui');
+			});
+			// 选择下载
+			$('#downVideo').click(function(){
+				if($(this).hasClass('bg_dui')){
+					// alert('不下载')
+					$(this).removeClass('bg_dui');
+				}else{
+					// alert('下载')
+					$(this).addClass('bg_dui');
+				}
+			});
+			// 视频压缩
+			$('#compress').click(function(){
+				if($(this).hasClass('bg_dui')){
+					 // alert('不压缩')
+					$(this).removeClass('bg_dui');
+				}else{
+					 // alert('压缩')
+					$(this).addClass('bg_dui');
+				}
+			});
+			// 预览视频
+			$('#preview').click(function(){
+				if($(this).hasClass('bg_dui')){
+					 // alert('不预览')
+					$(this).removeClass('bg_dui');
+					$('#previewinput').css('display','none');
+				}else{
+					 // alert('预览')
+					$(this).addClass('bg_dui');
+					$('#previewinput').css('display','inline-block');
+				}
+			});
+
+		    //随机
+			$('#suijiSelect').click(function(){
+				if($(this).hasClass('bg_dui')){
+					$(this).removeClass('bg_dui');
+					$('#randomNum').css('display','none');	
+					$('#dao').css('display','none');
+				}else{
+					$(this).addClass('bg_dui');
+					$('#randomNum').css('display','inline-block');
+					$('#dao').css('display','inline-block');
+				}
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+					$('#inputNumber').val(mininputNumber);
+					$('#lableNumber').html(mininputNumber);
+				}
+			});
+			function onblurNum(dom,style){
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				$('#lableNumber').html(inputNumber);
+				$('#minlableNumber').html(mininputNumber);
+	
+				if(!mininputNumber){
+					$('#mininputNumber').val(1);
+					$('#minlableNumber').html(1);
+				}
+				
+				if(!inputNumber){
+					$('#inputNumber').val(1);
+					$('#lableNumber').html(1);
+				}
+				if(!$('#suijiSelect').hasClass('bg_dui')){
+					return false;
+				}
+				if(style == 1){					
+					if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}else{					
+					if(parseFloat(inputNumber) < parseFloat(mininputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}
+			}
+			
+			function inputNumberF(dom,style) {
+				if(style == 1){
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#minlableNumber').html(99);						
+						}else{
+							$('#minlableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#minlableNumber').html(0);
+					}	
+				}else{
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#lableNumber').html(99);						
+						}else{
+							$('#lableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#lableNumber').html(0);
+					}	
+				}
+							
+			}
+					
+			var uploader = WebUploader.create({
+//				auto : true, //设置为 true 后，不需要手动调用上传，有文件选择即开始上传。
+			    // swf文件路径
+			    swf: '../js/Uploader.swf',
+			
+			    // 文件接收服务端。
+			    server: serverUrl + 'data/'+ p +'/wx_upload_video/upload',
+			    // 选择文件的按钮。可选。
+			    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+			    pick: {
+			    	id : '#picker',
+			    	multiple : false
+			    },
+			    chunkRetry : false,
+				fileNumLimit : 1,
+				fileSizeLimit: 100 * 1024 * 1024,
+				fileSingleSizeLimit  : 100 * 1024 * 1024,
+			    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+			    resize: false,
+			    // 只允许选择视频文件文件
+			    accept:{
+			    	title: 'Videos',
+				    mimeTypes: 'video/*'
+			    }
+			});
+			
+			//开始上传
+			$('#ctlBtn').click(function(){		
+
+				if(!$('.state').html()){
+					myc.toast({
+						msg : '请选择您要上传的视频'
+					});
+					return false;
+				}
+				
+				var blurNumber = $('#blurNumber').html();
+				var imageLayout = $('.ModelSelect').find('.bg_dui').attr('data-id');
+				// 最小值
+				var random = 0;
+				if($('#suijiSelect').hasClass('bg_dui')){
+					var random = 1;
+				}
+				// 下载
+				if($('#downVideo').hasClass('bg_dui')){
+					var download = 1;
+				}else{
+					var download = 0;
+				}
+
+				// 视频压缩
+				if($('#compress').hasClass('bg_dui')){
+					var compress = 1;
+				}else{
+					var compress = 0;
+				}
+
+				// 预览视频
+				if($('#preview').hasClass('bg_dui')){
+					var preview = 1;
+					if( preview = 1 ){
+				    	preview = $('#previewinputNumber').val();
+					}
+				}else{
+					var preview = 0;
+				}
+				var amount = parseFloat($('#inputNumber').val()).toFixed(2);
+				var amount_min = parseFloat($('#mininputNumber').val()).toFixed(2);
+
+				if(random == 0){
+					amount_min = amount;
+				}
+
+				if(amount_min < mylimit){
+					myc.toast({
+						msg : '必须要大于' + mylimit +'元' 
+					});
+					return false;
+				}
+				
+				if(amount < mylimit){
+					myc.toast({
+						msg : '必须要大于' + mylimit +'元' 
+					});
+					return false;
+				}
+
+
+				if(amount <= 0){
+					myc.toast({
+						msg : '请输入金额'
+					});
+					return false;
+				}
+				if(!amount){
+					myc.toast({
+						msg : '您输入的不是数字哦'
+					});
+					return false;
+				}
+				if(!amount_min){
+					myc.toast({
+						msg : '您输入的不是数字哦'
+					});
+					return false;
+				}
+
+				uploader.options.formData._sid_ = localStorage.getItem('_sid_');
+				//(0-不随,1-随)
+				uploader.options.formData.random = random;
+				uploader.options.formData.price = amount;
+				uploader.options.formData.priceMin = amount_min;
+				uploader.options.formData.blur = blurNumber;
+				uploader.options.formData.openid = o;
+				uploader.options.formData.download = download;
+				uploader.options.formData.compress = compress;
+				uploader.options.formData.preview = preview;
+				//(0-不共享,1-共享)
+				uploader.options.formData.share = 1;
+				//0-黑边;1-二维码在左下;2-二维码在中间
+				uploader.options.formData.imageLayout  = imageLayout;
+				
+				uploader.retry();
+			});
+			// 显示文件大小
+			function sizeBig(num) {
+				if(num<1024){
+					return num+'B';
+				}else if(num<1024*1024){
+					return (num/1024).toFixed(2)+'KB';
+				}else if(num<1024*1024*1024){
+					return ((num/1024)/1024).toFixed(2)+'M';
+				}
+			} 
+			//显示用户选择
+			// 当有文件被添加进队列的时候 由于webuploader不处理UI逻辑，所以需要去监听fileQueued事件来实现。
+			uploader.on( 'fileQueued', function( file ) {
+				// myc.toast({
+				// 	msg : '选择成功'
+				// })
+				// 隐藏上传按钮
+				$('.btns').css('display','none');
+
+				$list = $('#thelist');
+				
+			     var $li = $(
+		            '<div id="' + file.id + '" class="file-item thumbnail" style="margin:20px 0" > ' +
+		                '<img>' +
+		                '<div class="info">' + file.name + '</div>' +
+		                '<div class="state" style="color:red;">'+sizeBig(file.size)+'</div>' +
+		                '<p class="state" style="color:red;">等待上传</p>' +
+		                
+		            '</div>'
+		            ),
+		        $img = $li.find('img');
+			    // $list为容器jQuery实例
+			    $list.append( $li );
+				
+			    // 创建缩略图
+			    // 如果为非图片文件，可以不用调用此方法。
+			    // thumbnailWidth x thumbnailHeight 为 100 x 100
+			    uploader.makeThumb( file, function( error, src ) {
+			        if ( error ) {
+			            $img.replaceWith('<span>视频文件</span>');
+			            return;
+			        }
+			
+			        $img.attr( 'src', src );
+			    }, 100, 100 );
+			});
+			//文件上传进度 文件上传中，Web Uploader会对外派送uploadProgress事件，其中包含文件对象和该文件当前上传进度。
+			// 文件上传过程中创建进度条实时显示。
+			uploader.on( 'uploadProgress', function( file, percentage ) {
+			     var $li = $( '#'+file.id ),
+			        $percent = $li.find('.barContainer .bar');
+			
+			    // 避免重复创建
+			    if ( !$percent.length ) {
+			        $percent = $('<div class="barContainer"><div class="bar" style="width: 100%"></div></div>').appendTo($li).find('.bar');
+			    }
+			
+			    $li.find('p.state').text('上传中');
+
+			    $percent.html((percentage * 100).toFixed(2) + '%');
+			   	myc.showProgress({
+			   		title : '上传中',
+			   		text : (percentage * 100).toFixed(2) + '%'
+			   	});
+			    if(percentage*100 == 100){			    	
+//			    	myc.showProgress({
+//			    		title:'等待服务器处理'
+//			    	});
+			    }
+			});
+			
+			// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+			uploader.on( 'uploadSuccess', function( file , response ) {
+			    $( '#'+file.id ).find('p.state').text('已上传');
+			    myc.hideProgress();
+//			    myc.toast({
+//					location:'middle',
+//					msg:'上传成功'
+//				});
+				
+				if(response.success){
+//					$('#imgErWeima').attr('src',response.entryImage);
+//					myc.alert({
+//						msg : JSON.stringify(response)
+//					});
+//					setTimeout(function(){
+//						wx.closeWindow();
+//					},2000);	
+					var timeAjax = 60;
+					
+	    			repeat(timeAjax,response.key);
+				}else{
+					myc.toast({
+						msg : '上传出错,请重新上传'
+					});
+				}
+			});
+			
+			// 文件上传失败，显示上传出错。
+			uploader.on( 'uploadError', function( file ) {
+			    $( '#'+file.id ).find('p.state').text('上传出错,请重新上传');			   
+			    myc.toast({
+					msg:'上传出错,请重新上传'
+				});
+			});
+			
+			// 完成上传完了，成功或者失败，先删除进度条。
+			uploader.on( 'uploadComplete', function( file ) {
+				console.log('完成上传完了，成功或者失败')
+//			    $( '#'+file.id ).find('.progress').fadeOut();
+			});
+			uploader.on( 'error', function( file ) {
+				
+				if(file == 'Q_EXCEED_SIZE_LIMIT'){
+					myc.toast({
+						msg:'不能上传超过100M的视频'
+					});
+					return false;
+				}
+				if(typeof(file) == 'object'){
+					myc.toast({
+				    	msg : JSON.stringify(file)
+				    });
+				}else{
+					myc.toast({
+				    	msg : file
+				    });
+				}
+				
+			});
+			// 只能上传一个视频文件
+			uploader.on('error', function(file) {
+
+				if(file=="Q_EXCEED_NUM_LIMIT"){
+					myc.alert({
+						msg:'您已经设置过上传的文件'
+					});
+					return false;
+				}else if(file=="Q_TYPE_DENIED"){
+					myc.alert({
+						msg:'不支持这个视频格式'
+					});
+					return false;
+				}
+			});
+	    	
+	    	// 不断请求服务器上传完没有
+	    	function repeat(time,key) {
+	    		myc.showProgress({
+		    		title:'等待服务器处理'
+		    	});
+				if(time == 0){
+					return false;
+					myc.hideProgress();
+				}else{
+					//操作
+					uploadSuccessAjax(key,function(type){
+						if(type == 1){
+							myc.hideProgress();
+							return false;
+						}else{
+							time--;		
+							if(time == 60){
+								repeat(time,key);
+							}else{
+								setTimeout(function(){
+									repeat(time,key);
+								},5000);
+							}
+							
+						}
+					});
+					
+				}
+			}
+	    	
+	    
+			function uploadSuccessAjax(key,callback){	
+					callback(1);
+					wx.closeWindow();
+				
+				// 拼命处理中
+// 				my.ajaxPost(serverUrl + 'data/'+ p +'/wx_upload_video/upload/' + key,{},function(ret,err,statu){					
+// //					alert(JSON.stringify(ret))
+// 					if(ret.success){						
+// 						if(ret.complete){
+// 							myc.toast({
+// 								location:'middle',
+// 								msg:'上传成功'
+// 							});
+// 							callback(1);
+// 							setTimeout(function(){
+// 								wx.closeWindow();
+// 							},2000);
+// 						}else{
+// 							callback(0);						
+// 						}													
+// 					}else{
+// 						callback(1);
+// 						myc.alert({
+// 					    	msg : JSON.stringify(ret)
+// 					    });
+// 					}
+// 				});
+			}
+	</script>
+	<script src="./wx_upload_video_files/jweixin-1.0.0.js.下载"></script>		
+	
+	
+
+</body></html>

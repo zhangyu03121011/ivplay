@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!-- saved from url=(0118)http://mnsppds.huishengdianz.com/s/53/wx_my_list.html?p=f928b9bed111&t=f9b6ecd0a1ef7b72e52f9d8b85268ce3&p=f928b9bed111 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="./wx_my_list_files/api.css">
+		<title>已生成的图片和视频</title>
+		<script src="./wx_my_list_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.header{
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				padding: 10px 0;
+				text-align: center;
+				background-color: #fff;
+				z-index: 999;
+			}
+			.header>span{
+				display: inline-block;
+				vertical-align: middle;
+				width: 120px;
+				border: 1px solid #0db60c;	
+				height: 35px;
+				line-height: 35px;
+			}
+			.header>span:first-child{
+				border-top-left-radius: 25px;
+				border-bottom-left-radius: 25px;
+			}
+			.header>span:last-child{
+				border-top-right-radius: 25px;
+				border-bottom-right-radius: 25px;
+				/*margin-left: -4px;*/
+			}
+			.header .headerActive{
+			 	background-color: #0db60c;
+				color: #fff;
+			}
+			.header .headerstatic{							
+				color: #0db60c;
+			}
+			.recode{
+				float: left;
+				width: 47%;
+				margin-left: 2%;
+				margin-top: 10px;
+				box-shadow: 1px 1px 2px #e9e9e9,-1px -1px 2px #e9e9e9;
+				background-color: #fff;
+			}
+			.date{
+				padding: 3px;
+				text-align: center;
+				/*font-size: 12px;*/
+			}
+			.imgContainer{
+				width: 100%;
+				padding-top: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.imgContainer>div{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				/*background-color: #f00;*/
+			}
+			.imgContainer>div>img{
+				display: block;
+			}
+			.video_icon{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 50px;
+				height: 50px;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				background-image: url(img/videobtn.png);	
+				background-size: 50px 50px;				
+				background-repeat: no-repeat;
+				background-position: center center;	
+				z-index: 99;	
+			}
+			.moneyTip{
+				color: #333;
+				padding-left: 5px;
+				padding-top: 5px;
+				padding-bottom: 3px;
+				font-size: 12px;
+				max-width: 100%;
+				white-space:nowrap;
+				text-overflow:ellipsis;
+				overflow:hidden;
+			}
+			.blurSacn{
+				font-size: 10px;
+				color: #666;
+				padding-left: 5px;
+			}
+			@media screen and (min-width: 300px) and (max-width: 350px) {
+				.blurSacn{
+					font-size: 9px;
+					color: #666;
+					padding-left: 5px;
+				}
+			}
+			@media screen and (min-width: 350px){
+				.blurSacn{
+					font-size: 10px;
+					color: #666;
+					padding-left: 5px;
+				}
+			}	
+			.btnsRecord{
+				text-align: center;
+				padding-top: 8px;
+				color: #0db60c;
+			}
+			.duanlianjie{
+				padding-top: 8px;
+				font-size: 12px;
+				/*color:blue;*/
+				padding-left: 5px;
+			}
+			.btns,.btns2{
+				border-top: 1px solid #e9e9e9;
+				margin-top: 8px;
+			}
+			.btns2>span{
+				display: inline-block;
+				float: left;
+				width: 50%;
+				text-align: center;
+				padding: 8px 0;
+			}
+			.btns2>span:first-child{
+				border-right: 1px solid #e9e9e9;
+				color: #0db60c;
+			}
+			.btns2>span:last-child{
+				color: #f02626;
+			}
+		</style>		
+	</head>
+	<body>
+		<header class="header">
+			<span class="headerActive" id="originalImg" onclick="toggle_header(1)">原图</span><span class="headerstatic" id="blurImg" onclick="toggle_header(2)">模糊图</span>
+		</header>
+		<div style="height: 55px;"></div>
+		<section id="recodesLeft" class="clearfix">
+			<script id="tmprecodes_left" type="text/x-dot-template">
+				<div class="recode">
+					<div class="date">{{=it.date}}</div>
+					<div class="imgContainer" data-key="{{=it.key}}" data-mpid="{{=it.mpid}}"  onclick="openWin(this)">
+						<div style="z-index: 2;">
+							<img src="{{=it.url}}" class="originalImg" onload="fitImage(this.parentNode,this)" />
+							{{? it.qrc_type == 2}}
+								<div class="video_icon"></div>		
+							{{??}}							
+							{{?}}
+						</div>	
+						<div>
+							<img src="{{=it.blur_url}}" class="blurImg"  onload="fitImage(this.parentNode,this)" />
+							{{? it.qrc_type == 2}}
+								<div class="video_icon"></div>		
+							{{??}}							
+							{{?}}
+						</div>						
+					</div>
+					<div class="duanlianjie" id="duanlianjie">
+						<ul id="cc">
+
+						</ul>
+						{{? it.shortUrl == null}}
+                            
+                        {{?? it.shortUrl}}
+                            {{ for(var prop in it.shortUrl) { }}
+					            <a style="color:blue;" href="{{=it.shortUrl[prop]}}">{{=it.shortUrl[prop]}}</a>
+					         {{ } }}
+                        {{??}}
+                        {{?}}
+					</div>
+					{{? it.random == 0}}
+						<div class="moneyTip">
+							金额固定:{{=it.amount}}元							 
+							{{? it.state == 0}} <!--正常-->
+								| <span style="color: #000;">正常</span>
+							{{?? it.state == 1}} <!--待审-->
+								| <span style="color: #f00;">待审</span>
+							{{?? it.state == 2}} <!--违规-->
+								| <span style="color: #f00;">违规</span>
+							{{?? it.state == 3}} <!--通过-->
+								| <span style="color: #0db60c;">通过</span>
+							{{??}}
+							{{?}}
+						</div>
+					{{??}}
+						<div class="moneyTip">
+							金额随机:{{=it.amount_min}}~{{=it.amount}}元							 
+							{{? it.state == 0}} <!--正常-->
+								| <span style="color: #000;">正常</span>
+							{{?? it.state == 1}} <!--待审-->
+								| <span style="color: #f00;">待审</span>
+							{{?? it.state == 2}} <!--违规-->
+								| <span style="color: #f00;">违规</span>
+							{{?? it.state == 3}} <!--通过-->
+								| <span style="color: #0db60c;">通过</span>
+							{{??}}
+							{{?}}
+						</div>
+					{{?}}							
+					<div class="blurSacn">
+						模糊度:{{=it.sigma}}%  | 打赏:{{=it.pays}} |  扫描:{{=it.scans}}
+					</div>
+					<div class="btns btnsRecord" data-key="{{=it.key}}" data-mpid="{{=it.mpid}}" onclick="openReward(this)">
+						打赏记录(<span style="color:red">¥{{=it.income}}</span>)
+					</div>
+					<div class="btns2">
+						<span data-key="{{=it.key}}" data-mpid="{{=it.mpid}}" onclick="openWin(this)">设置</span>
+						<span data-key="{{=it.key}}" data-mpid="{{=it.mpid}}"   onclick="delImg(this)">删除</span>
+					</div>
+				</div>
+			</script>
+			<!--<div class="recode">
+				<div class="date">日期：2016-8-19 17:37</div>
+				<div class="imgContainer">
+					<div style="z-index: 2;">
+						<img src="../image/baomi/img1.jpg" onload="fitImage(this.parentNode,this)" />
+						<div class="video_icon"></div>
+					</div>	
+					<div>
+						<img src="../image/baomi/img2.jpg" onload="fitImage(this.parentNode,this)" />
+						<div class="video_icon"></div>
+					</div>
+						
+				</div>
+				<div class="moneyTip">金额随机:33.00-22.00元 | 正常</div>
+				<div class="blurSacn">模糊度:100%  |  扫描:999 | <span>支付:999</span></div>
+				<div class="btns btnsRecord">
+					查看打赏记录
+				</div>
+				<div class="btns">
+					<span>设置</span>
+					<span onclick="delImg(this)">删除</span>
+				</div>
+			</div>-->
+		</section>
+		<div style="height: 10px;"></div>
+		<script src="./wx_my_list_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>	
+		<script src="./wx_my_list_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_my_list_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>	
+		<script type="text/javascript">
+//			window.onerror = function (message, url, line) {
+//				alert('Error at line ' + line + ': ' + JSON.stringify(message));
+//			};
+			function toggle_header(style){
+				if(style == 1){
+					$('#originalImg').attr('class','headerActive');
+					$('#blurImg').attr('class','headerstatic');
+					toggle_img(1);
+				}else{
+					$('#originalImg').attr('class','headerstatic');
+					$('#blurImg').attr('class','headerActive');
+					toggle_img(2);
+				}
+			}
+			
+			function toggle_img(style){
+				var originalImg = $('.recode').find('.originalImg');
+				var blurImg = $('.recode').find('.blurImg');
+				if(style == 1){
+					for(var i = 0; i < originalImg.length; i++){
+						$(originalImg[i]).css('display','inline-block');
+						$(blurImg[i]).css('display','none');
+					}
+				}else{
+					for(var i = 0; i < originalImg.length; i++){
+						$(originalImg[i]).css('display','none');
+						$(blurImg[i]).css('display','inline-block');
+					}
+				}
+			}
+			// 分页参数
+			var start = 0 , count = 20;
+			var flag = true;
+			var code = t = qmoreUrl = '';
+			//获取url的参数
+			if(my.getQuery()){
+				code = my.getQuery().code;
+				t = my.getQuery().t;
+			//  alert('code:' + code)
+				getImgInfo(1);					
+			}else{
+//				alert('没有获取到url的参数');
+			}
+			function getImgInfo(type){
+				if(!flag){
+					return false;
+				}
+				myc.showProgress();
+				if(type == 1){//第一次
+					var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
+				}else{
+					var urlPost = 'load/'+ start +'/' + count;
+				}
+				my.ajax(urlPost,{},function(ret,err,status){
+					myc.hideProgress();
+					if(ret && ret.success){
+						// alert(JSON.stringify(ret));
+
+						var data = ret.details;
+						if(data){
+							if(data.length){
+								var dataInters = '';
+								for(var i = 0; i < data.length; i++){
+									var mymoreUrl = data[i].short_url;
+									if(data[i].short_url == null){
+										var short_urlMore =mymoreUrl;
+									}else{
+										var short_urlMore =mymoreUrl.split(" ");
+									}
+									dataInters = {
+										key : data[i].key,
+										mpid : data[i].mpid,
+										qrc_type : data[i].type,
+										date : myc.getTime((new Date(data[i].create_time))),
+										blur_url : data[i].blurUrl,
+										shortUrl : short_urlMore,
+										url : data[i].shotUrl,									
+										state : data[i].state,										
+										scans : data[i].scans,										
+										random : data[i].random,										
+										amount : data[i].price,										
+										amount_min : data[i].price_min,																			
+										income : data[i].income,																			
+										sigma : data[i].blur,										
+										pays : data[i].pays,									
+									};
+									if(!data[i].blur){
+										dataInters.sigma = 60;
+									}
+									createDatasLeft(dataInters);
+								}
+								start += data.length;
+							}
+						}else{
+							myc.toast({
+								msg : '没有更多了'
+							});
+							flag = false;
+						}
+					}else{		
+						if(ret.block){
+							window.location.href = 'wx_block.html';
+						}
+//						alert('ret:' + JSON.stringify(ret) + 'err:' + JSON.stringify(err) + 'status:' + JSON.stringify(status));
+					}
+				});
+			}
+			//传入数据源，利用模版生成HTML
+			function createDatasLeft(dataInters) {
+				var interText = doT.template(document.getElementById("tmprecodes_left").innerText);
+				document.getElementById("recodesLeft").insertAdjacentHTML('beforeEnd', interText(dataInters));
+			}			
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+				return scrollTop;
+			}
+			//获取当前可是范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0;
+				if (document.body.clientHeight && document.documentElement.clientHeight) {
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+				} else {
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+				}
+				return clientHeight;
+			}
+			//获取文档完整的高度 
+			function getScrollHeight() {
+				return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			}
+			window.onscroll = function() {					
+				if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX									
+					getImgInfo(2);
+				}
+			} 
+			function openWin(dom){
+				window.location.href = serverUrl + 'link/'+ $(dom).attr('data-mpid') +'/wx_qrc_setting?k=' + $(dom).attr('data-key');
+			}
+			
+			function openReward(dom){
+				window.location.href = 'wx_reward_detail.html?k=' + $(dom).attr('data-key') + '&p=' + $(dom).attr('data-mpid');
+			}
+			
+			function stop(){
+				event.stopPropagation();
+				event.preventDefault();
+			}
+			function delImg(dom){
+				myc.confirm({
+					title : '删除确认',
+					msg : '您是否确定删除该内容？'
+				},function(ret){
+					if(ret.buttonIndex == 1){
+						myc.showProgress({
+							title:'删除中'
+						});
+		//				alert($(dom).attr('data-id'));
+						my.ajax('delete/' + $(dom).attr('data-key'),{},function(ret,err,status){
+							myc.hideProgress();
+//							alert(JSON.stringify(ret));
+							if(ret && ret.success){		
+								myc.toast({
+									msg : '删除成功'
+								});
+								$(dom).parent().parent().remove();
+							}else{	
+								myc.toast({
+									msg : '删除失败，请重新删除'
+								});
+							}
+						});
+					}
+				})
+				
+			}
+		</script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
+	
+
+</body></html>

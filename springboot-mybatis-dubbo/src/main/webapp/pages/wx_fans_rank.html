@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!-- saved from url=(0120)http://mnsppds.huishengdianz.com/s/53/wx_fans_rank.html?p=f928b9bed111&t=212d4da6e3b5cb17abbbb0944d2f06c9&p=f928b9bed111 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>粉丝榜</title>
+		<link rel="stylesheet" type="text/css" href="./wx_fans_rank_files/api.css">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.rows{
+				padding: 7px;
+				border-bottom: 1px solid #e4e4e4;
+				position: relative;
+			}
+			.rankNumIcon{
+				float: left;
+				display: inline-block;
+				vertical-align: middle;
+				width: 35px;
+				height: 35px;				
+				background-size: 100% 100%;
+				background-repeat: no-repeat;
+				background-position: center;				
+				margin-right: 7px;
+				margin-top: 7px;
+			}
+			.first{
+				background-image: url(img/first.png);
+			}
+			.second{
+				background-image: url(img/second.png);
+			}
+			.third{
+				background-image: url(img/third.png);
+			}
+			.rankNum{
+				float: left;
+				display: inline-block;
+				padding: 0 5px;
+				min-width: 25px;
+				min-height: 25px;
+				line-height: 25px;
+				font-style: normal;
+				background-color: #ebebeb;
+				color: #666;
+				border-radius: 100px;
+				text-align: center;
+				font-size: 16px;
+				margin-top: 12px;
+				margin-left: 5px;
+				margin-right: 13px;		
+			}			
+			.heaerImage{
+				float: left;
+				display: inline-block;
+				vertical-align: middle;
+				width: 50px;
+				height: 50px;
+				background-size: 100% 100%;
+				margin-right: 7px;
+				overflow: hidden;
+				/*border: 1px solid #f00;*/
+			}
+			.content{
+				float: left;
+				/*height: 50px;*/
+				/*position: absolute;
+				top: 50%;
+				left: 120px;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				-o-transform: translateY(-50%);
+				transform: translateY(-50%);*/
+				margin-top: 3px;
+			}
+			.name>span{
+				display: inline-block;
+				vertical-align: middle;
+				color: #222;
+				font-size: 16px;
+				max-width: 140px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			@media only screen and (min-width: 340px) and (max-width: 640px) {
+				.name>span{
+					max-width: 180px;
+				}
+			}
+			.name>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-size: 100% 100%;
+				margin-left: 3px;
+			}
+			.boy{
+				background-image: url(img/nan.png);
+			}
+			.girl{
+				background-image: url(img/nv.png);
+			}
+			.contentText{
+				margin-top: 5px;
+				color: #666;
+			}
+			.ff9126{
+				color: #ff9126;
+			}
+		</style>
+		<script src="./wx_fans_rank_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="records" id="records">
+			<script id="tmprecodes" type="text/x-dot-template">
+				<div class="rows clearfix">
+				{{? it.rankNum == 1}}
+					<div class="rankNumIcon first"></div>
+				{{?? it.rankNum == 2}}
+					<div class="rankNumIcon second"></div>
+				{{?? it.rankNum == 3}}
+					<div class="rankNumIcon third"></div>
+				{{??}}
+					<div class="rankNum">
+						{{=it.rankNum}}
+					</div>
+				{{?}}
+				
+				<div class="heaerImage">
+					<img src="{{=it.headerImage}}" onload="fitImage(this.parentNode,this)" />
+				</div>
+				<div class="content">
+					<div class="name">
+						<span>{{=it.nickname}}</span>
+						{{? it.sex == 1}}
+							<i class="boy"></i>
+						{{?? it.sex == 2}}
+							<i class="girl"></i>
+						{{??}}	
+						{{?}}						
+					</div>
+					<div class="contentText">
+						共付费查看了 <span class="ff9126">{{=it.price}}</span> 元的内容
+					</div>
+				</div>
+			</div>
+			</script>
+			<!--<div class="rows clearfix">
+				<div class="rankNum">945435</div>
+				<div class="heaerImage">
+					<img src="img/img1.png" onload="fitImage(this.parentNode,this)" />
+				</div>
+				<div class="content">
+					<div class="name">
+						<span>senny girlsenny girlsenny girlsenny girlsenny girl</span>
+						<i class="girl"></i>
+					</div>
+					<div class="contentText">
+						共付费查看了 <span class="ff9126">98</span> 元的内容
+					</div>
+				</div>
+			</div>-->
+		</div>
+		<script src="./wx_fans_rank_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_fans_rank_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_fans_rank_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var start = 0 , count = 20;
+			//获取url的参数
+			if(my.getQuery()){
+				p = my.getQuery().p;
+				code = my.getQuery().code;
+				k = my.getQuery().k;
+				t = my.getQuery().t;
+//				alert("p : " + p + ',code : ' + code + ',k:' + k);		
+				getInfo(1);	
+			}
+				
+			//获取信息
+			function getInfo(type){
+				myc.showProgress();				
+				if(type == 1){//第一次
+					var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
+				}else{
+					var urlPost = 'load/'+ start +'/' + count;
+				}
+				my.ajax(urlPost,{},function(ret,err,status){
+					myc.hideProgress();
+					 // alert("获取信息：" + JSON.stringify(ret));
+					if(ret && ret.success){
+						var data = ret.records;
+						if(data){
+							if(data.length){								
+								var dataInters = '';
+								for(var i = 0; i < data.length; i++){
+									dataInters = {
+										rankNum : start+i+1,
+										headerImage : data[i].headimgurl,
+										sex : data[i].sex,
+										nickname : data[i].nickname,
+										price : data[i].totalamount																		
+									};	
+									if(data[i].nickname){
+										dataInters.nickname = data[i].nickname;
+									}else{
+										dataInters.nickname = '微信用户';
+									}										
+									createDatas(dataInters);
+								}
+								start += data.length;	
+							}
+						}else{
+							myc.toast({
+								msg : '没有更多了'
+							});
+							flag = false;
+						}												
+					}else{										
+						if(ret.block){
+							window.location.href = 'wx_block.html';
+						}					
+					}
+				});
+			}
+
+			
+			//传入数据源，利用模版生成HTML
+			function createDatas(dataInters) {
+				var interText = doT.template(document.getElementById("tmprecodes").innerText);
+				document.getElementById("records").insertAdjacentHTML('beforeEnd', interText(dataInters));
+			}			
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+				return scrollTop;
+			}
+			//获取当前可是范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0;
+				if (document.body.clientHeight && document.documentElement.clientHeight) {
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+				} else {
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+				}
+				return clientHeight;
+			}
+			//获取文档完整的高度 
+			function getScrollHeight() {
+				return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			}
+			window.onscroll = function() {					
+				if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX									
+					getInfo(2);
+				}
+			}
+		</script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
+	
+
+</body></html>

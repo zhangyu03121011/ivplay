@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!-- saved from url=(0186)http://mnsppds.huishengdianz.com/s/53/wx_introducer.html?p=f928b9bed111&t=a31c237895d62e3c03d1bf1fef6cf5a6&p=f928b9bed111&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+      <title>我推荐的人</title>
+      <link rel="stylesheet" type="text/css" href="./wx_introducer_files/api.css">
+      <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+      <style type="text/css">
+         html,body{
+            background-color: #fff;
+         }
+         .rows{
+            padding: 7px;
+            border-bottom: 1px solid #e4e4e4;
+            position: relative;
+         }
+         .rankNumIcon{
+            float: left;
+            display: inline-block;
+            vertical-align: middle;
+            width: 35px;
+            height: 35px;           
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;           
+            margin-right: 7px;
+            margin-top: 7px;
+         }
+         .first{
+            background-image: url(img/first.png);
+         }
+         .second{
+            background-image: url(img/second.png);
+         }
+         .third{
+            background-image: url(img/third.png);
+         }
+         .rankNum{
+            float: left;
+            display: inline-block;
+            padding: 0 5px;
+            min-width: 25px;
+            min-height: 25px;
+            line-height: 25px;
+            font-style: normal;
+            background-color: #ebebeb;
+            color: #666;
+            border-radius: 100px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 12px;
+            margin-left: 5px;
+            margin-right: 13px;     
+         }        
+         .heaerImage{
+            float: left;
+            display: inline-block;
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            background-size: 100% 100%;
+            margin-right: 7px;
+            overflow: hidden;
+            /*border: 1px solid #f00;*/
+         }
+         .content{
+            float: left;
+            /*height: 50px;*/
+            /*position: absolute;
+            top: 50%;
+            left: 120px;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);*/
+            margin-top: 10px;
+         }
+         .name>span{
+            display: inline-block;
+            vertical-align: middle;
+            color: #222;
+            font-size: 16px;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+         }
+         @media only screen and (min-width: 340px) and (max-width: 640px) {
+            .name>span{
+               max-width: 180px;
+            }
+         }
+         .name>i{
+            display: inline-block;
+            vertical-align: middle;
+            width: 20px;
+            height: 20px;
+            background-size: 100% 100%;
+            margin-left: 3px;
+         }
+         .boy{
+            background-image: url(img/nan.png);
+         }
+         .girl{
+            background-image: url(img/nv.png);
+         }
+         .contentText{
+            margin-top: 5px;
+            color: #666;
+         }
+         .ff9126{
+            color: #ff9126;
+         }
+         .top-me{
+            background-color: #f1f1f1;
+            padding:10px;
+            overflow: hidden;
+         }
+         .ticheng{
+            float: right;
+         }
+         #sum,.bili{
+            color:#00cc00;
+            padding:0 1px;
+         }
+         .no{
+            display:none;
+            font-size: 16px;
+            position: fixed;
+            width: 100%;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+               -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                 -o-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+         }
+         .sceneUrl{
+            width:30%;
+            margin:0 auto;
+            margin-top: 3px;
+         }
+         .sceneUrl>img{
+            width:100%;
+         }
+         .right{
+            float: right;
+         }
+      </style>
+      <script src="./wx_introducer_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="records" id="records">
+      <div class="top-me">推荐二维码<div class="right">(<span style="color:red;">长按</span>保存到手机再转发给好友)</div></div>
+      <div class="sceneUrl"><img src="http://mnsppds.huishengdianz.com/s/53/wx_introducer.html?p=f928b9bed111&amp;t=a31c237895d62e3c03d1bf1fef6cf5a6&amp;p=f928b9bed111&amp;response_type=code&amp;scope=snsapi_base&amp;state=STATE" alt="" id="sceneUrl"></div>
+      <div class="top-me">总共<span id="sum">0</span>人<span class="ticheng">对方提现的时候您可以分得<span class="bili" id="bili"></span><span class="bili">%</span>提成</span></div>
+      <div class="no">您暂时还没有推荐过人哦！</div>
+         <script id="tmprecodes" type="text/x-dot-template">
+               <div class="rows clearfix">
+                  <div class="heaerImage">
+                     <img src="{{=it.headerImage}}" onload="fitImage(this.parentNode,this)" />
+                  </div>
+                  <div class="content">
+                     <div class="name">
+                        <span>{{=it.nickname}}</span>
+                        {{? it.sex == 1}}
+                           <i class="boy"></i>
+                        {{?? it.sex == 2}}
+                           <i class="girl"></i>
+                        {{??}}   
+                        {{?}}
+                     </div>
+                  </div>
+            </div>
+         </script>
+<!--         <div class="top-me">推荐我的人</div>
+         <div class="rows clearfix">
+            <div class="heaerImage">
+               <img src="{{=it.}}" onload="fitImage(this.parentNode,this)" />
+            </div>
+            <div class="content">
+               <div class="name">
+                  <span>senny girlsenny girlsenny girl</span>
+                  <i class="girl"></i>
+               </div>
+            </div>
+         </div>
+         <div class="top-me">我推荐的人<span class="ticheng">提成比例<span style="color:#00cc00">2%</span></span></div>
+         <div class="rows clearfix">
+            <div class="heaerImage">
+               <img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)" />
+            </div>
+            <div class="content">
+               <div class="name">
+                  <span>{{=it.nickname}}</span>
+                  {{? it.sex == 1}}
+                     <i class="boy"></i>
+                  {{?? it.sex == 2}}
+                     <i class="girl"></i>
+                  {{??}}   
+                  {{?}}
+               </div>
+            </div>
+         </div> -->
+      </div>
+      <script src="./wx_introducer_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
+      <script src="./wx_introducer_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+      <script src="./wx_introducer_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript">
+         var start = 0 , count = 20;
+         //获取url的参数
+         if(my.getQuery()){
+            p = my.getQuery().p;
+            code = my.getQuery().code;
+            t = my.getQuery().t;
+           // alert("p : " + p + ',code : ' + code);    
+            getInfo(1);  
+         }
+            
+         //获取信息
+        function getInfo(type){
+            myc.showProgress();           
+            if(type == 1){//第一次
+               var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
+            }else{
+               var urlPost = 'load/'+ start +'/' + count;
+            }
+            my.ajax(urlPost,{},function(ret,err,status){
+               myc.hideProgress();
+                  // alert("获取信息：" + JSON.stringify(ret));
+               if(ret && ret.success){
+                    // alert(ret.success); 
+                    // alert(ret.introducerRate)
+                    $('#bili').html(ret.introducerRate);
+                    $('#sceneUrl').attr('src' , ret.sceneUrl)
+                        // alert(ret.sceneUrl)
+                  var data = ret.ownIntroducers;
+                  if(ret.ownIntroducersCount == 0){
+                     $('.no').css('display','block')
+                  }
+                  if(data){
+                     $('#sum').html(ret.ownIntroducersCount);
+                     if(data.length){                       
+                        var dataInters = '';
+                        for(var i = 0; i < data.length; i++){
+                           dataInters = {
+                              headerImage : data[i].headimgurl,
+                              sex : data[i].sex,
+                              nickname : data[i].nickname, 
+                              sceneUrl : data[i].sceneUrl                                                 
+                           }; 
+                           if(data[i].nickname){
+                              dataInters.nickname = data[i].nickname;
+                           }else{
+                              dataInters.nickname = '微信用户';
+                           }                             
+                           createDatas(dataInters);
+                        }
+                        start += data.length;   
+                     }
+                  }else{
+                     myc.toast({
+                        msg : '没有更多了'
+                     });
+                     flag = false;
+                  }                                   
+               }
+            });
+         }
+
+         
+         //传入数据源，利用模版生成HTML
+         function createDatas(dataInters) {
+            var interText = doT.template(document.getElementById("tmprecodes").innerText);
+            document.getElementById("records").insertAdjacentHTML('beforeEnd', interText(dataInters));
+         }        
+         //获取滚动条当前的位置 
+         function getScrollTop() {
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+               scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+               scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+         }
+         //获取当前可是范围的高度 
+         function getClientHeight() {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+               clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+            } else {
+               clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+            }
+            return clientHeight;
+         }
+         //获取文档完整的高度 
+         function getScrollHeight() {
+            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+         }
+         window.onscroll = function() {               
+            if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX                          
+               getInfo(2);
+            }
+         }
+      </script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
+   
+
+</body></html>

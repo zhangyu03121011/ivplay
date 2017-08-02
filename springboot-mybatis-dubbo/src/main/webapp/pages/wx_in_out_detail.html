@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!-- saved from url=(0175)http://mnsppds.huishengdianz.com/s/53/wx_in_out_details.html?p=f928b9bed111&t=54e7307bff880b8b4ef53162eb211c72&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>收支明细</title>	
+		<link rel="stylesheet" type="text/css" href="./wx_in_out_detail_files/api.css">
+		<style type="text/css">
+			html,body{
+				background-color: #fff;
+			}
+			.rows {
+				padding: 15px 15px 15px 70px;
+				position: relative;
+				background-color: #fff;
+			}
+			.rows:after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background-color: #e2e2e2;
+				transform: scaleY(0.5);
+				-webkit-transform: scaleY(0.5);
+			}
+			.rows_left{
+				position: absolute;
+				left: 12px;
+				top: 12px;
+				width: 50px;
+				height: 50px;
+				overflow: hidden;
+			}
+			.plusTitle,.numTitle,.ticheng,.tui {
+				font-size: 15px;
+				font-weight: 700;				
+				height: 25px;
+			}
+			.plusTitle>i,.numTitle>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/reward_rb.png);
+				background-size: 20px 20px;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.ticheng>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/ticheng.png);
+				background-size: 20px 20px;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.tui>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/tui.png);
+				background-size: 20px 20px;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.numTitle>i{
+				background-image: url(img/money_icon_min.png);
+			}
+			.plusTitle>span,.numTitle>span,.ticheng>span{
+				color: #D13922;
+				display: inline-block;
+				vertical-align: middle;
+				max-width: 70%;
+				white-space:nowrap;
+				text-overflow:ellipsis;
+				overflow:hidden;
+			}
+			.tui>span{
+				color:#000;
+			}
+			.numTitle>span{
+				color: #FCC409;
+			}
+			.time span {
+				color: #888888;
+			}
+			.time .date {
+				margin-right: 10px;
+			}
+			.num {
+				position: absolute;
+				right: 12px;
+				top: 20px;
+				font-size: 18px;
+				font-weight: 700;
+			}
+			.plus span {
+				color: #D13922;
+			}
+			.tui_money span{
+				color:#000;
+			}
+			.minus span {
+				color: #000;
+			}
+			.icon {
+				font-size: 20px;
+				margin-right: 3px;
+			}
+			.footer_more{
+				line-height: 30px;
+				text-align: center;
+				color: #ccc;
+			}
+			.footer_more>i{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background-image: url(img/loading3.gif);
+				background-size: 100% 100%;
+				vertical-align: middle;
+				margin-right: 5px;
+			}
+			.no{
+            display:none;
+            font-size: 16px;
+            position: fixed;
+            width: 100%;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+               -moz-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                 -o-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+         }
+         .qingli{
+         	padding:10px 5px;
+         	text-align: center;
+         	border-top:solid 1px #f1f1f1;
+         	display:none;
+         	position: fixed;
+         	bottom: 0;
+         	width:100%;
+         	background-color: #fff;
+         	z-index: 999;
+         }
+         .qingli-text{
+         	width:35px;
+         	background-color: #f1f1f1;
+         	border-radius: 5px;
+         	text-align: center;
+         	padding:1px 0px;
+         }
+         .qingli-btn{
+         	padding:5px 10px;
+         	margin-left: 5px;
+         	background-color: #1fd21d;
+         	border-radius: 5px;
+         	color:#fff;
+         }
+		</style>
+		<script src="./wx_in_out_detail_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- <div class="qingli" id="qingli">
+			<p>清理
+				<input id="qingli-text" class="qingli-text" type="text" value="3" pattern="[0-9]*" onkeyup="value=value.replace(/[^\d]/g,'')" maxlength='2'>天前所有的收支数据
+				<span id="qingli-btn" class="qingli-btn">确定</span>
+			</p>
+		</div> -->
+		<div id="interpolation">
+			<div class="no" style="display: block;">暂无收支明细！</div>
+			<script id="interpolationtmpl" type="text/x-dot-template">										
+				{{? it.pay_type == 0}} <!--支出-->
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">	
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="numTitle">
+						<i></i>
+						<span>您对"{{=it.nickname}}"的打赏</span>							
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num minus"><span class="icon">-</span><span>{{=it.amount}}</span></div>
+				</div>	
+				{{?? it.pay_type == 1}}<!--收入-->
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="plusTitle">
+						<i></i>
+						<span>收到{{=it.nickname}}打赏</span>	
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num plus"><span class="icon">+</span><span>{{=it.amount}}</span></div>
+				</div>	
+				{{?? it.pay_type == 2}}<!--提现-->
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.userHeadImage}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="numTitle">
+						<span style="color: #3062f3;">赏金提现(扣{{=it.tax}}手续费)</span>
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num minus"><span class="icon" style="color: #3062f3;">-</span><span style="color: #3062f3;">{{=it.amount}}</span></div>
+				</div>	
+				{{?? it.pay_type == 3}}<!--分享打赏-->
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.userHeadImage}}" onload="fitImage(this.parentNode,this)" />
+					</div>
+					<div class="plusTitle">		
+						<span style="color: #9dd99d;">收到系统赠送的额外打赏</span>	
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num plus"><span class="icon" style="color: #9dd99d;">+</span><span style="color: #9dd99d;">{{=it.amount}}</span></div>
+				</div>	
+				{{?? it.pay_type == 4}}<!--退还的赏金-->
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="plusTitle">
+						<i></i>
+						<span>收到"{{=it.nickname}}"退还的赏金</span>	
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num plus"><span class="icon">+</span><span>{{=it.amount}}</span></div>
+				</div>	
+
+				{{?? it.pay_type == 5}}
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="numTitle">
+						<span style="color: #3062f3;">内容审核费</span>
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num minus"><span class="icon" style="color: #3062f3;">-</span><span style="color: #3062f3;">{{=it.amount}}</span></div>
+				</div>
+
+				{{?? it.pay_type == 6}}
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="ticheng">
+						<i></i>
+						<span>获得"{{=it.nickname}}"的提成</span>	
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num plus"><span class="icon">+</span><span>{{=it.amount}}</span></div>
+				</div>
+
+				{{?? it.pay_type == 7}}
+				<div class="rows" data-key="{{=it.key}}" onclick="openContent(this)">
+					<div class="rows_left">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)"   />
+					</div>
+					<div class="tui">
+						<i></i>
+						<span>系统退还{{=it.nickname}}</span>	
+					</div>					
+					<div class="time"><span class="date">{{=it.pay_time}}</span></div>										
+					<div class="num tui_money"><span class="icon">-</span><span>{{=it.amount}}</span></div>
+				</div>
+				{{?}}																			
+			</script>
+		</div>
+		<!--<div id='tipMore' class="footer_more"><i></i>加载更多</div>-->
+		<script src="./wx_in_out_detail_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_in_out_detail_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_in_out_detail_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_in_out_detail_files/jweixin-1.0.0.js.下载"></script><div id="_uuid_im_3019_" style="display: none;"></div>
+		<script type="text/javascript">
+//			window.onerror = function (message, url, line) {
+//				alert('Error at line ' + line + ': ' + JSON.stringify(message));
+//			};	
+
+			var start = 0 , count = 20;
+			var flag = true;
+			var userHeadImage = '';
+			var p = code = t = '';
+			var day = '';
+			//获取url的参数
+			if(my.getQuery()){
+				code = my.getQuery().code;
+				p = my.getQuery().p;
+				t = my.getQuery().t;
+//				alert('p:' + p + ' code:' + code + ' t:' + t)
+				ajaxDetails(1);		
+				
+			}else{
+				
+			}
+			
+			function ajaxDetails(type){
+				if(!flag){
+					return false;
+				}
+				myc.showProgress();
+				if(type == 1){//第一次
+					var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
+				}else{
+					var urlPost = 'load/'+ start +'/' + count;
+				}
+				my.ajax(urlPost,{},function(ret,err,status){
+					myc.hideProgress();
+					   // alert(JSON.stringify(ret));
+					if(ret && ret.success){					
+						//	alert(start);	
+						// alert(ret.clearButton)
+						// 显示清理开关
+						if(ret.clearButton == true){
+							$('#qingli').css('display','block');
+						}else{
+							$('#qingli').css('display','none');
+						}									
+						var data = ret.details;
+						if(data){
+							if(data.length){
+								var dataInters = '';
+								for(var i = 0; i < data.length; i++){
+									// alert(data[i].pay_type);
+									// var zfbPay = data[i].opposite_unionid;
+									// var myheadimgurl = data[i].headimgurl;
+									// if(zfbPay == 'zfb_alipay'){
+									// 	var myheadimgurl = './img/zfb.png'
+									// }else{
+									// 	var myheadimgurl = myheadimgurl
+									// }
+									dataInters = {									
+										headimgurl : data[i].headimgurl,
+										userHeadImage : ret.headimgurl,		
+										nickname : data[i].nickname,
+										pay_time : myc.getTime((new Date(data[i].pay_time))),
+										pay_type : data[i].pay_type,
+										amount : parseFloat(data[i].amount).toFixed(2),
+										tax : parseFloat(data[i].tax).toFixed(2)
+									};
+									if(data[i].key){
+										dataInters.key = data[i].key;
+									}else{
+//										alert(JSON.stringify(data[i]))
+										dataInters.key = '';
+									}
+									if(data[i].pay_type == 1){
+										if(data[i].nickname){
+											dataInters.nickname = '"' + data[i].nickname + '"的';
+										}else{
+											dataInters.nickname = '"微信用户的"';
+										}
+									}
+									if(data[i].nickname == null){
+										dataInters.nickname = '[没有看到内容]';
+									}
+									createDatas(dataInters);
+								}
+								// 分页
+								start += data.length;	
+							}
+						}else{
+							myc.toast({
+								msg:'没有更多了'
+							});
+							flag = false;
+						}
+					}else{						
+						if(ret.block){
+							window.location.href = 'wx_block.html';
+						}
+						$('.no').css('display','block')
+//						wx.closeWindow();	
+					}
+				});
+			}
+			function openContent(dom){
+				var key = $(dom).attr('data-key');
+				if(key){
+					window.location.href = serverUrl + key;
+				}else{
+					myc.toast({
+						msg : '无法跳转'
+					});
+				}
+			}
+			// 清理
+			function qingli () {
+				var day = $('#qingli-text').val();
+				var reg=/^[1-9]\d*$|^0$/;  //数字
+				if(reg.test(day) == false){
+				    myc.toast({
+                        msg : '请输入数字'
+                    });
+                    return false;
+				}
+				if(day < 3){
+					myc.toast({
+						msg : '清理天数不能小于3天'
+					});
+					return false;
+				}
+				var color = '<span style="color:red">清理过的数据将无法恢复</span>';
+				myc.confirm({
+					title : '删除确认',
+					msg : '您确定要清理这些数据吗?' + color
+				},function(ret){
+					// alert(ret.buttonIndex)
+					if(ret.buttonIndex == 1){
+						myc.showProgress({
+							title:'删除中'
+						});
+						
+						my.ajax('clear/' + day,{},function(ret,err,status){
+							myc.hideProgress();
+							myc.toast({
+								msg : '删除成功'
+							});
+						});
+					}
+				})
+			}
+			// $('#qingli-btn').click(function() {
+			// 	qingli () ;
+			// });
+			//传入数据源，利用模版生成HTML
+			function createDatas(dataInters) {
+				var interText = doT.template(document.getElementById("interpolationtmpl").innerText);
+				document.getElementById("interpolation").insertAdjacentHTML('beforeEnd', interText(dataInters));
+			}
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+				return scrollTop;
+			}
+			//获取当前可是范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0;
+				if (document.body.clientHeight && document.documentElement.clientHeight) {
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+				} else {
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+				}
+				return clientHeight;
+			}
+			//获取文档完整的高度 
+			function getScrollHeight() {
+				return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			}
+			window.onscroll = function() {			
+				if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX				
+					ajaxDetails(2);
+				}
+			} 			
+		</script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
+		
+	
+
+</body></html>

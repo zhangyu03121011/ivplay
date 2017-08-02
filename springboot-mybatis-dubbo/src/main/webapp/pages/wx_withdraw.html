@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)http://mnsppds.huishengdianz.com/s/53/wx_withdraw.html?p=f928b9bed111&t=c8ab59f48a610514b72134f2b3cfa1d1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>赏金提现</title>
+		<link rel="stylesheet" type="text/css" href="./wx_withdraw_files/api.css">
+		<style type="text/css">
+			.top_nickName{
+				padding: 10px 0;
+				width: 100%;
+				text-align: center;
+			}
+			.top_nickName>img{
+				display: inline-block;
+				vertical-align: middle;
+				width: 60px;
+				height: 60px;				
+			}
+			.top_nickName>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-size: 100% 100%;
+			}
+			.top_nickName>i.boy{
+				background-image: url(img/nan.png);				
+			}
+			.top_nickName>i.girl{
+				background-image: url(img/nv.png);				
+			}
+			.top_nickName>span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.gold {
+				display: inline-block;
+				display: inline-block;
+				vertical-align: middle;
+				width: 50px;
+				height: 50px;
+				background-image: url(img/money_icon.png);
+				background-size: 100% 100%;
+			}		
+			.tiText{
+				margin-top: 10px;
+				text-align: center;
+			}	
+			#mingxi{
+				display: inline-block;
+				color: #f00;
+				padding: 0 5px;
+				height: 30px;
+				text-align: left;
+			}
+			.money{
+				text-align: center;
+			}
+			.money>span{
+				font-size: 30px;
+			}
+			.tixianContainer{
+				width: 95%;
+				margin: 5px auto;
+				padding: 10px;
+				background-color: #fff;
+				border-radius: 5px;
+			}
+			#allTixian{
+				color: #0575F2;
+			}
+			.inputContainer{
+				border-bottom: 1px solid #d7d7d7;
+				padding: 10px 0;
+				position: relative;
+				font-size: 20px;
+			}
+			.inputContainer>input{
+				position: absolute;
+				left: 20px;
+				top: 0;
+				width: 90%;
+				height: 100%;
+				font-size: 30px;
+			}
+			.weight{
+				font-weight: 700;
+			}
+			.button {
+				border-radius: 5px;
+				width: 95%;
+				margin: 20px auto 10px;
+				text-align: center;
+				color: white;
+				background-color: #1fd21d;
+				padding: 10px 0;
+				font-size: 20px;
+			}
+			.button:active{
+				background-color: #1fb238;
+			}
+			.footText{
+				text-align: center;
+				color: #929697;
+			}
+			.footText1{
+				font-weight: 700;
+				color: #000;
+				margin-top: 10px;
+				text-align: center;
+			}
+			.footText1>span{
+				font-size: 30px;
+				font-weight: normal;
+			}
+		</style>
+	</head>
+	<body ontouchstart="" onmouseover="">
+		<div class="top_nickName">
+			<img id="nicknameImg" src="http://mnsppds.huishengdianz.com/s/53/wx_withdraw.html?p=f928b9bed111&amp;t=c8ab59f48a610514b72134f2b3cfa1d1">
+			<span id="nickname"></span>
+			<i id="nicknameSex"></i>
+			<div class="gold"></div>
+		</div>
+		
+		<div class="tiText">
+			<span class="weight">可提现赏金</span>
+			<span id="mingxi">查看明细</span>
+		</div>
+		
+		<div class="money">
+			<span class="money_icon">¥</span>
+			<span class="money_num" id="money_num"></span>
+		</div>
+		
+		<div class="tixianContainer">
+			<div>
+				<span class="weight">提现金额</span>
+				<span id="allTixian">全部提现</span>
+				<span style="font-size: 12px;">(<span id="yushu"></span>%归发布者,<span id="shouxufei">15</span>%手续费)</span>
+			</div>
+			<div class="inputContainer">
+				<span>¥</span>
+				<input type="number" id="moneyInput">
+			</div>
+		</div>
+		
+		<div class="button" id="tixianBtn">
+			提现
+		</div>
+		
+		<div class="footText">
+			赏金提现后将返回到您的微信零钱<br>
+			<span style="color: #f00;">(两小时内到账)</span><br>
+			每天只可提现<span style="color: #f00;">100次</span>，请不要提现太过频繁<br>
+			每天最多可提现<span style="color: #f00;" id="limit"></span>元<br>
+			<span style="color: #929697;font-size: 12px;">(未绑定银行卡的微信账号提现额度会有限制)</span>
+		</div>
+		
+		<div class="footText1">
+			您已累计收入 <span>¥</span><span id="total_income"></span> 元
+		</div>
+		
+		<script src="./wx_withdraw_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_withdraw_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_withdraw_files/jweixin-1.0.0.js.下载"></script>	
+		<script type="text/javascript">
+
+			//获取url的参数
+			if(my.getQuery()){
+				p = my.getQuery().p;
+				t = my.getQuery().t;
+				code = my.getQuery().code;
+				 // alert("p:" + p + 't:' + t + 'code:' + code);
+				getAmount(1);	
+			}
+			//获取余额
+			function getAmount(type){
+				myc.showProgress();
+				if(type == 1){//第一次
+					var urlPost = 'load/' + t + '?code=' + code;
+					// alert(urlPost)
+				}else{
+					var urlPost = 'load/' + t;
+				}
+				my.ajax(urlPost,{},function(ret,err,status){
+					myc.hideProgress();
+				 	// alert("获取用户资料：" + JSON.stringify(ret));
+					if(ret && ret.success){
+						if(ret.account){
+							$('#nicknameImg').attr('src',ret.account.headimgurl);
+							$('#nickname').html(ret.account.nickname);
+							$('#money_num').html(parseFloat(ret.account.balance).toFixed(2));
+							$('#total_income').html(parseFloat(ret.account.total_income).toFixed(2));
+							$('#limit').html(parseFloat(ret.account.withdraw_day_limit))
+							$('#shouxufei').html(ret.tax_rate);
+							$('#yushu').html( 100 -(ret.tax_rate) );
+																					
+							if(ret.account.sex == 1){
+								$('#nicknameSex').addClass('boy');
+							}else if(ret.account.sex == 2){
+								$('#nicknameSex').addClass('girl');
+							}
+						}												
+					}else{		
+						if(ret.block){
+							window.location.href = 'wx_block.html';
+						}					
+					}
+				});
+			}
+			
+				//点击提现
+				// alert("pxx")
+				$('#tixianBtn').click(function(){
+					var money_num = parseFloat($('#money_num').html());	
+					var moneyInput = parseFloat($('#moneyInput').val());
+					//alert(moneyInput + '::' + money_num);
+					if(!moneyInput){
+						myc.toast({
+							msg : '请输入金额'
+						});
+						return false;
+					}
+					if(moneyInput <= money_num){
+						if(moneyInput >= 2){
+							myc.showProgress({
+								title : '提现中'
+							});
+							my.ajax('withdraw/' + moneyInput,{},function(ret,err,status){
+							//alert(JSON.stringify(ret));		
+								myc.hideProgress();
+								if(ret && ret.success){
+									myc.toast({
+										msg : '提现申请成功'
+									});
+									setTimeout(function(){
+										getAmount(2);	
+										$('#moneyInput').val('');
+									},2000);
+								}else{	
+									myc.toast({
+										msg : ret.error
+									});					
+								}
+							});
+						}else{
+							myc.toast({
+								msg : '由于微信支付的规定限制，必须金额大于2元才能提现。'
+							});
+						}
+					}else{
+						myc.toast({
+							msg : '输入金额不能大于余额。'
+						});
+					}				
+				});
+			// 点击明细
+			$('#mingxi').click(function(){
+				// alert(window.location.href)
+				window.location.href = serverUrl + 'link/' + p + '/wx_in_out_details';
+			});
+			//全部提现
+			$('#allTixian').click(function(){
+				$('#moneyInput').val($('.money_num').html());
+			});
+		</script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>		
+	
+
+</body></html>
