@@ -9,11 +9,11 @@
         }
         document.addEventListener('touchmove', preventDefault, false);
     </script>
-    <link rel="stylesheet" href="Public/static/dist/style/weui.css">
-    <link rel="stylesheet" href="Public/static/dist/example/example.css">
+    <link rel="stylesheet" href="css/weui.css">
+    <link rel="stylesheet" href="css/example.css">
     <style>
     body { background-color:#000; }
-    .weui-article { padding: 20px 15px; }
+    .weui-article { padding: 0px 0px; }
     .clear { clear:both; }
     .tips { text-align: center;margin: 5px 15px 10px;color: #fff; }
     img.head_img {width: 25px;height: 25px;transform: translateY(5px);border-radius: 50%;margin: 0 1px; }
@@ -40,12 +40,12 @@
         <span>该内容由<img src="http://wx.qlogo.cn/mmopen/gfpsWrBcd53Jqpp38B0bylGRFpt5ychKd3OfZrdviaH5tGN4Ju2J43EhhqXiaLXGzn2k4ONM5SDJdfSjCFfjkYT0QzXFKREa11/0" class="head_img">Jacky 发布并收费</span>
     </div>
     <article class="weui-article">
-        <img src="Public/blur_1501647465.jpg" alt="">
+        <img src="img/blur_1501647465.jpg" style="width: 100%;height: auto;display: block;border: 1px solid #e5e5e5;">
     </article>
 
     <a class="reward" style="top: 373px;">打赏看图</a>
 
-    <div class="reward-dialog" style="top: -473px;">
+    <div class="reward-dialog" style="top: -550px;">
         <div class="dialog-h">
             <div class="dialog-close">×</div>
             <span class="dialog-title">打赏才能看哦！</span>
@@ -61,88 +61,11 @@
     </div>
 </div>
 
-    <script src="Public/static/dist/example/zepto.min.js"></script>
-    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/jquery_v2.1.4.min.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
-    <script src="Public/static/dist/example/example.js"></script>
+    <script src="js/example.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <script src="Public/static/jquery-1.10.2.min.js"></script>
-    <script>
-    //判断是否电脑端
-    function IsPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone",
-                    "SymbianOS", "Windows Phone",
-                    "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }    
-    if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
-            
-    $(function(){
-        setTimeout(function() {
-            //当图片高度小于360px时，打赏图片按钮的top为30%
-            var imgW = $('.weui-article img').height();
-            var newTop = (imgW/2 + 66) + 'px';
-            $('a.reward').css({top:newTop}); 
-
-            //弹出窗开启
-            $('a.reward').click(function() {
-                $('.reward-dialog').show();
-            });
-            //弹出窗关闭
-            $('.dialog-close').click(function() {
-                $('.reward-dialog').hide();
-            });
-
-            var dia_top = '-' + (imgW/2 + 166) + 'px';
-            $('.reward-dialog').css({top:dia_top});
-        },300);
-
-        wx.config({
-
-            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: "wxa4b944d0cb27a7d4",
-            timestamp: "1414587457",
-            nonceStr: "Wm3WZYTPz0wzccnW",
-            signature: "f7cb20e4db00b694fc5037d68e3d1d2c28541528",
-
-            jsApiList: [
-            'hideAllNonBaseMenuItem',
-            'hideOptionMenu',
-            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-
-        });   
-        
-        wx.ready(function(){
-            //隐藏所有非基础按钮接口
-            wx.hideOptionMenu();
-
-        });   
-
-
-    })
-    </script>
-    <script type="text/javascript">
-
-    //写cookies
-    function setCookie(name,value)
-    {
-        var Days = 30;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + Days*24*60*60*1000);
-        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-    }   
-
-    </script>
-
-
-
-
+    <script src="js/wx_image_wxpay.js"></script>
 </body></html>

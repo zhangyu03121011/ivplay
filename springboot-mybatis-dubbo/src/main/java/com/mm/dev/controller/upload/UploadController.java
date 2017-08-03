@@ -52,8 +52,8 @@ public class UploadController {
 	@RequestMapping(value = "/image",method=RequestMethod.POST)
 	@ResponseBody
 	public ReturnMsg<Object> fileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-//		String openId = (String)UserSession.getSession("openId");
-		String openId = "123456789";
+		String openId = (String)UserSession.getSession("openId");
+//		String openId = "123456789";
         try {
         	if(StringUtils.isNotEmpty(openId)) {
         		StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
@@ -67,20 +67,21 @@ public class UploadController {
         			}
         		}
         	} else {
-        		 return ReturnMsgUtil.error(ExceptionEnum.business_logic_exception);
+        		 return ReturnMsgUtil.error(ExceptionEnum.system_error);
         	}
         } catch (ParseException e1) {
         	logger.error("图片上传失败", e1);
-        	return ReturnMsgUtil.error(ExceptionEnum.business_logic_exception);
+        	return ReturnMsgUtil.error(ExceptionEnum.system_error);
 		} catch (IOException e2) {
 			logger.error("图片上传失败", e2);
-			return ReturnMsgUtil.error(ExceptionEnum.business_logic_exception);
+			return ReturnMsgUtil.error(ExceptionEnum.system_error);
 		} catch (Exception e) {
             logger.error("图片上传失败", e);
-            return ReturnMsgUtil.error(ExceptionEnum.business_logic_exception);
+            return ReturnMsgUtil.error(ExceptionEnum.system_error);
         }
         return ReturnMsgUtil.success();
     }
+	
 	
 	/**
 	 * @Description: 生成带二维码logo模糊图片

@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Random;
 
@@ -104,29 +103,33 @@ public class UploadServiceImpl implements IUploadService {
         			partFile.delete();
         			destTempfos.close();
         		}
+        		logger.info("生成的原图片路径:{}",destTempFile.getAbsolutePath());
         		
         		BufferedImage destTempFile2 = ImageIO.read(destTempFile);
-        		System.out.println(destTempFile2.getWidth());
-        		System.out.println(destTempFile2.getHeight());
         		//生成模糊图片
         		FileUtils.copyFile(destTempFile, destBlurFile);
         		String blurFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() +fileNames;
         		GaussianBlurUtil.setGaussianBlurImg(blurFileDir, 10);
-        		logger.info("blurFileDir:======{}",blurFileDir);
+        		logger.info("生成的模糊图片路径:======{}",destBlurFile.getAbsolutePath());
         		
         		//生成二维码
         		String qrcodeFileDir = tempFileDir + File.separator + configProperties.getQrcodePrefix() + fileNames;
-        		ZxingHandler.encode2("张晓风是假哈多", configProperties.getWidth()/2, configProperties.getHeight()/2,qrcodeFileDir);
+        		ZxingHandler.encode2("张晓风是假哈多", configProperties.getWidth(), configProperties.getHeight(),qrcodeFileDir);
+        		logger.info("生成的二维码图片路径:======{}",blurFileDir);
         		
         		StringBuilder imagePath = new StringBuilder();
-        		 //输出文件  
-        		String blurQrcodeFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() + "_"+ configProperties.getQrcodePrefix() + fileNames;
-                addImageLogo(blurFileDir, qrcodeFileDir, blurQrcodeFileDir, 0, 0);
+        		imagePath.append(configProperties.getHostPath());
+        		imagePath.append(File.separator);
+        		imagePath.append("wx_blur_image_share.html?");
+        		imagePath.append("id=");
+        		imagePath.append(openId);
+        		imagePath.append("&fileNames=");
+        		imagePath.append(fileNames);
+        		 //输出合并图片  
+//        		String blurQrcodeFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() + "_"+ configProperties.getQrcodePrefix() + fileNames;
+//              addImageLogo(blurFileDir, qrcodeFileDir, blurQrcodeFileDir, 0, 0);
                 
-                FileUtils.deleteQuietly(destBlurFile);
-                FileUtils.deleteQuietly(new File(qrcodeFileDir));
-                
-        		WechatService.sendCustomMessages("<a href='"+imagePath.toString()+"'>已为您生成好模糊图，点击查看</a>",(String)UserSession.getSession("openId"));
+        		WechatService.sendCustomMessages("<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid="+configProperties.getAPPID()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback?fileNames="+fileNames+"&response_type=code&scope=snsapi_base&state=2&connect_redirect=1#wechat_redirect'>已为您生成好模糊图，点击查看</a>",(String)UserSession.getSession("openId"));
         	} else {
         		// 临时文件创建失败
         		if (chunk == chunks -1) {

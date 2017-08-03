@@ -2,7 +2,7 @@
 1.选择基础支撑->获取accesstoken->输入appid、app-secret   ===>获取accesstoken
 2.选择自定义菜单->自定义创建菜单->输入1中获取的token->输入菜单json数据
 
-APPID=wx9b70c488b856ff9f
+APPID=wxf2e2669e9b5e12e4
 APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
 
 以下是pbyt 测试环境菜单json数据
@@ -16,7 +16,7 @@ APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
                 {
                     "type": "view", 
                     "name": "生成打赏照片", 
-                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9b70c488b856ff9f&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect"
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=1&connect_redirect=1#wechat_redirect"
                 }, 
                 {
                     "type": "view", 
@@ -65,7 +65,7 @@ APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
 		{
 			"type":"view",
 			"name": "个人中心", 
-			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9b70c488b856ff9f&redirect_uri=http%3a%2f%2fmall.m.pingbyt.cn%2ff%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=10&connect_redirect=1#wechat_redirect"
+			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fmall.m.pingbyt.cn%2ff%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=10&connect_redirect=1#wechat_redirect"
         }
     ]
 }

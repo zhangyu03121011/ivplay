@@ -1,5 +1,6 @@
 package com.mm.dev.controller.wechat;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.WechatConfig;
 import com.mm.dev.service.wechat.IWechatService;
@@ -40,6 +42,9 @@ public class wechartController{
 	
 	@Autowired
 	private IWechatService wechatService;
+	
+	@Autowired
+	private ConfigProperties configProperties;
 	
 	/**
 	 * @Description: 接入验证
@@ -135,7 +140,7 @@ public class wechartController{
 	@RequestMapping(value = "/callback", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView oauth2authorize(@RequestParam(value = "code") String authcode, @RequestParam(value = "state") String state,
-			@RequestParam(value = "pageUrl", required = false) String pageUrl, HttpServletRequest request, HttpServletResponse response)
+			@RequestParam(value = "fileNames", required = false) String fileNames, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		logger.info("获取网页授权code回调开始======" + authcode);
 		logger.info("获取网页授权state回调======" + state);
@@ -147,12 +152,23 @@ public class wechartController{
 			UserSession.setSession("openId", openId);
 			//普通用户注册(openId注册)
 			if ("1".equals(state)) {
-				// 商城首页
+				//上传图片
 				gotoPage = "/wx_upload_photo.html";
-			} 
+			} else if("2".equals(state)) {
+				//查看分享模糊图片
+				StringBuilder imagePath = new StringBuilder();
+        		imagePath.append("/");
+        		imagePath.append("wx_blur_image_share.html?");
+        		imagePath.append("id=");
+        		imagePath.append(openId);
+        		imagePath.append("&fileNames=");
+        		imagePath.append(fileNames);
+				gotoPage = imagePath.toString();
+			}
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);
 		}
+		logger.info("网页授权跳转URL：{}",gotoPage);
 		return new ModelAndView("redirect:" + gotoPage);
 	}
 	
