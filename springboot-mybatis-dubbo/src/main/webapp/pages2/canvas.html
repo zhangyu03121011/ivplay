@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0061)http://wafvj.cn/index.php?s=/home/image/img_share/id/643.html -->
 <html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>自在打赏</title>
     <style>
@@ -32,20 +31,21 @@
     
 <div id="main-box" class="main-box">
     <a href="javascript:;" class="tips_btn">打赏图已生成，长按图片保存</a>
-    <img src="share_1501648209.jpg" style="width: 100%;height: auto;display: block;border: 1px solid #e5e5e5;">
+    <img id="img1" src="../微信图片_20170803123857.jpg" style="width: 100%;height: auto;display: block;border: 1px solid #e5e5e5;">
+	<img id="img2" src="../湖南商学院渠道二维码2.png" style="width: 100%;height: auto;display: block;border: 1px solid #e5e5e5;">
 	<canvas id="canvas" style="width: 100%;height: auto;display: block;border: 1px solid #e5e5e5;" margin="0,20"></canvas>
 </div>
 
 
 <script>
-var data=['微信图片_20170803123857.jpg','湖南商学院渠道二维码2.png'],base64=[];
+var data=['../微信图片_20170803123857.jpg','../湖南商学院渠道二维码2.png'],base64=[];
 var canvas = document.getElementById("canvas");
 var dataURL = canvas.toDataURL();
-console.log(dataURL);
+
 //生成画布
 draw();
 
-function draw(fn){
+function draw(){
 	var c=document.getElementById("canvas"),
 	ctx=c.getContext('2d'),
 	len=data.length;
@@ -63,7 +63,6 @@ function draw(fn){
 			img.hspace="30";
 			img.vspace="30";
 			img.border="10px solid #e5e5e5";
-			console.log(img);
 			img.onload=function(){
 				if(n==1){
 					ctx.drawImage(img,10,10,60,60);
@@ -84,11 +83,31 @@ function draw(fn){
 			//保存生成作品图片
 			base64.push(c.toDataURL());
 			alert(JSON.stringify(base64));
-			fn();
 		}
 	}
 	drawing(0);
 }
+
+function getImgNaturalDimensions(img, callback) {
+    var nWidth, nHeight
+    if (img.naturalWidth) { // 现代浏览器
+        nWidth = img.naturalWidth
+        nHeight = img.naturalHeight
+    } else { // IE6/7/8
+        var image = new Image()
+        image.src = img.src
+        image.onload = function() {
+            callback(image.width, image.height)
+        }
+    }
+    return [nWidth, nHeight]
+}
+
+//获取图片的原始尺寸
+function callback(width,height) {
+
+}
+
 </script>
 </body>
 </html>
