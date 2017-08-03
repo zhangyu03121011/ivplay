@@ -1,0 +1,148 @@
+<html lang="zh-cmn-Hans"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>自在打赏</title>
+	<script>
+        //禁止屏幕滚动
+        function preventDefault(ev) {
+            ev.preventDefault();
+        }
+        document.addEventListener('touchmove', preventDefault, false);
+    </script>
+    <link rel="stylesheet" href="Public/static/dist/style/weui.css">
+    <link rel="stylesheet" href="Public/static/dist/example/example.css">
+    <style>
+    body { background-color:#000; }
+    .weui-article { padding: 20px 15px; }
+    .clear { clear:both; }
+    .tips { text-align: center;margin: 5px 15px 10px;color: #fff; }
+    img.head_img {width: 25px;height: 25px;transform: translateY(5px);border-radius: 50%;margin: 0 1px; }
+    a.reward { color: red;border: 1px red solid;padding: 10px; border-radius: 5px; position: absolute; display: block;transform: translate(-50%, -50%);top: 50%;left: 50%; }
+    .reward-dialog {background-color: #FE2D44; width: 290px; height: 294px;position: relative;top: -320px;margin: 0 auto; border-radius: 6px; }
+    .dialog-close {position: absolute;right: 0px; font-size: 20px;color: #951525;width: 30px;}
+    .btn {height: 38px; width: 80%;margin: 0 auto;text-align: center;line-height: 40px;border-radius: 5px;display: block;}
+    .reward-btn {background-color: #FAE2B2;color: #FE2D44;margin: 10px auto 10px;}
+    .wanna-play {border: 1px #FAE2B2 solid; color: #FAE2B2;}
+    .dialog-h {height: 50%;}
+    .dialog-b {height: 50%;}
+    span.tip { font-size: 13px;padding: 0 2px; color: #FAD8AC; margin-top: 15px;display: inline-block;}
+    .line1 {border: 2px solid #FAD8AC;transform: rotate(25deg);position: relative;top: 53px;left: -8px;border-radius: 0 0 0 8px;-webkit-border-radius: 0 0 8px 8px;width: 158px;}
+    .line2 {border: 2px solid #FAD8AC;transform: rotate(-25deg);-webkit-transform: rotate(-25deg);top: 50px;position: relative;right: -136px;border-radius: 0 0 8px 0;-webkit-border-radius: 0 0 8px 8px;width: 158px;}
+    span.dialog-title {font-size: 24px; color: #FAE2B2;position: absolute;top: 12px;left: 68px;}
+    span.price {position: relative;font-size: 32px;color: #FADDAF;top: 88px; display: block; margin: 0 auto;width: 120px;text-align: center;}
+    </style>
+</head>
+<body ontouchstart="">
+    
+
+<div class="main-box">
+    <div class="tips">
+        <span>该内容由<img src="http://wx.qlogo.cn/mmopen/gfpsWrBcd53Jqpp38B0bylGRFpt5ychKd3OfZrdviaH5tGN4Ju2J43EhhqXiaLXGzn2k4ONM5SDJdfSjCFfjkYT0QzXFKREa11/0" class="head_img">Jacky 发布并收费</span>
+    </div>
+    <article class="weui-article">
+        <img src="Public/blur_1501647465.jpg" alt="">
+    </article>
+
+    <a class="reward" style="top: 373px;">打赏看图</a>
+
+    <div class="reward-dialog" style="top: -473px;">
+        <div class="dialog-h">
+            <div class="dialog-close">×</div>
+            <span class="dialog-title">打赏才能看哦！</span>
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <span class="price">0.01元</span>
+        </div>
+        <div class="dialog-b">
+            <span class="tip">(内容由用户发布，并非平台提供，赏金归发布者)</span>
+            <div class="reward-btn btn" onclick="window.location.href='http://wadyc.cn/wxpay/pay.php?id=643&amp;h=wafus.cn&amp;type=img'">打赏</div>
+           <!--  <a href="http://mp.weixin.qq.com/s/9tE8xqbHKAcF7DL0BevIRg" class="wanna-play btn">我也要玩</a> -->
+        </div>    
+    </div>
+</div>
+
+    <script src="Public/static/dist/example/zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+    <script src="Public/static/dist/example/example.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="Public/static/jquery-1.10.2.min.js"></script>
+    <script>
+    //判断是否电脑端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }    
+    if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+            
+    $(function(){
+        setTimeout(function() {
+            //当图片高度小于360px时，打赏图片按钮的top为30%
+            var imgW = $('.weui-article img').height();
+            var newTop = (imgW/2 + 66) + 'px';
+            $('a.reward').css({top:newTop}); 
+
+            //弹出窗开启
+            $('a.reward').click(function() {
+                $('.reward-dialog').show();
+            });
+            //弹出窗关闭
+            $('.dialog-close').click(function() {
+                $('.reward-dialog').hide();
+            });
+
+            var dia_top = '-' + (imgW/2 + 166) + 'px';
+            $('.reward-dialog').css({top:dia_top});
+        },300);
+
+        wx.config({
+
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "wxa4b944d0cb27a7d4",
+            timestamp: "1414587457",
+            nonceStr: "Wm3WZYTPz0wzccnW",
+            signature: "f7cb20e4db00b694fc5037d68e3d1d2c28541528",
+
+            jsApiList: [
+            'hideAllNonBaseMenuItem',
+            'hideOptionMenu',
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+        });   
+        
+        wx.ready(function(){
+            //隐藏所有非基础按钮接口
+            wx.hideOptionMenu();
+
+        });   
+
+
+    })
+    </script>
+    <script type="text/javascript">
+
+    //写cookies
+    function setCookie(name,value)
+    {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }   
+
+    </script>
+
+
+
+
+</body></html>

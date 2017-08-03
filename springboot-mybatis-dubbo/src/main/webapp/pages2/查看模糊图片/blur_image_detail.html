@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://wafvj.cn/index.php?s=/home/image/compound.html&id=643 -->
+<html lang="zh-cmn-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>自在打赏</title>
+    <link rel="stylesheet" href="./blur_image_detail/weui.css">
+    <link rel="stylesheet" href="./blur_image_detail/example.css">
+    <style>
+    .page__title { font-size: 32px;text-align: center;color: #3cc51f; }
+    .weui-cells { margin-top: 0; }
+    .weui-article { padding: 20px 15px 0; }
+    .clear { clear:both; }
+    </style>
+</head>
+<body ontouchstart="">
+    
+
+<div class="main-box" style="padding-bottom: 15px;">
+
+    <form method="POST" action="http://wafvj.cn/index.php?s=/home/image/img_setting.html">
+        <article class="weui-article">
+            <img src="./blur_image_detail/blur_1501647465.jpg" alt="">
+        </article>
+
+
+        <div class="weui-cells__title">设置图片信息</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="title" placeholder="请准确描述图片内容">
+                    </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after withdraw_select">
+                <div class="weui-cell__hd">
+                    <label for="" class="weui-label">价格</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="withdraw" id="withdraw">
+                        <option value="1">0.01元</option>
+                        <option value="10">0.1元</option>
+                        <option value="50">0.5元</option>
+                        <option value="100">1元</option>
+                        <option value="200">2元</option>
+                        <option value="300">3元</option>
+                        <option value="500">5元</option>
+                        <option value="1000">10元</option>
+                        <option value="1500">15元</option>
+                        <option value="2000">20元</option>
+                        <option value="2500">25元</option>
+                        <option value="3000">30元</option>
+                        <option value="10000">100元</option>
+                    </select>                    
+                </div>                
+            </div>
+        </div>
+
+        <label class="weui-agree">
+            <span class="weui-agree__text">
+                <p>1.请准确填写标题，与图片不符会被删除。</p>
+                <p>2.请认真填写信息，一经确认不允许修改。</p>
+                <section style="margin-top:0.6em;">
+                    <div class="icon_sp_area" style="float:left;">
+                        <i class="weui-icon-warn"></i>
+                    </div>
+                    <span style="color:red; font-size:16px; float:left; display:block;">严禁上传违规图片，发现违规封号处理</span>
+                </section>
+            </span>
+        </label>
+        <div class="clear"></div>
+
+        <div class="weui-btn-area">
+            <button type="submit" class="weui-btn weui-btn_primary" id="showTooltips">确定</button>
+        </div>
+
+        <input type="hidden" name="id" value="643">
+        <input type="hidden" name="price" value="1">
+    </form>
+</div>
+
+
+
+    <script src="./blur_image_detail/zepto.min.js"></script>
+    <script type="text/javascript" src="./blur_image_detail/jweixin-1.0.0.js"></script>
+    <script src="./blur_image_detail/weui.min.js"></script>
+    <script src="./blur_image_detail/example.js"></script>
+    <script>
+    //判断是否电脑端
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }    
+    //if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+        
+    $(function(){
+        $("[name='withdraw']").change(function(){
+            $("[name='price']").val($(this).val());
+        });
+
+        wx.config({
+          debug: false,
+          appId: "wxb67f3db6447637f4",
+          timestamp: "1496646138",
+          nonceStr: "img",
+          signature: "379f6879963f5665f290f7f885364d9090c8aaac",
+          jsApiList: [
+            'hideOptionMenu',
+          ],
+        });
+
+        wx.ready(function () {
+            wx.hideOptionMenu();
+        });
+    })
+
+    </script>  
+
+<audio controls="controls" style="display: none;"></audio></body><style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:10001;background:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;}</style></html>
