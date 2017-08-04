@@ -832,4 +832,44 @@ public class WechatServiceImpl implements IWechatService{
     	logger.info(jsonObject.toString());
 		return jsonObject.toString();
     }
+    
+    /**
+	 * 通过openID获取微信头像，昵称等基本信息 chengjian 2016-08-05
+	 * 
+	 * @param count:循环调用次数计数，默认0
+	 * @return
+	 */
+	public Map<String, Object> getWeChatInfo(String openId) {
+		Map<String, Object> userInfo = null;
+		try {
+			if (StringUtils.isNotEmpty(openId)) {
+				// 获取微信签证
+				AccessToken token = getAccessToken();
+				String accessToken = token.getToken();
+				logger.info("accessToken={}",accessToken);
+				logger.info("调用获取微信头像接口开始=====");
+				String getUserInfoUrl = GETUSERINFO.replace("OPENID", openId).replace("ACCESS_TOKEN", accessToken);
+				logger.info("获取微信头像，昵称等基本信息开始=====" + getUserInfoUrl);
+				//从微信获取用户基本信息
+				JSONObject getUserInfoUrlObject = WeixinUtil.doGetStr(getUserInfoUrl);
+				if(null == getUserInfoUrlObject || !StringUtils.isEmpty(getUserInfoUrlObject.getString("errcode"))) {
+					logger.info("从微信获取头像，昵称等基本信息返回失败getUserInfoUrlObject==={}",getUserInfoUrlObject);
+				} else {
+					userInfo = new HashMap<String, Object>();
+					logger.info("获取微信头像，昵称等基本信息返回值开始：" + getUserInfoUrlObject);
+					logger.info("获取微信昵称=====" + getUserInfoUrlObject.getString("nickname"));
+					logger.info("获取微信性别=====" + getUserInfoUrlObject.getString("sex"));
+					logger.info("获取微信头像=====" + getUserInfoUrlObject.getString("headimgurl"));
+					userInfo.put("nickname", getUserInfoUrlObject.getString("nickname"));
+					userInfo.put("sex", getUserInfoUrlObject.getString("sex"));
+					userInfo.put("headimgurl", getUserInfoUrlObject.getString("headimgurl"));
+					userInfo.put("openId", openId);
+					logger.info("获取微信头像，昵称等基本信息END=====" + getUserInfoUrl);
+				}
+			}
+		} catch (Exception e) {
+			logger.info("获取微信头像，昵称等基本信息异常" + e);
+		}
+		return userInfo;
+	}
 }

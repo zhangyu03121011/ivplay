@@ -29,10 +29,10 @@ public class UserRedisTest {
         ValueOperations<String, User> operations =redisTemplate.opsForValue();
         // 保存对象
         User user = new User();
-        user.setUsername("zhangxiaoyu2");
-        user.setPassword("123");
-        operations.set(user.getUsername(), user);
-        Assert.assertEquals("123", operations.get("zhangxiaoyu").getPassword());
+        user.setUserName("zhangxiaoyu2");
+        user.setPassWord("123");
+        operations.set(user.getUserName(), user);
+        Assert.assertEquals("123", operations.get("zhangxiaoyu").getPassWord());
 
     }
 
