@@ -13,5 +13,5 @@ public interface PayDao  extends JpaRepository<WeixinPayRes, Long> {
 	 * @param weixinPayResDto
 	 * @throws Exception
 	 */
-	public void savePayInfo(WeixinPayRes weixinPayResDto) throws Exception;
+//	public void save(WeixinPayRes weixinPayResDto) throws Exception;
 }

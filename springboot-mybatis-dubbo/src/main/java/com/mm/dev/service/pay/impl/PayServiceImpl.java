@@ -3,7 +3,7 @@ package com.mm.dev.service.pay.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.mm.dev.dao.jpa.user.PayDao;
 import com.mm.dev.entity.wechat.WeixinPayRes;
@@ -14,7 +14,7 @@ import com.mm.dev.service.pay.PayService;
  * @author kevin
  *
  */
-@Component
+@Service
 public class PayServiceImpl implements PayService{
 	
 	@Autowired
@@ -40,7 +40,7 @@ public class PayServiceImpl implements PayService{
 	 */
 	public void savePayInfo(WeixinPayRes weixinPayResDto) throws Exception {
 		//保存微信支付详情
-		paydao.savePayInfo(weixinPayResDto); 
+		paydao.save(weixinPayResDto); 
 	}
 
 }
