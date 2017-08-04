@@ -1,4 +1,4 @@
-package com.mm.dev.entity.wechat;
+package com.mm.dev.enums;
 
 /**
  * @Description: 异常枚举类错误代码

@@ -1,7 +1,8 @@
 package com.mm.dev.controller.wechat;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +23,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.common.util.UUIDGenerator;
 import com.mm.dev.config.ConfigProperties;
+import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.WechatConfig;
+import com.mm.dev.entity.wechat.WechatPayConfig;
+import com.mm.dev.entity.wechat.WeixinPayRes;
+import com.mm.dev.enums.Payment_Method;
+import com.mm.dev.enums.Payment_Status;
+import com.mm.dev.enums.Payment_Type;
+import com.mm.dev.enums.WXBankTypeEnum;
+import com.mm.dev.service.pay.PayService;
 import com.mm.dev.service.wechat.IWechatService;
 import com.mm.dev.util.CheckUtil;
 import com.mm.dev.util.MessageUtil;
@@ -45,6 +55,9 @@ public class wechartController{
 	
 	@Autowired
 	private ConfigProperties configProperties;
+	
+	@Autowired
+	private PayService payService;
 	
 	/**
 	 * @Description: 接入验证
@@ -248,6 +261,112 @@ public class wechartController{
 			logger.info("获取微信页签异常:" + e.fillInStackTrace());
 		}
 		return config;
+	}
+	
+	/**
+	 * 获取微信支付签名
+	 * 
+	 * @param url
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/getWechatPayConfig")
+	public WechatPayConfig getWechatPayConfig(String orderNo, HttpServletRequest request) throws Exception {
+		logger.info("获取微信支付签名开始……orderNo:" + orderNo);
+		WechatPayConfig config = new WechatPayConfig();
+		try {
+			String openId = (String) UserSession.getSession(WechatConstant.OPEN_ID);
+			logger.info("获取微信支付……openId:" + openId);
+			if (!StringUtils.isEmpty(orderNo) && !StringUtils.isEmpty(openId)) {
+//				OrderTable order = orderService.getOrderByOrderNo(orderNo);
+				 String amount = "0";
+				// 应付款 = 订单总额 - 已付金额
+//				String amount = order.getAmount().subtract(new BigDecimal(order.getAmountPaid())).toString();
+//				logger.info("orderNo===" + orderNo);
+//				logger.info("openId===" + openId);
+//				logger.info("amount===" + amount);
+				config = wechatService.getWechatPayConfig(orderNo, openId, amount, request);
+			}
+		} catch (Exception e) {
+			logger.info("获取WechatPayConfig异常" + e.fillInStackTrace());
+		}
+		return config;
+	}
+
+	/**
+	 * 微信支付回调
+	 * 
+	 * @throws Exception
+	 *             void
+	 */
+	@ResponseBody
+	@RequestMapping("/payCallBack")
+	public void payCallBack(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			logger.info("微信支付回调通知接口开始");
+			InputStream inStream = request.getInputStream();
+			ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = inStream.read(buffer)) != -1) {
+				outSteam.write(buffer, 0, len);
+			}
+			outSteam.close();
+			inStream.close();
+			String resultStr = new String(outSteam.toByteArray(), "utf-8");
+			Map<String, String> resultMap = MessageUtil.parseXml(resultStr);
+			logger.info("微信支付异步回调返回结果" + resultStr);
+			String return_code = resultMap.get("return_code");
+			String result_code = resultMap.get("result_code");
+
+			if ("SUCCESS".equals(return_code) && "SUCCESS".equals(result_code)) {
+				logger.info("支付回调成功");
+				// 更新订单状态 支付状态 商品库存
+//				payService.weixinPayNotifyInfo(resultMap.get("out_trade_no"));
+				// 根据订单号更新商品销量优惠券状态
+//				orderService.updateProductSalesByOrderNO(resultMap.get("out_trade_no"));
+
+				// 组装订单支付信息
+				WeixinPayRes weixinPayResDto = new WeixinPayRes();
+				weixinPayResDto.setId(UUIDGenerator.generate());
+				weixinPayResDto.setAmount(resultMap.get("total_fee"));
+				weixinPayResDto.setAccount(resultMap.get("appid"));
+				weixinPayResDto.setPayer(resultMap.get("openid"));
+				weixinPayResDto.setOrderNo(resultMap.get("out_trade_no"));
+				weixinPayResDto.setPaymentDate(resultMap.get("time_end"));
+				weixinPayResDto.setPaymentMethod(String.valueOf(Payment_Method.JSAPI.getIndex()));
+				weixinPayResDto.setType(Payment_Type.payment.getIndex());
+				weixinPayResDto.setStatus(Payment_Status.success.getIndex());
+				weixinPayResDto.setPaymentBank(WXBankTypeEnum.getDescription(resultMap.get("bank_type")));
+				logger.info("orderNo====:" + resultMap.get("out_trade_no"));
+//				OrderTable orderByOrderNo = orderService.getOrderByOrderNo(resultMap.get("out_trade_no"));
+//				if (null != orderByOrderNo) {
+//					String id = orderByOrderNo.getId();
+//					weixinPayResDto.setOrderTableId(id);
+//				}
+				logger.info("保存微信付款信息开始....");
+				payService.savePayInfo(weixinPayResDto);
+				logger.info("保存微信付款信息结束....");
+
+				// 通知微信.异步确认成功.必写.不然会一直通知后台.八次之后就认为交易失败了.
+				request.setAttribute("out_trade_no", resultMap.get("out_trade_no"));
+				response.setContentType("text/html;charset=GBK");
+				request.setCharacterEncoding("GBK");
+				PrintWriter out = response.getWriter();
+				out.print(MessageUtil.setXML("SUCCESS", "OK"));
+				logger.info("已返回成功结果...");
+			}
+		} catch (Exception e) {
+			logger.info("微信支付回调通知接口异常" + e);
+			try {
+				PrintWriter out = response.getWriter();
+				out.print(MessageUtil.setXML("FAIL", "ERROR"));
+			} catch (Exception e2) {
+
+			}
+		}
+		logger.info("微信支付回调通知接口结束");
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package com.mm.dev.util;
 
 
-import com.mm.dev.entity.wechat.ExceptionEnum;
 import com.mm.dev.entity.wechat.ReturnMsg;
+import com.mm.dev.enums.ExceptionEnum;
 
 /**
  * @ClassName: ReturnMsgUtil 

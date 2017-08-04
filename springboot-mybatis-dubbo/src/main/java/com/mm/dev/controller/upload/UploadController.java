@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import com.mm.dev.controller.wechat.wechartController;
-import com.mm.dev.entity.wechat.ExceptionEnum;
 import com.mm.dev.entity.wechat.ReturnMsg;
+import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.impl.upload.UploadServiceImpl;
 import com.mm.dev.service.impl.wechat.WechatServiceImpl;
 import com.mm.dev.util.ReturnMsgUtil;
