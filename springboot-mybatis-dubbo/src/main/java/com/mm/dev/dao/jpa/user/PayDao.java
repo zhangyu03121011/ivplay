@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.mm.dev.entity.wechat.WeixinPayRes;
 
 @Repository
-public interface PayDao  extends JpaRepository<WeixinPayRes, Long> {
+public interface PayDao  extends JpaRepository<WeixinPayRes, String> {
 
 	/**
 	 * 保存微信支付详情

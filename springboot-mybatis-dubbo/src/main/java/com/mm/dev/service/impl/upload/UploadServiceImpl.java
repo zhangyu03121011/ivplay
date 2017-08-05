@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.util.Date;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -26,12 +27,16 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.common.util.UUIDGenerator;
 import com.common.util.GaussianBlur.GaussianBlurUtil;
 import com.google.zxing.WriterException;
 import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.config.ZxingHandler;
-import com.mm.dev.service.impl.wechat.WechatServiceImpl;
+import com.mm.dev.constants.WechatConstant;
+import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.service.upload.IUploadService;
+import com.mm.dev.service.user.IUserFilesService;
+import com.mm.dev.service.wechat.IWechatService;
 import com.mm.dev.util.UserSession;
 
 /**
@@ -46,7 +51,10 @@ public class UploadServiceImpl implements IUploadService {
 	private ConfigProperties configProperties;
 	
 	@Autowired
-	private WechatServiceImpl WechatService;
+	private IWechatService WechatService;
+	
+	@Autowired
+	private IUserFilesService userFilesService;
 	
 	@Async
 	public boolean uploadImage(String openId,MultipartFile file) throws Exception {
@@ -54,6 +62,7 @@ public class UploadServiceImpl implements IUploadService {
 			return false;
 		}
 		String fileNames = file.getOriginalFilename();
+		
         InputStream fileInputStream = file.getInputStream();
         if(StringUtils.isNotEmpty(fileNames) && null != fileInputStream) {
         	String uploadPath = configProperties.getImageUrl();
@@ -62,11 +71,16 @@ public class UploadServiceImpl implements IUploadService {
         	int chunks = 1;
         	int chunk = 0;
         	int split = fileNames.lastIndexOf(".");
+        	
         	// 文件名 
         	fileName = fileNames.substring(0,split);
+        	
         	//文件格式   
-//        	String fileType = fileNames.substring(split+1,fileNames.length());
-        	//文件内容 file.getBytes()
+        	String fileSuffix = fileNames.substring(split+1,fileNames.length());
+        	
+        	//UUID生成文件全名
+        	String fileNewNames = UUIDGenerator.generate() + "." + fileSuffix;
+        	
         	// 临时目录用来存放所有分片文件
         	String tempFileDir = uploadPath + File.separator + openId;
         	File parentFileDir = new File(tempFileDir);
@@ -103,19 +117,21 @@ public class UploadServiceImpl implements IUploadService {
         			partFile.delete();
         			destTempfos.close();
         		}
-        		logger.info("生成的原图片路径:{}",destTempFile.getAbsolutePath());
         		
-        		BufferedImage destTempFile2 = ImageIO.read(destTempFile);
+        		long destTempFileLength = destTempFile.length();
+        		logger.info("生成的原图片路径={}===destTempFileLength=",destTempFile.getAbsolutePath(),destTempFileLength);
+        		
         		//生成模糊图片
         		FileUtils.copyFile(destTempFile, destBlurFile);
         		String blurFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() +fileNames;
         		GaussianBlurUtil.setGaussianBlurImg(blurFileDir, 10);
-        		logger.info("生成的模糊图片路径:======{}",destBlurFile.getAbsolutePath());
+        		long destBlurFileLength = destBlurFile.length();
+        		logger.info("生成的模糊图片路径={}===destBlurFileLength={}",destBlurFile.getAbsolutePath(),destBlurFileLength);
         		
         		//生成二维码
         		String qrcodeFileDir = tempFileDir + File.separator + configProperties.getQrcodePrefix() + fileNames;
-        		ZxingHandler.encode2("张晓风是假哈多", configProperties.getWidth(), configProperties.getHeight(),qrcodeFileDir);
-        		logger.info("生成的二维码图片路径:======{}",blurFileDir);
+        		ZxingHandler.encode2("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+configProperties.getAPPID()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=3&connect_redirect=1#wechat_redirect", configProperties.getWidth(), configProperties.getHeight(),qrcodeFileDir);
+        		logger.info("生成的二维码图片路径={}===qrcodeFileDir{}=",qrcodeFileDir,new File(qrcodeFileDir).length());
         		
         		StringBuilder imagePath = new StringBuilder();
         		imagePath.append(configProperties.getHostPath());
@@ -125,10 +141,24 @@ public class UploadServiceImpl implements IUploadService {
         		imagePath.append(openId);
         		imagePath.append("&fileNames=");
         		imagePath.append(fileNames);
+        		
         		 //输出合并图片  
 //        		String blurQrcodeFileDir = tempFileDir + File.separator + configProperties.getBlurPrefix() + "_"+ configProperties.getQrcodePrefix() + fileNames;
 //              addImageLogo(blurFileDir, qrcodeFileDir, blurQrcodeFileDir, 0, 0);
                 
+        		//关联用户
+        		UserFiles userFiles = new UserFiles();
+        		userFiles.setId(UUIDGenerator.generate());
+        		userFiles.setUserId(openId);
+        		userFiles.setCreateTime(new Date());
+        		userFiles.setUpdateTime(new Date());
+        		userFiles.setFileCategory(WechatConstant.file_category_1);
+        		userFiles.setFileNames(fileNames);
+        		userFiles.setFileNewNames(fileNewNames);
+        		userFiles.setFileSize(String.valueOf(destTempFileLength));
+        		userFiles.setFileSuffic(fileSuffix);
+        		userFiles.setFilePath(destTempFile.getAbsolutePath());
+        		userFilesService.saveUserFiles(userFiles);
         		WechatService.sendCustomMessages("<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid="+configProperties.getAPPID()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback?fileNames="+fileNames+"&response_type=code&scope=snsapi_base&state=2&connect_redirect=1#wechat_redirect'>已为您生成好模糊图，点击查看</a>",(String)UserSession.getSession("openId"));
         	} else {
         		// 临时文件创建失败

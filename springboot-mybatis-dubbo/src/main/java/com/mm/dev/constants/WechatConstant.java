@@ -10,7 +10,7 @@ public interface WechatConstant {
 	/**
 	 * 用户名
 	 */
-	public String USER_NAME = "userName";
+	public String NICK_NAME = "nickName";
 	
 	/**
 	 * 用户id
@@ -35,12 +35,22 @@ public interface WechatConstant {
 	/**
 	 * 未关注
 	 */
-	String attention_status_0 = "0";
+	String attention_status_1 = "1";
 	
 	/**
 	 * 已关注
 	 */
-	String attention_status_1 = "1";
+	String attention_status_2 = "2";
+	
+	/**
+	 * 图片
+	 */
+	String file_category_1 = "1";
+	
+	/**
+	 * 视频
+	 */
+	String file_category_2 = "2";
 }
 
 

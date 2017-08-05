@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,7 +43,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.common.util.DateUtil;
 import com.mm.dev.config.ConfigProperties;
+import com.mm.dev.entity.user.User;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.Data;
 import com.mm.dev.entity.wechat.Data_first;
@@ -834,20 +837,18 @@ public class WechatServiceImpl implements IWechatService{
     }
     
     /**
-	 * 通过openID获取微信头像，昵称等基本信息 chengjian 2016-08-05
-	 * 
-	 * @param count:循环调用次数计数，默认0
-	 * @return
-	 */
-	public Map<String, Object> getWeChatInfo(String openId) {
-		Map<String, Object> userInfo = null;
+     * @Description: 通过openID获取微信头像，昵称等基本信息
+     * @Datatime 2017年8月4日 下午8:59:28 
+     * @return Map<String,Object>    返回类型
+     */
+	public User getWeChatInfo(String openId) {
+		User user = null;
 		try {
 			if (StringUtils.isNotEmpty(openId)) {
 				// 获取微信签证
 				AccessToken token = getAccessToken();
 				String accessToken = token.getToken();
-				logger.info("accessToken={}",accessToken);
-				logger.info("调用获取微信头像接口开始=====");
+				logger.info("调用获取微信头像接口开始accessToken={}",accessToken);
 				String getUserInfoUrl = GETUSERINFO.replace("OPENID", openId).replace("ACCESS_TOKEN", accessToken);
 				logger.info("获取微信头像，昵称等基本信息开始=====" + getUserInfoUrl);
 				//从微信获取用户基本信息
@@ -855,21 +856,30 @@ public class WechatServiceImpl implements IWechatService{
 				if(null == getUserInfoUrlObject || !StringUtils.isEmpty(getUserInfoUrlObject.getString("errcode"))) {
 					logger.info("从微信获取头像，昵称等基本信息返回失败getUserInfoUrlObject==={}",getUserInfoUrlObject);
 				} else {
-					userInfo = new HashMap<String, Object>();
-					logger.info("获取微信头像，昵称等基本信息返回值开始：" + getUserInfoUrlObject);
-					logger.info("获取微信昵称=====" + getUserInfoUrlObject.getString("nickname"));
-					logger.info("获取微信性别=====" + getUserInfoUrlObject.getString("sex"));
-					logger.info("获取微信头像=====" + getUserInfoUrlObject.getString("headimgurl"));
-					userInfo.put("nickname", getUserInfoUrlObject.getString("nickname"));
-					userInfo.put("sex", getUserInfoUrlObject.getString("sex"));
-					userInfo.put("headimgurl", getUserInfoUrlObject.getString("headimgurl"));
-					userInfo.put("openId", openId);
-					logger.info("获取微信头像，昵称等基本信息END=====" + getUserInfoUrl);
+					logger.info("获取微信头像，昵称等基本信息返回值：" + getUserInfoUrlObject);
+					user = new User();
+					String nickname = URLEncoder.encode((String)getUserInfoUrlObject.get("nickname"), "utf-8");;
+					user.setNickName(getUserInfoUrlObject.getString("nickname"));
+					user.setUserName(nickname);
+					user.setSex(getUserInfoUrlObject.getString("sex"));
+					user.setHeadimgurl(getUserInfoUrlObject.getString("headimgurl"));
+					user.setCountry(getUserInfoUrlObject.getString("country"));
+					user.setProvince(getUserInfoUrlObject.getString("province"));
+					user.setCity(getUserInfoUrlObject.getString("city"));
+					user.setOpenId(openId);
+					user.setAttenation(getUserInfoUrlObject.getString("subscribe"));
+					String subscribeTime = getUserInfoUrlObject.getString("subscribe_time");
+					if(StringUtils.isNotEmpty(subscribeTime)) {
+						user.setAttenationTime(DateUtil.getStrTime(subscribeTime));
+					}
+					user.setLanguage(getUserInfoUrlObject.getString("language"));
 				}
+			} else {
+				logger.info("获取微信头像，昵称等基本信息失败，openId为空");
 			}
 		} catch (Exception e) {
 			logger.info("获取微信头像，昵称等基本信息异常" + e);
 		}
-		return userInfo;
+		return user;
 	}
 }

@@ -1,4 +1,9 @@
 package com.mm.dev.entity.wechat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WechatPayConfig {
 
 	private String appId;
@@ -46,5 +51,4 @@ public class WechatPayConfig {
 	public void setPaySign(String paySign) {
 		this.paySign = paySign;
 	}
-
 }

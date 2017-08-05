@@ -3,30 +3,98 @@
 <mapper namespace="com.mm.dev.dao.mapper.user.UserMapper">
 
     <resultMap id="userResultMap" type="com.mm.dev.entity.user.User">
-        <id property="id" jdbcType="BIGINT" javaType="Long" column="id" />
-        <result property="username" jdbcType="VARCHAR" javaType="String" column="username" />
-        <result property="password" jdbcType="VARCHAR" javaType="String" column="password" />
+        <id property="id" jdbcType="VARCHAR" javaType="String" column="id" />
+        <result property="nickName" jdbcType="VARCHAR" javaType="String" column="nick_name" />
+        <result property="openId" jdbcType="VARCHAR" javaType="String" column="openId" />
     </resultMap>
 
-    <sql id="selectClause">
-        id, username, password
+    <sql id="baseColumn">
+    	id,
+    	nick_name as nickName,
+    	sex,
+    	open_id as openId,
+    	phone,
+    	user_name as userName,
+    	pass_word as passWord,
+    	headimgurl,
+    	rank,
+    	type,
+    	country,
+    	province,
+    	city,
+    	attenation,
+    	un_attenation as unAttenation,
+    	last_login_ip_address as lastLoginIpAddress
     </sql>
-
-    <select id="findAll" resultMap="userResultMap">
-        select
-            <include refid="selectClause" />
-        from user2
-    </select>
-
-    <select id="getUserAll" resultMap="userResultMap">
-        select
-            <include refid="selectClause" />
-        from user2
-        order by id desc
-    </select>
-
+    
     <insert id="save">
-        INSERT INTO user2 (username, password) VALUES (#{username}, #{password})
+    	insert t_user (
+    		id,
+	    	nick_name,
+	    	sex,
+	    	open_id,
+	    	phone,
+	    	user_name,
+	    	pass_word,
+	    	headimgurl,
+	    	country,
+	    	province,
+	    	city,
+	    	attenation,
+	    	un_attenation,
+	    	last_login_ip_address
+	    	)
+    	value (
+    		#{id},
+	    	#{nickName},
+	    	#{sex},
+	    	#{openId},
+	    	#{phone},
+	    	#{userName},
+	    	#{passWord},
+	    	#{headimgurl},
+	    	#{country},
+	    	#{province},
+	    	#{city},
+	    	#{attenation},
+	    	#{unAttenation},
+	    	#{lastLoginIpAddress}
+    	)
     </insert>
+    
+    <select id="getuserBaseInfoByopenId" resultType="com.mm.dev.entity.user.User">
+    	SELECT
+    		t.nick_name as nickName,
+    		t.headimgurl,
+    		t.sex
+   		FROM
+   			t_user t
+		WHERE
+   			t.open_id = #{openId}
+    </select>
 
+    <update id="updateUserInfo">
+    	UPDATE 
+    		t_user t
+   		<set>
+   			<if test="attenation != null and attenation != ''">
+	   			t.`attenation` = #{attenation},
+   			</if>
+   			<if test="unAttenation != null and unAttenation != ''">
+	   			t.`un_attenation` = #{unAttenation},
+   			</if>
+   			<if test = "headimgurl != null and headimgurl != ''">
+	   			t.headimgurl = #{headimgurl},
+   			</if>
+   			<if test = "sex != null and sex != ''">
+	   			t.sex = #{sex},
+   			</if>
+   			<if test = "nickName != null and nickName != ''">
+	   			t.nick_name = #{nickName},
+   			</if>
+   			t.update_time = now()
+   		</set>
+   		WHERE 
+   			t.`open_id` = #{openId}
+    </update>
 </mapper>

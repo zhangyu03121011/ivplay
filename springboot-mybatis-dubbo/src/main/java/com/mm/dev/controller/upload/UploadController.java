@@ -53,7 +53,6 @@ public class UploadController {
 	@ResponseBody
 	public ReturnMsg<Object> fileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		String openId = (String)UserSession.getSession("openId");
-//		String openId = "123456789";
         try {
         	if(StringUtils.isNotEmpty(openId)) {
         		StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;

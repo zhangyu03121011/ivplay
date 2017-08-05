@@ -1,7 +1,5 @@
 package com.mm.dev.service;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -33,29 +31,6 @@ public class UserServiceTest {
 	private UserMapper userMapper;
 	
 	@Test
-	public void testJpa() {
-		try {
-			userService.save();
-//			System.out.println(JSONObject.toJSONString(userService.getUser(1L)));
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.error("保存异常",e);
-		}
-	}
-	
-	@Test
-	public void testMybatis() {
-		try {
-			userService.saveUser();
-			List<User> userList = userService.getUserList();
-			System.out.println(JSONObject.toJSONString(userList));
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.error("保存异常",e);
-		}
-	}
-	
-	@Test
 	public void testJpaPage() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageable = new PageRequest(0,50, sort);
@@ -69,16 +44,6 @@ public class UserServiceTest {
 //    	logger.info("mybatis分页：{}",JSONObject.toJSONString(userAll));
 	}
 	
-	@Test
-	public void testMybatisPage() throws Exception {
-		Sort sort = new Sort(Direction.DESC, "id");
-		Pageable pageable = new PageRequest(0,50, sort);
-		
-		Page<User> userAll = userService.getUserAll(pageable);
-		logger.info("第一页"+JSONObject.toJSONString(userAll));
-		
-		logger.info("第二页"+JSONObject.toJSONString(userService.getUserAll(new PageRequest(1,50, new Sort(Direction.DESC, "id")))));
-	}
 	
 	public static void main(String[] args) {
 		Sort sort = new Sort(Direction.DESC, "id");
