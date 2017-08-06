@@ -114,6 +114,17 @@
 				text-align: center;
 				color: #098707;				
 			}	
+			
+			.slide input {
+				width: 100$;
+				height: 30px;
+ 				background-color: #e6e6e6;
+				margin: 0 14px 0 14px;
+				border-radius: 5px;
+				text-align: center;
+				color: #098707;				
+			}	
+			
 			.suijiSelect{
 				display: inline-block;
 				vertical-align: middle;
@@ -198,12 +209,14 @@
 			.erweimaModelTitle{
 				margin-left: 5px;
 			}
-			.ModelSelectContainer{
+			
+		/* 	.ModelSelectContainer{
 				margin-left: 30px;
 			}
 			.ModelSelectContainer>div{
 				margin-top: 5px;
-			}
+			} */
+			
 		</style>
 		<script type="text/javascript">
 			 //图片居中显示  
@@ -215,14 +228,14 @@
 				var Height = dom.height;
 				if(Wideth >= Height){
 					dom.width = pWideth;
-//					alert(dom.height);
+					alert(dom.height);
 					if(dom.height >= pHeight){
 						dom.width = dom.width * pHeight / dom.height;
 						dom.height = pHeight;	
 					}	
 				}else{
 					dom.height = pHeight;
-//					alert(dom.height);
+					alert(dom.height);
 					if(dom.width >= pWideth){
 						dom.height = dom.height * pWideth / dom.width;
 						dom.width = pWideth;	
@@ -231,7 +244,7 @@
 				dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';
 				dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
 				dom.style.visibility = 'visible';
-//				console.log(pWideth + "：" + pHeight);
+				console.log(pWideth + "：" + pHeight);
 			}
 		</script>
 	</head>
@@ -256,6 +269,12 @@
 					<div class="c-progress" id="blurNumber"></div>
 				</div>
 			</div>
+			
+			<div class="slide">				
+					标题 :
+					<input type="text" value="长按保存分享朋友" id="title" width="100px">
+			</div>
+			
 			<div class="mark">			
 				<div>(只能输入1到99之间)</div>
 				<div style="margin: 5px 0;">
@@ -273,7 +292,7 @@
 			</div>
 		</div>
 		
-		<div class="erweimaModel">
+		<!-- <div class="erweimaModel">
 			<div class="erweimaModelTitle">二维码样式：</div>
 			<div class="ModelSelectContainer">
 				<div class="ModelSelect">
@@ -285,7 +304,7 @@
 					<label>美观模式(左下角二维码)</label>
 				</div>
 			</div>			
-		</div>
+		</div> -->
 		
 		<div class="btn" id="ctlBtn">上传</div>
 		<div>

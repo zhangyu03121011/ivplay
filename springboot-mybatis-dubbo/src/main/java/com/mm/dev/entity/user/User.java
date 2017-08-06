@@ -1,7 +1,6 @@
 package com.mm.dev.entity.user;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.mm.dev.entity.BaseEntity;
 

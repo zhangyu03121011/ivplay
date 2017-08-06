@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.mm.dev.entity.user.User;
 
 /**
- * Created by Lipengfei on 2015/6/27.
+ * @Description: UserDao
+ * @author Jacky
+ * @date 2017年8月6日 下午9:46:02
  */
 @Repository
 public interface UserDao extends JpaRepository<User, String> {

@@ -4,11 +4,12 @@
 var data=[];
 var canvasWidth = 400;
 var canvasHeight = 900;
+var id = COMMON.getUrlParam("id");
+var fileNames = COMMON.getUrlParam("fileNames");
+var title = COMMON.getUrlParam("title");
+var qrcSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/qrcode_" + fileNames;
+var blurSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/blur_" + fileNames;
 var blur_image_share = (function() {
-	var id = COMMON.getUrlParam("id");
-	var fileNames = COMMON.getUrlParam("fileNames");
-	var qrcSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/qrcode_" + fileNames;
-	var blurSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/blur_" + fileNames;
 	data.push(blurSrc);
 	data.push(qrcSrc);
 	getImgNaturalDimensions(callback,qrcSrc,1);
@@ -41,10 +42,11 @@ function draw(){
 					ctx.font = '48px sans-serif';
 					ctx.textBaseline = 'top';
 					// 填充字符串
-					ctx.fillText('长按图片识别二维码，查看高清原图',400,60);
+					ctx.fillText(fileNames,380,60);
+					ctx.fillText('长按图片识别二维码，查看高清原图',380,150);
 				}
 				else{
-					ctx.drawImage(img,10,400,c.width,c.height);
+					ctx.drawImage(img,10,400,c.width,c.height-300);
 				}
 				
 				drawing(n+1);// 递归

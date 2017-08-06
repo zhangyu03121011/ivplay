@@ -1,5 +1,7 @@
 package com.mm.dev.entity.user;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,9 +19,9 @@ public class UserFiles extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 用户ID
+	 * openId
 	 */
-	private String userId;
+	private String openId;
 	
 	/**
 	 * 文件全名
@@ -51,15 +53,28 @@ public class UserFiles extends BaseEntity {
 	 */
 	private String fileCategory;
 	
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	/**
+	 * 是否选择随机打赏（1： 是 2：否）
+	 */
+	private String random = "1";
+	
+	/**
+	 * 打赏金额最大值
+	 */
+	private BigDecimal price;
+	
+	/**
+	 * 打赏最小值
+	 */
+	private BigDecimal priceMin;
+	
+	private String title;
+	
+	/**
+	 * 打赏图片模糊度
+	 */
+	private int blur;
+	
 	public String getFileNames() {
 		return fileNames;
 	}
@@ -106,5 +121,53 @@ public class UserFiles extends BaseEntity {
 
 	public void setFileNewNames(String fileNewNames) {
 		this.fileNewNames = fileNewNames;
+	}
+
+	public String getRandom() {
+		return random;
+	}
+
+	public void setRandom(String random) {
+		this.random = random;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public BigDecimal getPriceMin() {
+		return priceMin;
+	}
+
+	public void setPriceMin(BigDecimal priceMin) {
+		this.priceMin = priceMin;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public int getBlur() {
+		return blur;
+	}
+
+	public void setBlur(int blur) {
+		this.blur = blur;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

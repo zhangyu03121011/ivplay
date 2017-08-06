@@ -65,12 +65,12 @@ public class BaseEntity implements Serializable {
 	/**
 	 * 描述
 	 */
-	private String descr;
+	private String descr = "-1";
 
 	/**
 	 * 状态
 	 */
-	private String state;
+	private String state = "1";
 
 	/**
 	 * 标志，用于判断
@@ -105,7 +105,7 @@ public class BaseEntity implements Serializable {
 	/**
 	 * 删除标记（1：否 2：是）
 	 */
-	private String delFlag;
+	private String delFlag = "1";
 
 	public String getAppId() {
 		return appId;
