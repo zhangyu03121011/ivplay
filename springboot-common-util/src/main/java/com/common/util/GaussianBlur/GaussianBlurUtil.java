@@ -30,8 +30,8 @@ public class GaussianBlurUtil {
     }
     
 	public static void main(String[] args) {
-        String imgPath = "target\\IMG_4214.PNG";
-        int filterNum = 20;
+        String imgPath = "target\\DSC04425.JPG";
+        int filterNum = 60;
         setGaussianBlurImg(imgPath, filterNum);
 	}
 }
