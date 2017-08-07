@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mm.dev.dao.jpa.user.PayDao;
 import com.mm.dev.entity.wechat.WeixinPayRes;
-import com.mm.dev.service.pay.PayService;
+import com.mm.dev.service.pay.IPayService;
 
 /**
  * 支付处理service
@@ -15,7 +15,7 @@ import com.mm.dev.service.pay.PayService;
  *
  */
 @Service
-public class PayServiceImpl implements PayService{
+public class PayServiceImpl implements IPayService{
 	
 	@Autowired
 	private PayDao paydao;

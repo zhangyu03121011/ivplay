@@ -53,7 +53,8 @@ public class DateUtil extends BaseLogger {
 	 *            时间参数 2：
 	 * @return 相差天数
 	 */
-	public static long getDistanceDays(String str1, String str2) throws Exception {
+	public static long getDistanceDays(String str1, String str2)
+			throws Exception {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date one;
 		Date two;
@@ -178,4 +179,38 @@ public class DateUtil extends BaseLogger {
 
 	}
 
+	/**
+	 * @Description: 将字符串转为时间戳
+	 * @Datatime 2017年8月5日 下午12:24:48 
+	 * @return String    返回类型
+	 */
+	public static String getTime(String user_time) {
+		String re_time = null;
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d;
+		try {
+			d = sdf.parse(user_time);
+			long l = d.getTime();
+			String str = String.valueOf(l);
+			re_time = str.substring(0, 10);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return re_time;
+	}
+
+	/**
+	 * @Description: 将时间戳转为字符串
+	 * @Datatime 2017年8月5日 下午12:24:32 
+	 * @return String    返回类型
+	 */
+	public static String getStrTime(String cc_time) {
+		String re_StrTime = null;
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// 例如：cc_time=1291778220
+		long lcc_time = Long.valueOf(cc_time);
+		re_StrTime = sdf.format(new Date(lcc_time * 1000L));
+		return re_StrTime;
+	}
 }

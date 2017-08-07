@@ -1,18 +1,22 @@
 package com.mm.dev.entity.wechat;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.mm.dev.entity.BaseEntity;
+
 @Entity
-//@Table(name = "user")
-public class WeixinPayRes implements Serializable {
+//@Table(name = "t_payment")
+public class WeixinPayRes extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 主键ID
+	 */
 	@Id
 	private String id;
+	
 	/**
 	 * 订单编号
 	 * @return
@@ -46,7 +50,7 @@ public class WeixinPayRes implements Serializable {
 	private String paymentMethod;
 	
 	/**
-	 * 类型
+	 * 付款类型（1:储值卡 2：信用卡）
 	 */
 	private String type;
 	
@@ -59,17 +63,8 @@ public class WeixinPayRes implements Serializable {
 	/**
 	 * 支付状态
 	 */
-	private Integer status;
-	private String orderTableId;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	private Integer paymentStatus;
+	
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -134,20 +129,20 @@ public class WeixinPayRes implements Serializable {
 		this.paymentBank = paymentBank;
 	}
 
-	public String getOrderTableId() {
-		return orderTableId;
+	public Integer getPaymentStatus() {
+		return paymentStatus;
 	}
 
-	public void setOrderTableId(String orderTableId) {
-		this.orderTableId = orderTableId;
+	public void setPaymentStatus(Integer paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public String getId() {
+		return id;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

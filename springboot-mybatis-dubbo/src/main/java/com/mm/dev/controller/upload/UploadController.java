@@ -24,23 +24,29 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import com.mm.dev.controller.wechat.wechartController;
+import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
-import com.mm.dev.service.impl.upload.UploadServiceImpl;
-import com.mm.dev.service.impl.wechat.WechatServiceImpl;
+import com.mm.dev.service.upload.IUploadService;
+import com.mm.dev.service.wechat.IWechatService;
 import com.mm.dev.util.ReturnMsgUtil;
 import com.mm.dev.util.UserSession;
 
+/**
+ * @Description: UploadController
+ * @author Jacky
+ * @date 2017年8月6日 上午10:53:01
+ */
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
 	private Logger logger = LoggerFactory.getLogger(wechartController.class);
 	
 	@Autowired
-	private WechatServiceImpl WechatService;
+	private IWechatService WechatService;
 	
 	@Autowired
-	private UploadServiceImpl uploadService;
+	private IUploadService uploadService;
 	
 	/**
 	 * @Description: 上传图片
@@ -51,9 +57,8 @@ public class UploadController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/image",method=RequestMethod.POST)
 	@ResponseBody
-	public ReturnMsg<Object> fileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public ReturnMsg<Object> fileUpload(UserFiles userFiles,HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		String openId = (String)UserSession.getSession("openId");
-//		String openId = "123456789";
         try {
         	if(StringUtils.isNotEmpty(openId)) {
         		StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
@@ -63,7 +68,8 @@ public class UploadController {
         			WechatService.sendCustomMessages("正在拼命处理中...",openId);
         			while (iterator.hasNext()) {
         				MultipartFile file = req.getFile(iterator.next());
-        				uploadService.uploadImage(openId, file);
+        				userFiles.setOpenId(openId);
+        				uploadService.uploadImage(userFiles, file);
         			}
         		}
         	} else {

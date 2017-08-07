@@ -2,7 +2,10 @@
  * 支付打赏
  */
 var image_pay = (function() {
-//     if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+	
+	init();
+	
+     if(IsPC()) window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa4b944d0cb27a7d4&redirect_uri=http%3A%2F%2Fitpqd.cn%2Fexample%2Fjsapi.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
      setTimeout(function() {
          //当图片高度小于360px时，打赏图片按钮的top为30%
 //         var imgW = $('.weui-article img').height();
@@ -19,26 +22,40 @@ var image_pay = (function() {
 //         var dia_top = '-' + (imgW/2 + 166) + 'px';
 //         $('.reward-dialog').css({top:dia_top});
      },300);
-     wx.config({
-         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-         appId: "wxa4b944d0cb27a7d4",
-         timestamp: "1414587457",
-         nonceStr: "Wm3WZYTPz0wzccnW",
-         signature: "f7cb20e4db00b694fc5037d68e3d1d2c28541528",
-         jsApiList: [
-         'hideAllNonBaseMenuItem',
-         'hideOptionMenu',
-         ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-     });   
-     wx.ready(function(){
-         //隐藏所有非基础按钮接口
-         wx.hideOptionMenu();
-     });   
+//     wx.config({
+//         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+//         appId: "wxa4b944d0cb27a7d4",
+//         timestamp: "1414587457",
+//         nonceStr: "Wm3WZYTPz0wzccnW",
+//         signature: "f7cb20e4db00b694fc5037d68e3d1d2c28541528",
+//         jsApiList: [
+//         'hideAllNonBaseMenuItem',
+//         'hideOptionMenu',
+//         ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+//     });   
+//     wx.ready(function(){
+//         //隐藏所有非基础按钮接口
+//         wx.hideOptionMenu();
+//     });   
 })();
 
+function init() {
+	//获取用户数据
+	var id = COMMON.getUrlParam("id");
+	AJAX.call("/user/queryUserInfo/"+id,"get","json","","true",function(result) {
+		if(result && result.status) {
+			var data = result.data;
+			if(COMMON.isNotEmpty(data)) {
+				$("#tips-content").html('该内容由<img src="'+data.headimgurl+'" class="head_img">'+data.nickName+' 发布并收费');
+			}
+		}
+	});
+	
+}
 //判断是否电脑端
 function IsPC() {
     var userAgentInfo = navigator.userAgent;
+    console.info(userAgentInfo);
     var Agents = ["Android", "iPhone",
                 "SymbianOS", "Windows Phone",
                 "iPad", "iPod"];

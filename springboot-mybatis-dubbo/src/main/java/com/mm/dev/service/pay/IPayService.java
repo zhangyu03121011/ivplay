@@ -2,7 +2,7 @@ package com.mm.dev.service.pay;
 
 import com.mm.dev.entity.wechat.WeixinPayRes;
 
-public interface PayService {
+public interface IPayService {
 	
 	/**
 	 * 微信支付回调通知 更新订单、支付状态

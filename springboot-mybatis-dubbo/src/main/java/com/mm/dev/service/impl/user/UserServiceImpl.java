@@ -1,10 +1,8 @@
 package com.mm.dev.service.impl.user;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.common.util.UUIDGenerator;
 import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.dao.jpa.user.UserDao;
 import com.mm.dev.dao.mapper.user.UserMapper;
@@ -44,7 +43,7 @@ public class UserServiceImpl implements IUserService {
     private WechatServiceImpl wechatServiceImpl;
 
     @Override
-    public User getUser(Long id) {
+    public User getUser(String id) {
         return userDao.getOne(id);
     }
 
@@ -53,119 +52,89 @@ public class UserServiceImpl implements IUserService {
         return userDao.findAll(pageable);
     }
 
-    @Override
-    public List<User> getUserList() {
-        return userMapper.findAll();
-    }
-
-    @Override
-    public Page<User> getUserAll(Pageable pageable) {
-        return userMapper.getUserAll(pageable);
-    }
-
-    @Transactional
-    @Override
-    public void save() throws Exception{
-    	for (int i = 0; i < 50; i++) {
-    		User user = new User();
-    		user.setUserName(String.valueOf(i));
-    		user.setPassWord(String.valueOf(i));
-    		userDao.saveAndFlush(user);
-		}
-    }
-
-    @Transactional
-    @Override
-    public void saveUser() throws Exception{
-    	for (int i = 51; i < 100; i++) {
-    		User user = new User();
-    		user.setUserName(String.valueOf(i));
-    		user.setPassWord(String.valueOf(i));
-    		userMapper.save(user);
-		}
-    }
-    
     /**
 	 * 根据openId查询会员ID
 	 * @param openId
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String,Object> getuserIdByopenId(String openId) throws Exception{
-		Map<String,Object> result = userMapper.getuserIdByopenId(openId);
-		if(null != result){
-			if(result.containsKey("name")){
-				String nickName = (String) result.get("name");
-				result.put("name", URLDecoder.decode(nickName, "utf-8"));
-			}
-		}
-		return result;
+	public User getuserBaseInfoByopenId(String openId) throws Exception{
+		User user = userMapper.getuserBaseInfoByopenId(openId);
+		return user;
 	}
     
     /**
 	 * 保存用户信息
 	 * @param toUserName
 	 */
-	public void weixinRegister(String openId,int attenation) {
+	public void weixinRegister(HttpServletRequest request,String openId,String attenation) throws Exception{
 		try {
 			if (StringUtils.isNotEmpty(openId)) {
 				UserSession.setSession(WechatConstant.OPEN_ID, openId);
-				logger.info("保存授权回调openId到session：{}",openId);
-				// 根据openId查询出当前用户
-				Map<String, Object> member = getuserIdByopenId(openId);
-				//获取用户头像，性别，头像URL
-				Map<String, Object> map = wechatServiceImpl.getWeChatInfo(openId);
-				if (member == null) {
-					String nickName = URLEncoder.encode(map.get("nickname").toString(), "utf-8");
+				//根据openId查询出当前用户
+				User user = getuserBaseInfoByopenId(openId);
+				//老用户点击菜单授权
+				if(null != user && (StringUtils.isNotEmpty(attenation) && WechatConstant.attention_status_1.equals(attenation))) {
+					return;
+				} else {
 					User userInfo = new User();
-					userInfo.setOpenId(openId);
-					userInfo.setAttenation(attenation);//是否已关注公众号（0：未 1：已）
-					userInfo.setUserName(nickName);  //昵称
-					userInfo.setSex((String)map.get("sex"));//性别
-					userInfo.setHeadimgurl((String)map.get("headimgurl"));//头像
-					//@todo
-//					userDao.createUser(userInfo);
-					
-				} else { //更新session值:userId，rankId，merchartId
-					String userId = member.get("id").toString();
-					logger.info("根据openId={}查询出当前userId={}" ,openId,userId);
-					UserSession.setSession(WechatConstant.USER_ID, userId);
-					String userName = (String) member.get("userName");
-					UserSession.setSession(WechatConstant.USER_NAME, userName);
-					// 更新用户头像、昵称和性别 TODO
-//					userDao.updateUserHead(map);
-					if(WechatConstant.attention_status_1.equals(attenation) && WechatConstant.attention_status_0.equals(member.get("attention"))) {
-						Map<String, Object> attenationMap = new HashMap<String, Object>();
-						attenationMap.put("attention",attenation);
-						attenationMap.put("openId", openId);
-//						TODO
-//						userDao.updateUserAttenation(attenationMap);
-						attenationMap = null;
+					//获取用户头像，性别，头像URL
+					userInfo = wechatServiceImpl.getWeChatInfo(openId);
+					try {
+						//获取用户访问IP地址
+						String ipAddr = getIp2(request);
+						userInfo.setLastLoginIpAddress(ipAddr);
+						logger.info("获取用户访问IP地址ipAddr=",ipAddr);
+					} catch (Exception e) {
+						logger.error("获取客户端IP地址异常",e);
+					}
+					//如果是老用户点击关注注册进来更新获取用户最新信息
+					if(null != user && (StringUtils.isNotEmpty(attenation) && WechatConstant.attention_status_2.equals(attenation))) {
+						userInfo.setId(user.getId());
+						save(userInfo);
+					} else if(null == user) { //新用户
+						save(userInfo);
 					}
 				}
 			}
 		} catch (Exception e) {
-			logger.info("保存用户信息异常======"+e);
-			e.printStackTrace();
+			logger.info("保存用户信息异常",e);
 		}
 	}
 	
+	public static String getIp2(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            //多次反向代理后会有多个ip值，第一个ip才是真实ip
+            int index = ip.indexOf(",");
+            if(index != -1){
+                return ip.substring(0,index);
+            }else{
+                return ip;
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            return ip;
+        }
+        return request.getRemoteAddr();
+    }
+	
 	/*
-	 * 更新用户头像，性别，昵称
+	 * 新增/更新用户
 	 */
 	@Transactional(readOnly = false)
-	public void updateUserHead(Map<String,Object> map) throws Exception {
-		if(null!= map){
-			User user = new User();
-			user.setSex((String)map.get("sex"));
-			if(map.containsKey("nickname")){
-				String nickname = URLEncoder.encode((String)map.get("nickname"), "utf-8");;
-				user.setUserName(nickname);
+	public void save(User user) throws Exception {
+		if(null != user){
+			user.setUpdateTime(new Date());
+			if(StringUtils.isEmpty(user.getId())) {
+				user.setCreateTime(new Date());
+				user.setId(UUIDGenerator.generate());
+				userDao.saveAndFlush(user);
+			} else {
+				userMapper.updateUserInfo(user);
 			}
-			user.setHeadimgurl((String)map.get("headimgurl"));
-			user.setOpenId((String)map.get("openId"));
-			//TODO
-//			userDao.updateUserHead(user);
+			UserSession.setSession(WechatConstant.USER_ID, user.getId());
 		}
 	}
     
@@ -173,15 +142,14 @@ public class UserServiceImpl implements IUserService {
 	 * 取消关注保存用户信息
 	 * @param toUserName
 	 */
-	public void unSubscribe(String openID) {
+	public void unSubscribe(String openId) {
 		try {
-			logger.info("取消关注操作openId==={}",openID);
-			if(StringUtils.isNotEmpty(openID)) {
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put(WechatConstant.OPEN_ID,openID);
-				params.put("attention", WechatConstant.attention_status_0);
-				//TODO
-//				userDao.updateUserAttenation(params);
+			logger.info("取消关注操作openId==={}",openId);
+			if(StringUtils.isNotEmpty(openId)) {
+				User user = new User();
+				user.setOpenId(openId);
+				user.setUnAttenation(WechatConstant.attention_status_2);
+				userMapper.updateUserInfo(user);
 			}
 		} catch (Exception e) {
 			logger.info("取消关注保存用户信息异常======"+e);

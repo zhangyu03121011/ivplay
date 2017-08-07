@@ -34,7 +34,8 @@ import com.mm.dev.enums.Payment_Method;
 import com.mm.dev.enums.Payment_Status;
 import com.mm.dev.enums.Payment_Type;
 import com.mm.dev.enums.WXBankTypeEnum;
-import com.mm.dev.service.pay.PayService;
+import com.mm.dev.service.pay.IPayService;
+import com.mm.dev.service.user.IUserService;
 import com.mm.dev.service.wechat.IWechatService;
 import com.mm.dev.util.CheckUtil;
 import com.mm.dev.util.MessageUtil;
@@ -57,7 +58,10 @@ public class wechartController{
 	private ConfigProperties configProperties;
 	
 	@Autowired
-	private PayService payService;
+	private IPayService payService;
+	
+	@Autowired
+	private IUserService userService;
 	
 	/**
 	 * @Description: 接入验证
@@ -98,7 +102,7 @@ public class wechartController{
 			String message = null;
 			if (MessageUtil.MESSAGE_TEXT.equals(msgType)) {
 				 if ("?".equals(content) || "？".equals(content)) {
-					 message = MessageUtil.initText(toUserName, fromUserName,MessageUtil.menuText());
+					 message = MessageUtil.initText(toUserName, fromUserName,MessageUtil.welcomeMessage());
 				 }
 			} else if (MessageUtil.MESSAGE_EVNET.equals(msgType)) {
 				String eventType = map.get("Event");
@@ -112,7 +116,8 @@ public class wechartController{
 					logger.info("消息的接收与响应信息======Ticket：" + map.get("Ticket"));
 					logger.info("消息的接收与响应信息======content：" + MessageUtil.secondMenu());
 					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
-
+					//普通用户注册(openId注册)
+					userService.weixinRegister(req,fromUserName, WechatConstant.attention_status_2);
 					//带参数关注二维码
 					String qrscene = map.get("EventKey"); // qrscene_535d1d35e035441e93aa18883d3d84af
 					if (StringUtils.isNotEmpty(qrscene)) {
@@ -124,14 +129,14 @@ public class wechartController{
 					logger.info("消息的接收与响应信息======fromUserName：" + fromUserName);
 					logger.info("消息的接收与响应信息======content：" + MessageUtil.secondMenu());
 					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.secondMenu());
-					
+					userService.unSubscribe(fromUserName);
 				} else if (MessageUtil.MESSAGE_SCAN.equalsIgnoreCase(eventType)) {
-					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
+					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.firstMenu());
 				} else {
-					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
+					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.firstMenu());
 				}
 			} else {
-				message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.welcomeMessage());
+				message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.firstMenu());
 			}
 			logger.info("消息的接收与响应结束======" + message);
 			if(null != out) {
@@ -164,6 +169,8 @@ public class wechartController{
 			logger.info("获取网页授权获取openId:{}======",openId);
 			UserSession.setSession("openId", openId);
 			//普通用户注册(openId注册)
+			userService.weixinRegister(request,openId, WechatConstant.attention_status_1);
+			
 			if ("1".equals(state)) {
 				//上传图片
 				gotoPage = "/wx_upload_photo.html";
@@ -176,6 +183,14 @@ public class wechartController{
         		imagePath.append(openId);
         		imagePath.append("&fileNames=");
         		imagePath.append(fileNames);
+				gotoPage = imagePath.toString();
+			} else if("3".equals(state)) {
+				//跳转支付查看页面
+				StringBuilder imagePath = new StringBuilder();
+        		imagePath.append("/");
+        		imagePath.append("blur_image_wxpay.html?");
+        		imagePath.append("id=");
+        		imagePath.append(openId);
 				gotoPage = imagePath.toString();
 			}
 		} catch (Exception e) {
@@ -337,7 +352,7 @@ public class wechartController{
 				weixinPayResDto.setPaymentDate(resultMap.get("time_end"));
 				weixinPayResDto.setPaymentMethod(String.valueOf(Payment_Method.JSAPI.getIndex()));
 				weixinPayResDto.setType(Payment_Type.payment.getIndex());
-				weixinPayResDto.setStatus(Payment_Status.success.getIndex());
+				weixinPayResDto.setPaymentStatus(Payment_Status.success.getIndex());
 				weixinPayResDto.setPaymentBank(WXBankTypeEnum.getDescription(resultMap.get("bank_type")));
 				logger.info("orderNo====:" + resultMap.get("out_trade_no"));
 //				OrderTable orderByOrderNo = orderService.getOrderByOrderNo(resultMap.get("out_trade_no"));

@@ -148,8 +148,7 @@ public class MessageUtil {
 
 	public static String firstMenu() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("欢迎您的关注，请绑定手机号码操作：\n");
-		sb.append("<a href='/page/weixin/user.html'>点击绑定</a>\n\n");
+		sb.append("欢迎您的关注\n");
 		return sb.toString();
 	}
 

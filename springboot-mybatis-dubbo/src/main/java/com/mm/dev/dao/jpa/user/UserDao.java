@@ -1,17 +1,17 @@
 package com.mm.dev.dao.jpa.user;
 
-import com.mm.dev.entity.user.User;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.mm.dev.entity.user.User;
+
 /**
- * Created by Lipengfei on 2015/6/27.
+ * @Description: UserDao
+ * @author Jacky
+ * @date 2017年8月6日 下午9:46:02
  */
 @Repository
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<User, String> {
 
 //    Page<User> findAll(Pageable pageable);
 

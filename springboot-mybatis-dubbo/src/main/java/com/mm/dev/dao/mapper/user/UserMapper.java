@@ -1,31 +1,35 @@
 package com.mm.dev.dao.mapper.user;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mm.dev.entity.user.User;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-import java.util.Map;
-
 /**
- * Created by Lipengfei on 2015/6/26.
+ * @Description: userMapper
+ * @author Jacky
+ * @date 2017年8月4日 下午10:01:26
  */
 public interface UserMapper {
 
-    List<User> findAll();
-
-    Page<User> getUserAll(@Param("pageable")Pageable pageable);
-
-    void save(User user);
-    
     /**
    	 * 根据openId查询会员id
    	 * @param openId
    	 * @return
    	 * @throws Exception
    	 */
-   	public Map<String,Object>  getuserIdByopenId(String openId) throws Exception;
-
+   	public User getuserBaseInfoByopenId(@Param("openId") String openId) throws Exception;
+   	
+   	/**
+   	 * @Description: 更新用户信息
+   	 * @Datatime 2017年8月4日 下午10:02:10 
+   	 * @return void    返回类型
+   	 */
+   	public void updateUserInfo(User user);
+   	
+	/**
+   	 * @Description: 保存用户信息
+   	 * @Datatime 2017年8月4日 下午10:02:10 
+   	 * @return void    返回类型
+   	 */
+   	public void save(User user);
 }

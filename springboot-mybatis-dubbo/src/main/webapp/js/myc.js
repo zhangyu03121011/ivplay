@@ -11,7 +11,8 @@ if (_debug) {
 		alert('Error at line ' + line + ': ' + JSON.stringify(message));
 	};
 }
-var my = (function() { //依赖于jquery
+
+var my = (function() {
 
 	function isMobile() {
 		var ua = navigator.userAgent.toLowerCase();
