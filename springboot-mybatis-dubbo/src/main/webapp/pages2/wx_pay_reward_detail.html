@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://mnsppds.huishengdianz.com/s/54/wx_reward_detail.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>打赏详情</title>
+		<link rel="stylesheet" type="text/css" href="./wx_pay_reward_detail_files/api.css">
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				background-color: #fff;
+			}
+			.main{
+				margin: 10px auto;
+				width: 200px;
+				height: 200px;
+				/*border: 1px solid #ccc;*/
+			}
+			.imgContainer{
+				width: 200px;
+				height: 200px;
+				margin: 0px auto 0px;
+				overflow: hidden;
+				display: none;
+				position: relative;
+			}
+			.imgContainer>img{
+				display: block;
+			}
+			.videoContainer{
+				width: 200px;
+				height: 200px;
+				margin: 0px auto 0px;
+				display: none;
+			}
+			.videoContainer>video{
+				width: 100%;
+				height: 100%;
+			}
+			.recordTitle{
+				font-size: 16px;
+				font-weight: 700;
+				margin-top: 20px;
+				margin-left: 10px;
+				padding-left: 5px;
+				border-left: 5px solid #09be07;
+				color: #222;
+			}
+			.records{
+				margin-left: 20px;
+			}
+			.records .rows{
+				padding: 10px 0 10px 50px;
+				border-bottom: 1px solid #e4e4e4;
+				position: relative;
+			}
+			.headerImg{
+				position: absolute;
+				left: 0;
+				top: 10px;
+				width: 40px;
+				height: 40px;
+				overflow: hidden;
+			}
+			.rows_top{
+				color: #4b4b4b;
+			}
+			.ff8d26{
+				color: #ff8d26;
+			}
+			.f86d6d{
+				color: #f86d6d;
+			}
+			.date{
+				color: #a7a7a7;
+				font-size: 12px;
+				margin-top: 3px;
+			}
+			.noshow1{
+                position: fixed;
+                _position: absolute;
+                left: 0%;
+                top: 0%;
+                width: 100%;
+                height: 100%;
+                font-size: 18px;                
+                text-align: center;             
+                background-color: #000;
+                z-index: 9999999;
+                display: none;
+            }
+            .noshow1>div{
+                position: fixed;
+                _position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 100%;
+                height: 30px;
+                -webkit-transform: translateX(-50%) translateY(-50%);
+                -moz-transform: translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -o-transform: translateX(-50%) translateY(-50%);
+                transform: translateX(-50%) translateY(-50%);
+                color: #fff;
+            }
+            .imgContainer>i{
+            	position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 50px;
+				height: 50px;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				background-image: url(img/videobtn.png);
+				background-size: 100% 100%;
+				display:none;
+            }
+		</style>
+		<script type="text/javascript">
+			 function center_img(dom) {
+				dom.style.visibility = 'hidden';
+				var pWideth = dom.parentNode.offsetWidth;
+				var pHeight = dom.parentNode.offsetHeight;
+				var Wideth = dom.width;
+				var Height = dom.height;
+				if(Wideth >= Height){
+					dom.width = pWideth;
+					if(dom.height >= pHeight){
+						dom.width = dom.width * pHeight / dom.height;
+						dom.height = pHeight;	
+					}	
+				}else{
+					dom.height = pHeight;
+					if(dom.width >= pWideth){
+						dom.height = dom.height * pWideth / dom.width;
+						dom.width = pWideth;	
+					}	
+				}
+				dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';
+				dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
+				dom.style.visibility = 'visible';
+			}
+		</script>
+		<script src="./wx_pay_reward_detail_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="noshow1" id="noshow">
+            <div>该内容已经无法展示</div>
+        </div>
+		<div class="main">
+			<div class="imgContainer">
+				<img src="http://mnsppds.huishengdianz.com/s/54/wx_reward_detail.html" onload="center_img(this)" id="imgBlur">
+				<i></i>
+			</div>			
+		</div>
+		<div class="recordTitle">支付记录(¥<span id="income"></span>)</div>
+		<div class="records" id="interpolation">
+			<script id="interpolationtmpl" type="text/x-dot-template">
+				<div class="rows">
+					<div class="headerImg">
+						<img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)" />
+					</div>
+					{{? it.status == 1}}
+						<div class="rows_top">{{=it.nickname}}支付了 <span class="ff8d26">{{=it.amount}}</span> 元</div>
+					{{?? it.status == 2}}
+						<div class="rows_top">{{=it.nickname}}<span class="ff8d26">{{=it.amount}}</span> 元 <span class="f86d6d">支付失败</span></div>
+					{{?? it.status == 3}}
+						<div class="rows_top">{{=it.nickname}}<span class="ff8d26">{{=it.amount}}</span> 元 <span class="f86d6d">退款中</span></div>
+					{{?? it.status == 4}}
+						<div class="rows_top">{{=it.nickname}}<span class="ff8d26">{{=it.amount}}</span> 元 <span class="f86d6d">退款成功</span></div>
+					{{?? it.status == 5}}
+						<div class="rows_top">{{=it.nickname}}<span class="ff8d26">{{=it.amount}}</span> 元 <span class="f86d6d">退款失败</span></div>
+					{{?? it.status == 0}}
+						<div class="rows_top">{{=it.nickname}}<span class="ff8d26">{{=it.amount}}</span> 元 <span class="f86d6d">未支付</span></div>
+					{{?}}
+					
+					<div class="date">{{=it.date}}</div>
+				</div>
+			</script>
+			<!--<div class="rows">
+				<div class="headerImg">
+					<img src="img/img1.png" onload="fitImage(this.parentNode,this)"/>
+				</div>
+				<div class="rows_top">"小鱼"支付了 <span class="ff8d26">1.2</span> 元</div>
+				<div class="date">2016-12-12 12:00:54</div> 
+			</div>
+			<div class="rows"> 
+				<div class="headerImg">
+					<img src="img/img2.png" onload="fitImage(this.parentNode,this)"/>
+				</div>
+				<div class="rows_top">"欧阳若思" <span class="ff8d26">0.8</span> 元 <span class="f86d6d">未支付</span></div>
+				<div class="date">2016-12-12 12:00:54</div>
+			</div>
+			<div class="rows">
+				<div class="headerImg">
+					<img src="img/img1.png" onload="fitImage(this.parentNode,this)"/>
+				</div>
+				<div class="rows_top">"小鱼"支付了 <span class="ff8d26">1.2</span> 元</div>
+				<div class="date">2016-12-12 12:00:54</div>
+			</div>
+			<div class="rows">
+				<div class="headerImg">
+					<img src="img/img1.png" onload="fitImage(this.parentNode,this)"/>
+				</div>
+				<div class="rows_top">"欧阳若思" <span class="ff8d26">0.8</span> 元 <span class="f86d6d">未支付</span></div>
+				<div class="date">2016-12-12 12:00:54</div>
+			</div>-->
+		</div>
+		
+		<script src="./wx_pay_reward_detail_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_pay_reward_detail_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script src="./wx_pay_reward_detail_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var start = 0 ,count = 10;
+			var flag = true;
+
+			var k = p = t = code = '';	
+			//获取url的参数
+			if(my.getQuery()){
+				k = my.getQuery().k; 
+				p = my.getQuery().p;
+                t = my.getQuery().t;
+                code = my.getQuery().code;
+				// alert("k : " + k + ', p : ' + p + ',t:' + t + ',code:' + code);
+				getImgInfo();					
+			}else{
+					// alert('没有获取到url的参数');
+			}
+
+			//获取图片信息
+			function getImgInfo(){	
+				if(!flag){
+					return false;
+				}
+				myc.showProgress();
+				my.ajax('load/' + k + '/' + start + '/' + count + '?t=' + t + '&code=' + code,{},function(ret,err,status){
+					// alert('获取信息' + JSON.stringify(ret));
+					myc.hideProgress();
+						// myc.alert({
+						// 	msg : "获取信息:"+JSON.stringify(ret)
+						// });
+					if(ret && ret.success){
+						// alert('获取信息' + JSON.stringify(ret));
+						if(!(my.isWeiXin())) {
+                            $('#noshow').css('display','block');
+                        }else{
+							$('#income').html(ret.income);
+							if(ret.type == 1){//图片
+								$('.imgContainer').css('display','block');
+								$('#imgBlur').attr('src',ret.url);
+							}else if(ret.type == 2){//视频
+								$('.imgContainer').css('display','block');
+								$('.imgContainer>i').css('display','block');
+								$('#imgBlur').attr('src',ret.shotUrl);
+							}		
+							var data = ret.records;
+							if(data){
+								if(data.length){								
+									var dataInters = '';
+									for(var i = 0; i < data.length; i++){
+										dataInters = {
+											id : data[i].id,
+											nickname : data[i].nickname,
+											headimgurl : data[i].headimgurl,
+											amount : data[i].amount,
+											date : myc.getTime((new Date(data[i].pay_time))),
+											status : data[i].status
+																			
+										};	
+										if(data[i].nickname){
+											dataInters.nickname = '"' + data[i].nickname + '"';
+										}else{
+											dataInters.nickname = '有人';
+										}										
+										createDatas(dataInters);
+									}
+									start = data[data.length - 1].id;	
+								}
+							}else{
+								myc.toast({
+									msg : '没有更多了'
+								});
+								flag = false;
+							}
+						}
+					}else {
+						if(ret.blackUrl) {
+							window.location.href = ret.blackUrl;
+						}					
+						if(ret.block){
+							window.location.href =  ret.blackUrl;
+						}
+					}							
+				});
+			}
+			//传入数据源，利用模版生成HTML
+			function createDatas(dataInters) {
+				var interText = doT.template(document.getElementById("interpolationtmpl").innerText);
+				document.getElementById("interpolation").insertAdjacentHTML('beforeEnd', interText(dataInters));
+			}
+			//获取滚动条当前的位置 
+			function getScrollTop() {
+				var scrollTop = 0;
+				if (document.documentElement && document.documentElement.scrollTop) {
+					scrollTop = document.documentElement.scrollTop;
+				} else if (document.body) {
+					scrollTop = document.body.scrollTop;
+				}
+				return scrollTop;
+			}
+			//获取当前可是范围的高度 
+			function getClientHeight() {
+				var clientHeight = 0;
+				if (document.body.clientHeight && document.documentElement.clientHeight) {
+					clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+				} else {
+					clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+				}
+				return clientHeight;
+			}
+			//获取文档完整的高度 
+			function getScrollHeight() {
+				return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			}
+			window.onscroll = function() {	
+				if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX				
+					myc.showProgress();
+					my.ajax('reload/' + k + '/' + start + '/' + count + '?t=' + t + '&code=' + code,{},function(ret,err,status){
+						// alert('获取信息' + JSON.stringify(ret));
+						myc.hideProgress();
+							// myc.alert({
+							// 	msg : "获取信息:"+JSON.stringify(ret)
+							// });
+						if(ret && ret.success){
+							// alert('获取信息' + JSON.stringify(ret));
+							if(!(my.isWeiXin())) {
+	                            $('#noshow').css('display','block');
+	                        }else{
+								$('#income').html(ret.income);
+								if(ret.type == 1){//图片
+									$('.imgContainer').css('display','block');
+									$('#imgBlur').attr('src',ret.url);
+								}else if(ret.type == 2){//视频
+									$('.imgContainer').css('display','block');
+									$('.imgContainer>i').css('display','block');
+									$('#imgBlur').attr('src',ret.shotUrl);
+								}		
+								var data = ret.records;
+								if(data){
+									if(data.length){								
+										var dataInters = '';
+										for(var i = 0; i < data.length; i++){
+											dataInters = {
+												id : data[i].id,
+												nickname : data[i].nickname,
+												headimgurl : data[i].headimgurl,
+												amount : data[i].amount,
+												date : myc.getTime((new Date(data[i].pay_time))),
+												status : data[i].status
+																				
+											};	
+											if(data[i].nickname){
+												dataInters.nickname = '"' + data[i].nickname + '"';
+											}else{
+												dataInters.nickname = '有人';
+											}										
+											createDatas(dataInters);
+										}
+										start = data[data.length - 1].id;	
+									}
+								}else{
+									myc.toast({
+										msg : '没有更多了'
+									});
+									flag = false;
+								}
+							}
+						}else {
+							if(ret.blackUrl) {
+								window.location.href = ret.blackUrl;
+							}					
+							if(ret.block){
+								window.location.href =  ret.blackUrl;
+							}
+						}							
+					});
+				}
+			} 
+		</script>
+	
+
+<audio controls="controls" style="display: none;"></audio></body><style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:10001;background:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;}</style></html>
