@@ -26,7 +26,7 @@ public interface IUserFilesService {
      * @Datatime 2017年8月5日 下午6:15:42 
      * @return Page<User>    返回类型
      */
-    Page<UserFiles> getAll(String openId,Pageable pageable) throws Exception;
+    Page<UserFiles> getAll(String openId,String delFlag,Pageable pageable) throws Exception;
 
 	/**
 	 * @Description: 保存当前用户上传的文件
@@ -41,5 +41,12 @@ public interface IUserFilesService {
 	 * @return List<UserFiles>    返回类型
 	 */
 	public List<UserFiles> findByOpenIdAndFileCategory(String openId,String fileCategory) throws Exception;
+	
+	/**
+	 * @Description: 根据ID删除
+	 * @Datatime 2017年8月7日 下午9:55:50 
+	 * @return void    返回类型
+	 */
+	public void deleteById(String id) throws Exception;
 	
 }

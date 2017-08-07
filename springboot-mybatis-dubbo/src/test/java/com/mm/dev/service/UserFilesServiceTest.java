@@ -7,6 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
@@ -58,6 +62,13 @@ public class UserFilesServiceTest {
 	
 	@Test
 	public void testQueryByPage() throws Exception {
-		System.out.println(JSONObject.toJSONString(userFilesService.getAll("o5z7ywOP7qycrtAAxIqDfgMbfcFY",null)));
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		Pageable pageable = new PageRequest(0,6, sort);
+		System.out.println(JSONObject.toJSONString(userFilesService.getAll("o5z7ywOP7qycrtAAxIqDfgMbfcFY","1",pageable)));
+	}
+	
+	@Test
+	public void testDeleteById() throws Exception {
+		userFilesService.deleteById("402881e45dbc8c52015dbc8c52a50000");
 	}
 }

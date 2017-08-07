@@ -3,7 +3,7 @@
 2.选择自定义菜单->自定义创建菜单->输入1中获取的token->输入菜单json数据
 
 APPID=wxf2e2669e9b5e12e4
-APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
+APPKEY=d4624c36b6795d1d99dcf0547af5443d
 
 以下是pbyt 测试环境菜单json数据
 
@@ -26,7 +26,7 @@ APPKEY=1cda26139dfbf0d0b7f5044afbadd9b1
                 {
                     "type": "view", 
                     "name": "我的照片和视频", 
-                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=4&connect_redirect=1#wechat_redirect"
                 },
 				{
                     "type": "view", 

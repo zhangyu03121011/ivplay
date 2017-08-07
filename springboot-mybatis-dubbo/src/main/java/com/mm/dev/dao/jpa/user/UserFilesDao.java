@@ -29,6 +29,6 @@ public interface UserFilesDao extends JpaRepository<UserFiles, String> {
 	 * @Datatime 2017年8月6日 下午10:57:27 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public Page<UserFiles> findAllByOpenId(String openId,Pageable pageable) throws Exception;
-
+	public Page<UserFiles> findAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception;
+	
 }

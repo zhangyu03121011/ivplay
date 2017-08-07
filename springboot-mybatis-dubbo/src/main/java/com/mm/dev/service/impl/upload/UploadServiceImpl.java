@@ -176,7 +176,10 @@ public class UploadServiceImpl implements IUploadService {
         		userFiles.setFileNewNames(fileNewNames);
         		userFiles.setFileSize(String.valueOf(destTempFileLength));
         		userFiles.setFileSuffic(fileSuffix);
-        		userFiles.setFilePath(destTempFile.getAbsolutePath());
+        		String absolutePath = destTempFile.getAbsolutePath();
+        		if(StringUtils.isNotEmpty(absolutePath)) {
+        			userFiles.setFilePath(absolutePath.substring(absolutePath.indexOf("upload"), absolutePath.length()));
+        		}
         		userFilesService.saveUserFiles(userFiles);
         		
         		WechatService.sendCustomMessages("<a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid="+configProperties.getAPPID()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback?fileNames="+fileNewNames+"&response_type=code&scope=snsapi_base&state=2&connect_redirect=1#wechat_redirect'>已为您生成好模糊图，点击查看</a>",(String)UserSession.getSession("openId"));

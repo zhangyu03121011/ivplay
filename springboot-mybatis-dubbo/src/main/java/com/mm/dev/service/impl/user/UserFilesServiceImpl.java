@@ -7,13 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.mm.dev.dao.jpa.user.UserFilesDao;
+import com.mm.dev.dao.mapper.user.UserFilesMapper;
 import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.service.user.IUserFilesService;
 
@@ -30,15 +28,16 @@ public class UserFilesServiceImpl implements IUserFilesService {
 
     @Autowired
     private UserFilesDao userFilesDao;
+    
+    @Autowired
+    private UserFilesMapper userFilesMapper;
 
     public UserFiles getUserFiles(String id) {
         return userFilesDao.getOne(id);
     }
 
-    public Page<UserFiles> getAll(String openId,Pageable pageable) throws Exception{
-    	Sort sort = new Sort(Direction.DESC, "createTime");
-		pageable = new PageRequest(0,5, sort);
-        return userFilesDao.findAllByOpenId(openId,pageable);
+    public Page<UserFiles> getAll(String openId,String delFlag,Pageable pageable) throws Exception{
+        return userFilesDao.findAllByOpenIdAndDelFlag(openId,delFlag,pageable);
     }
 
 	/**
@@ -59,5 +58,14 @@ public class UserFilesServiceImpl implements IUserFilesService {
 	 */
 	public List<UserFiles> findByOpenIdAndFileCategory(String openId,String fileCategory) throws Exception{
 		return userFilesDao.findByOpenIdAndFileCategory(openId,fileCategory);
+	}
+	
+	/**
+	 * @Description: 根据ID删除
+	 * @Datatime 2017年8月7日 下午9:55:50 
+	 * @return void    返回类型
+	 */
+	public void deleteById(String id) throws Exception {
+		userFilesMapper.deleteById(id);
 	}
 }

@@ -51,6 +51,16 @@ public interface WechatConstant {
 	 * 视频
 	 */
 	String file_category_2 = "2";
+	
+	/**
+	 * 未删除 有效
+	 */
+	String delete_flag_1 = "1";
+			
+	/**
+	 * 已删除 无效
+	 */
+	String delete_flag_2 = "2";
 }
 
 

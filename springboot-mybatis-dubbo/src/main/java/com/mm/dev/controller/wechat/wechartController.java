@@ -192,6 +192,9 @@ public class wechartController{
         		imagePath.append("id=");
         		imagePath.append(openId);
 				gotoPage = imagePath.toString();
+			} else if("4".equals(state)) {
+				//跳转我的文件列表
+				gotoPage = "/wx_my_list.html";
 			}
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);

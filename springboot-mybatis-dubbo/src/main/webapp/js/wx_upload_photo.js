@@ -300,7 +300,6 @@ var upload_photo = (function() {
 //		uploader.options.formData.imageLayout  = imageLayout;
 		//标题
 		uploader.options.formData.title = $("#title").val();
-		alert(JSON.stringify(uploader.options.formData))
 		uploader.retry();
 	});
 	
