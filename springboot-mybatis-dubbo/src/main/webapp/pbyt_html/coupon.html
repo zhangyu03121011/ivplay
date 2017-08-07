@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>我的优惠卷</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/popover.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/personal.css">
+</head>
+
+<body class="main-bg">
+    <!-- 头部导航开始 -->
+    <header>
+        <div class="top-bar-container">
+            <a class=" iconfont icon-back top-bar-back" href="javascript:history.go(-1)"></a>
+            <div class="title">我的优惠券</div>
+        </div>
+    </header>
+    <div class="app-body no-menu">
+        <!-- 分类开始 -->
+        <div class="flex-row me-status">
+            <a class="flex-item item active" href="#item1">未使用(5)</a>
+            <a class="flex-item item" href="#item2">已使用(0)</a>
+            <a class="flex-item item" href="#item3">已过期(2)</a>
+        </div>
+        <!-- 分类结束 -->
+        <!-- 优惠卷开始 -->
+        <div class="coupon">
+            <!-- 无优惠卷状态 -->
+            <!-- <div class="coupon-no">
+                <div class="coupon-icobox"><i class="iconfont icon-iconfontquan icon-size"></i></div>
+                <p class="no">您还没有相关的优惠券</p>
+                <p class="tip">可以去看看有哪些可以领取的哦</p>
+            </div> -->
+            <!-- 标题 -->
+            <div class="title"><a href="coupon-explanation.html"><b class="iconfont icon-shuoming-copy-copy"></b>优惠券使用说明<i class="iconfont icon-right"></i></a></div>
+            <!-- 内容 -->
+            <div class="coupon-content">
+                <ul>
+                    <li>
+                        <div class="coupon-box">
+                            <a href="coupon-detail.html">
+                                <div class="coupon-intro">
+                                    <dl>
+                                        <dd>￥<span>10</span></dd>
+                                        <dt>
+                                            <p>满200元可使用</p>
+                                            <p>仅限吃货专场商品使用</p>
+                                        </dt>
+                                    </dl>
+                                </div>
+                                <div class="effective">有效期<span>2016.11.11--2016.12.12</span></div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="coupon-box">
+                            <a href="coupon-detail.html">
+                                <div class="coupon-intro">
+                                    <dl>
+                                        <dd>￥<span>10</span></dd>
+                                        <dt>
+                                            <p>满200元可使用</p>
+                                            <p>仅限吃货专场商品使用</p>
+                                        </dt>
+                                    </dl>
+                                </div>
+                                <div class="effective">有效期<span>2016.11.11--2016.12.12</span></div>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="coupon-box used">
+                            <div class="coupon-intro">
+                                <dl>
+                                    <dd>￥<span>10</span></dd>
+                                    <dt>
+                                        <p>满200元可使用</p>
+                                        <p>仅限吃货专场商品使用</p>
+                                    </dt>
+                                </dl>
+                            </div>
+                            <div class="effective">有效期<span>2016.11.11--2016.12.12</span></div>
+                            <!-- 印章 -->
+                            <div class="chapter"><i class="iconfont icon-yishiyong1"></i></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="coupon-box used">
+                            <div class="coupon-intro">
+                                <dl>
+                                    <dd>￥<span>10</span></dd>
+                                    <dt>
+                                        <p>满200元可使用</p>
+                                        <p>仅限吃货专场商品使用</p>
+                                    </dt>
+                                </dl>
+                            </div>
+                            <div class="effective">有效期<span>2016.11.11--2016.12.12</span></div>
+                            <!-- 印章 -->
+                            <div class="chapter"><i class="iconfont icon-outdate"></i></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 优惠卷结束 -->
+    </div>
+    <!-- 底部导航 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/touch.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        touch.on(".item", "touchstart", function(event) {
+            event.preventDefault();
+            $(".item").removeClass('active');
+            $(this).addClass('active');
+            $(".me-wrap").removeClass('active');
+            $($(this).attr("href")).addClass('active');
+        });
+    });
+    </script>
+</body>
+
+</html>

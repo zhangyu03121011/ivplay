@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/popover.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/personal.css">
+	<title></title>
+</head>
+<body class="main-bg">
+<header>
+  <div class="top-bar-container">
+    <a class=" iconfont icon-back top-bar-back" href="javascript:history.back(1)"></a>
+    <div class="title">申请代理</div>
+  </div>
+</header>
+<section class="app-body no-menu">
+    <ul class="application-agent">
+        <li><span>金额（元）</span><input name="" type="text" placeholder="请填写提现金额"></li>
+        <li><span>身份证号</span><input name="" type="text" placeholder="请填写您的身份证号"></li>
+        <li><span>手机号</span><input name="" type="text" placeholder="请输入您的手机号"><a href="#">获取验证码</a></li>
+        <li><span>验证码</span><input name="" type="text" placeholder="请输入验证码"></li>
+    </ul>
+	<button class="new-address-btn" id="applyBtn">立即申请</button>
+</section>
+<script src="js/uib.min.js"></script>
+<script>
+    uib.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    document.getElementById("applyBtn").addEventListener('tap', function() {
+        var btnArray = ['取消', '确定'];
+        uib.confirm('恭喜您成为<span style="color:#f02b2b">宝聚宝</span>电商平台代理商赶快去装修<span style="text-decoration:underline;color:#999">自己的店铺</span>吧', '温馨提示', btnArray, function(e) {
+            if (e.index == 1) {
+                window.location.href = 'mystore-new.html';
+            } else {
+            }
+        })
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/popover.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/personal.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<title>注册信息</title>
+</head>
+<body class="main-bg">
+<header>
+  <div class="top-bar-container">
+    <a class=" iconfont icon-back top-bar-back" href="javascript:history.back(1)"></a>
+    <div class="title">注册信息</div>
+  </div>
+</header>
+<section class="app-body position-mt">
+    <div class="flex-row me-status position">
+        <a class="flex-item item active" href="javascript:void(0)">会员信息</a>
+        <a class="flex-item item" href="javascript:void(0)">创客信息</a>
+        <a class="flex-item item" href="javascript:void(0)">我要推荐</a>
+     </div>
+     <div id="tagContent">
+        <!-- 会员信息 -->
+        <div class="registered-box show">
+            <ul class="application-agent Maker">
+            <li><span>姓名</span><div class="info-box">张三</div></li>
+            <li><span>手机号</span><div class="info-box">135****8888</div></li>
+            </ul>
+        </div>
+        <!-- 创客信息 -->
+        <div class="registered-box">
+            <ul class="application-agent Maker">
+            <li><span>姓名</span><div class="info-box">张三</div></li>
+            <li><span>手机号</span><div class="info-box">135****8888</div></li>
+            <li>
+            <span>创客类型</span>
+            <div class="select-type app-checkbox-box">
+                <input name="" type="checkbox" value="" checked="checked" disabled="disabled" />
+                <label for="RadioGroup1_0" class="iconfont"><em>经纪</em></label>
+                <input name="" type="checkbox" value="" checked="checked" disabled="disabled" />
+                <label class="iconfont"><em>代理</em></label>
+                 <input name="" type="checkbox" value="" checked="checked" disabled="disabled" />
+                <label class="iconfont"><em>公估</em></label>
+                 <input name="" type="checkbox" value="" checked="checked" disabled="disabled" />
+                <label  class="iconfont"><em>电商</em></label>
+             </div>
+        </li>
+        <li><span>证件类型</span><div class="info-box">身份证</div></li>
+        <li><span>证件号码</span><div class="info-box">4356**********5698</div></li>
+        <li>
+            <span class="document-photo">证件照上传</span>
+            <div class="upload-image-box">
+            <ul>
+                <li><img src="images/cart_1.jpg"></li>
+                <li><img src="images/cart_1.jpg"></li>
+            </ul>
+        </div>
+        </li>
+        <li><span>性别</span><div class="info-box">男</div></li>
+        <li><span>出生日期</span><div class="info-box">1989-01-01</div></li>
+        <li><span>邮箱</span><div class="info-box">135****8888@139.com</div></li>
+        <li><span>经纪机构</span><div class="info-box">北京联合保险经纪有限公司</div></li>
+        <li><span>代理机构</span><div class="info-box">北京联合保险经纪有限公司</div></li>
+        <li><span>公估机构</span><div class="info-box">北京联合保险经纪有限公司</div></li>
+        <li><span>所在区域</span><div class="info-box">广东省深圳市南山区</div></li>
+        <li><span>通讯地址</span><div class="info-box">阳光华艺术大厦A座6AG</div></li>
+        <li><span>学历</span><div class="info-box">大专</div></li>
+        <li><span>支付宝账号</span><div class="info-box">135****8888@139.com</div></li>
+        <li><span>微信账号</span><div class="info-box">135****8888</div></li>
+        <li><span>银行卡号</span><div class="info-box">6214************4569</div></li>
+        <li><span>开户人姓名</span><div class="info-box">张三</div></li>
+        <li><span>开户支行</span><div class="info-box">招商银行深圳支行</div></li>
+        <li><span>经纪人证件号</span><div class="info-box">5646599854556</div></li>
+        <li><span>QQ</span><div class="info-box">568965968</div></li>
+        <li><span>推荐人</span><div class="info-box">李四</div></li>
+    </ul>
+    </div>
+    <!-- 会员信息 -->
+        <div class="registered-box">
+            <!-- 推荐列表 -->
+            <div class="recommend-list">
+                <dl>
+                    <dd>姓名</dd>
+                    <dd>电话</dd>
+                </dl>
+                <dl>
+                    <dt>李四</dt>
+                    <dt>13588888888</dt>
+                    <dt>李四</dt>
+                    <dt>13588888888</dt>
+                    <dt>李四</dt>
+                    <dt>13588888888</dt>
+                </dl>
+                <div class="no">暂无推荐信息</div>
+                <button class="new-address-btn registered-btn add-info">添加</button>
+            </div>
+            <!-- 添加推荐 -->
+            <div class="add-recommend" style="display:none">
+                <ul class="application-agent Maker">
+                <li><span>姓名</span><input name="" type="text" placeholder="请输入真实姓名"></li>
+                <li><span>手机号</span><input name="" type="text" placeholder="请输入您的手机号"></li>
+                </ul>
+                    <button class="new-address-btn registered-btn submit-info">提交</button>
+            </div>
+        </div>
+     </div>
+</section>
+<script src="js/uib.min.js"></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/touch.js"></script>
+<script type="text/javascript" src="js/lib/jquery220m.js"></script>
+<script type="text/javascript" src="js/lib/touch.min.js"></script>
+<script>
+        $(function() {
+        touch.on(".flex-item", "tap", function(event) {
+            event.preventDefault();
+            $(".flex-item").removeClass("active");
+            $(this).addClass("active");
+            $("#tagContent .registered-box").hide();
+            $("#tagContent .registered-box").eq($(this).index()).show();
+        });
+        // 添加
+        touch.on(".add-info", "tap", function(event) {
+            event.preventDefault();
+            $(".recommend-list").hide();
+            $(".add-recommend").show();
+        });
+        // 提交
+        touch.on(".submit-info", "tap", function(event) {
+            event.preventDefault();
+            $(".add-recommend").hide();
+            $(".recommend-list").show();
+        });
+    });     
+</script>
+</body>
+</html>

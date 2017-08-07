@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/popover.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/personal.css">
+    <title>申请售后</title>
+    <script type="text/javascript">
+    var observe;
+    if (window.attachEvent) {
+        observe = function(element, event, handler) {
+            element.attachEvent('on' + event, handler);
+        };
+    } else {
+        observe = function(element, event, handler) {
+            element.addEventListener(event, handler, false);
+        };
+    }
+
+    function init() {
+        var text = document.getElementById('text');
+
+        function resize() {
+            text.style.height = 'auto';
+            text.style.height = text.scrollHeight + 'px';
+        }
+
+        function delayedResize() {
+            window.setTimeout(resize, 0);
+        }
+        observe(text, 'change', resize);
+        observe(text, 'cut', delayedResize);
+        observe(text, 'paste', delayedResize);
+        observe(text, 'drop', delayedResize);
+        observe(text, 'keydown', delayedResize);
+        text.focus();
+        // text.select();
+        resize();
+    }
+    </script>
+</head>
+
+<body onload="init();" class="main-bg">
+    <header>
+        <div class="top-bar-container">
+            <a class=" iconfont icon-back top-bar-back" href="javascript:history.back(1)"></a>
+            <div class="title">申请售后</div>
+        </div>
+    </header>
+    <section class="app-body no-menu">
+        <ul class="application-agent">
+            <li>
+                <span>退款类型</span>
+                <select name="">
+                    <option>请选择退款类型</option>
+                    <option>我要退款</option>
+                    <option>我要退货</option>
+                    <option>我要换货</option>
+                </select>
+                <i class="iconfont icon-right"></i>
+            </li>
+            <li>
+                <span>退款原因</span>
+                <select name="">
+                    <option>请选择退款原因</option>
+                    <option>我要退款</option>
+                    <option>我要退货</option>
+                    <option>我要换货</option>
+                </select>
+                <i class="iconfont icon-right"></i>
+            </li>
+            <li><span>退款金额</span>
+                <input name="" type="text" placeholder="请输入退款金额">
+            </li>
+        </ul>
+        <!-- 退款说明 -->
+        <div class="refund-instructions">
+            <h2>退款说明</h2>
+            <textarea cols="" rows="" id="text" placeholder="请描述退款原因"></textarea>
+        </div>
+        <!-- 上传图片 -->
+        <div class="upload-image-box">
+            <p>上传凭证<span>(不超过3张)</span></p>
+            <ul>
+                <li><img src="images/cart_1.jpg"><span class="close-img"><a><i class="iconfont icon-error"></i></a></span></li>
+                <li><img src="images/cart_1.jpg"><span class="close-img"><a><i class="iconfont icon-error"></i></a></span></li>
+                <li><img src="images/cart_1.jpg"><span class="close-img"><a><i class="iconfont icon-error"></i></a></span></li>
+                <li>
+                    <div class="upload-btn-box">
+                        <input type="file" name="" class="upload-btn">
+                        <i class="iconfont icon-tianjia1"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="new-address-btn" id="applicationBtn">提交申请</button>
+    </section>
+    <script type="text/javascript" src="./js/lib/jquery220m.js"></script>
+    <script type="text/javascript" src="./js/lib/frozen.js"></script>
+    <script type="text/javascript" src="./js/touch.min.js"></script>
+    <script>
+
+
+    $(function() {
+        touch.on('#applicationBtn', 'tap', function() {
+             var dia=$.dialog({
+                content: '我们的客服会在1-2个工作日内与您联系,退货申请提交成功',
+                button: ["取消", '确定']
+            });
+        })
+
+        touch.on('.close-img', 'tap', function() {
+            var dia=$.dialog({
+                content: '请确认是否删除?',
+                button: ["取消", '确定']
+            });
+        })
+    });
+    </script>
+</body>
+
+</html>

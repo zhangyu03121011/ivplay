@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>优惠券说明</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/popover.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/personal.css">
+</head>
+
+<body class="main-bg">
+    <!-- 头部导航开始 -->
+    <header>
+        <div class="top-bar-container">
+            <a class=" iconfont icon-back top-bar-back" href="javascript:history.go(-1)"></a>
+            <div class="title">优惠券说明</div>
+        </div>
+    </header>
+    <div class="app-body no-menu">
+        <!-- 优惠卷说明开始 -->
+            <div class="coupon-explanation">
+                <ul class="insurance-list">
+            <li>
+                <div class="info">优惠券介绍<i class="iconfont icon-right"></i></div>
+                <div class="content"><b>优惠券包括：</b>指定专题优惠券、指定商品优惠券。所有优惠券都设有最低消费限额，下单时若满足优惠券使用条件即可减免该订单中相应优惠券的面额。</div>
+            </li>
+            <li>
+                <div class="info">使用规则<i class="iconfont icon-right"></i></div>
+                <div class="content">
+                    <p>1、每个订单只能使用一张优惠券；</p>
+                    <p>2、若有多张满足条件的优惠券，页面默认展示最新领取的优惠券已优惠金额，用户也可以选择使用其他优惠券或不使用优惠券；</p>
+                    <p>3、优惠券数量有限，有效期内优先下单的用户可优先使用</p>
+                </div>
+            </li>
+            <li>
+                <div class="info">获取途径<i class="iconfont icon-right"></i></div>
+                <div class="content">
+                    <p>1、优惠券可通过抢单活动、专题活动页面或者商品详情页领取；</p>
+                    <p>2、领取成功的优惠券可在【个人中心→我的优惠券】查看；</p>
+                </div>
+            </li>
+            <li>
+                <div class="info">获取途径<i class="iconfont icon-right"></i></div>
+                <div class="content">
+                    <p>1、取消订单：取消订单成功，优惠券自动退回【个人中心→我的优惠券】；</p>
+                    <p>2、拒收或退货：不退回原优惠券，单个商品的优惠券直接在该商品原售价基础上减免，专题优惠券优惠金额按照商品价格比例分摊至每件商品；</p>
+                </div>
+            </li>
+        </ul>
+            </div>
+        <!-- 优惠卷说明结束 -->
+    </div>
+    <!-- 底部导航 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/touch.js"></script>
+    <script type="text/javascript">
+        // 收缩
+        $(function() {
+            touch.on('.info', 'tap', function(event) {
+                $(event.currentTarget).toggleClass('active');
+                $(event.currentTarget).siblings('div').toggleClass('show');
+            });
+        });
+    </script>
+</body>
+
+</html>

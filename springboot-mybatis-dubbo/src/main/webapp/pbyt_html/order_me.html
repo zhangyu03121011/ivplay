@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>我的订单</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/popover.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+
+<body>
+    <!-- 头部导航开始 -->
+    <header>
+        <div class="top-bar-container">
+            <a class=" iconfont icon-back top-bar-back" href="javascript:history.go(-1)"></a>
+            <div class="title">我的订单</div>
+        </div>
+    </header>
+    <div class="app-body no-menu">
+        <!-- 分类开始 -->
+        <div class="flex-row me-status">
+            <a class="flex-item item active" href="#item1">全部</a>
+            <a class="flex-item item" href="#item2">待付款</a>
+            <a class="flex-item item" href="#item3">待发货</a>
+            <a class="flex-item item" href="#item4">待收货</a>
+            <a class="flex-item item" href="#item5">已完成</div>
+        </div>
+        <!-- 分类结束 -->
+        
+        <!-- 订单开始 -->
+        <div class="me-wrap active" id="item1">
+            <div class="flex-row me-order">
+                <div class="flex-item">
+                    <span class="number">订单 1366987263513669872635</span>
+                </div>
+                <div class="align-right">
+                    <span class="tip">等待买家付款</span>
+                </div>
+            </div>
+        <a class="product-detail flex-row-top" href="me-detail.html">
+            <img src="./images/cart_1.jpg" class="product">
+            <div class="flex-item detail">
+                <p class="title">
+                    乔丹男鞋男士运动鞋跑步鞋男夏季旅游鞋子复古慢跑鞋
+                </p>
+                <p class="specs">
+                    <span>颜色：黑色</span>
+                    <span>尺码：39</span>
+                </p>
+                <div class="flex-row price-nub">
+                    <span class="flex-item price">
+                        ￥58
+                    </span>
+                    <span class="number">
+                        X1
+                    </span>
+                </div>
+            </div>
+        </a>
+            <div class="flex-row me-pay">
+                <div class="flex-item sum">
+                    实付款：<span>￥58</span>
+                </div>
+                <div class="flex-item align-right">
+                    <a href="#" class="me-btn">立即支付</a>
+                </div>
+            </div>
+        </div>
+        <!-- 订单结束 -->
+        <div class="me-wrap" id="item2">
+            <!-- 第二个订单 -->
+            <div class="flex-row me-order">
+                <div class="flex-item">
+                    <span class="number">订单 13669872635</span>
+                </div>
+                <div class="align-right">
+                    <span class="tip">等待买家发货</span>
+                </div>
+            </div>
+            <a class="product-detail flex-row-top">
+                <img src="./images/cart_1.jpg" class="product">
+                <div class="flex-item detail">
+                    <p class="title">
+                        乔丹男鞋男士运动鞋跑步鞋男夏季旅游鞋子复古慢跑鞋
+                    </p>
+                    <p class="specs">
+                        <span>颜色：黑色</span>
+                        <span>尺码：39</span>
+                    </p>
+                    <div class="flex-row price-nub">
+                        <span class="flex-item price">
+                        ￥58
+                    </span>
+                        <span class="flex-item number">
+                        X1
+                    </span>
+                    </div>
+                </div>
+            </a>
+            <div class="flex-row me-pay">
+                <div class="flex-item sum">
+                    实付款：<span>￥58</span>
+                </div>
+                <div class="flex-item align-right">
+                    <a href="#" class="me-btn hover">提醒发货</a>
+                </div>
+            </div>
+        </div>
+        <div class="me-wrap" id="item3">
+            <!-- 第三个订单 -->
+            <div class="flex-row me-order">
+                <div class="flex-item">
+                    <span class="number">订单 13669872635</span>
+                </div>
+                <div class="flex-item align-right">
+                    <span class="tip">交易成功</span>
+                </div>
+            </div>
+            <a class="product-detail flex-row-top">
+                <img src="./images/cart_1.jpg" class="product">
+                <div class="flex-item detail">
+                    <p class="title">
+                        乔丹男鞋男士运动鞋跑步鞋男夏季旅游鞋子复古慢跑鞋
+                    </p>
+                    <p class="specs">
+                        <span>颜色：黑色</span>
+                        <span>尺码：39</span>
+                    </p>
+                    <div class="flex-row price-nub">
+                        <span class="flex-item price">
+                        ￥58
+                    </span>
+                        <span class="flex-item number">
+                        X1
+                    </span>
+                    </div>
+                </div>
+            </a>
+            <div class="flex-row me-pay">
+                <div class="flex-item sum">
+                    实付款：<span>￥58</span>
+                </div>
+                <div class="flex-item align-right">
+                    <a href="#" class="me-btn">删除订单</a>
+                </div>
+            </div>
+        </div>
+        <div class="me-wrap" id="item4">
+            
+<!--             <div class="no-data">
+                <div class="no-data-logo">
+                <span class="iconfont icon-dingdan1"></span></div>
+                <p class="no-data-title">您还没有相关的订单</p>
+                <p class="no-data-title-s">可以去看看有哪些想买的</p>
+            </div> -->
+        </div>
+    </div>
+    <!-- 底部导航 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/touch.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        touch.on(".item", "touchstart", function(event) {
+            event.preventDefault();
+            $(".item").removeClass('active');
+            $(this).addClass('active');
+            $(".me-wrap").removeClass('active');
+            $($(this).attr("href")).addClass('active');
+        });
+    });
+    </script>
+</body>
+
+</html>

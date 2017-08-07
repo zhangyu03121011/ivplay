@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>购物车</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" type="text/css" href="./css/common.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/personal.css">
+</head>
+
+<body>
+    <!-- 头部导航开始 -->
+    <header>
+        <div class="top-bar-container">
+            <a class=" iconfont icon-back top-bar-back" href="javascript:history.go(-1)"></a>
+            <div class="title">确认订单</div>
+        </div>
+    </header>
+    <!-- 购物车列表开始  -->
+    <div class="body-content">
+        <!-- 购物地址选择前 -->
+        <div id="select-address" class="flex-row address-wrap">
+            <div class="address-title">收货地址</div>
+            <div class="flex-item right">
+                请添加收货地址
+            </div>
+            <i class="arrow-right iconfont icon-right"></i>
+        </div>
+        <!-- 购物地址选择后 -->
+        <div class="flex-row address-wrap" style="display: none;" id="address">
+            <div class="icon-location">
+                <span class="iconfont icon-dingwei"></span>
+            </div>
+            <div class="flex-item">
+                <div class="name-tel flex-row">
+                    <div class="flex-item">收货人：马小哈</div>
+                    <div class="flex-item right">15083902251</div>
+                </div>
+                <div class="flex-item">
+                    收货地址：广东省深圳市南山区南山街道南海大道3003号阳光华艺大厦1栋6AG
+                </div>
+            </div>
+            <i class="arrow-right iconfont icon-right"></i>
+        </div>
+        <!-- 送货日期 -->
+        <div class="flex-row date-wrap">
+            <div class="flex-item address-text">
+                <span>工作日、双休日与假日均可送货</span>
+            </div>
+            <i class="arrow-right iconfont icon-right"></i>
+        </div>
+        <!-- 购物地址结束 -->
+        <!-- 第一个个商品 -->
+        <a class="product-detail flex-row-top" href="me-detail.html">
+            <img src="./images/cart_1.jpg" class="product">
+            <div class="flex-item detail">
+                <p class="title">
+                    乔丹男鞋男士运动鞋跑步鞋男夏季旅游鞋子复古慢跑鞋
+                </p>
+                <p class="specs">
+                    <span>颜色：黑色</span>
+                    <span>尺码：39</span>
+                </p>
+                <div class="flex-row price-nub">
+                    <span class="flex-item price">
+                    ￥58
+                </span>
+                    <span class="flex-item number">
+                    X1
+                </span>
+                </div>
+            </div>
+        </a>
+        <!-- 第二个商品 -->
+        <a class="product-detail flex-row-top" href="me-detail.html">
+            <img src="./images/cart_2.jpg" class="product">
+            <div class="flex-item detail">
+                <p class="title">
+                    乔丹男鞋男士运动鞋跑步鞋男夏季旅游鞋子复古慢跑鞋
+                </p>
+                <p class="specs">
+                    <span>颜色：黑色</span>
+                    <span>尺码：39</span>
+                </p>
+                <div class="flex-row price-nub">
+                    <span class="flex-item price">
+                        ￥58
+                    </span>
+                    <span class="flex-item number">
+                        X1
+                    </span>
+                </div>
+            </div>
+        </a>
+        <!-- 购物车列表结束 -->
+        <!-- 购物结账开始 -->
+        <div class="flex-row express">
+            <div class="flex-item me-express">运费</div>
+            <div class="flex-item me-express align-right">
+                <a href="#">
+                    <span>快递：￥5</span>
+                    <i class="arrow-right iconfont icon-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="flex-row express">
+            <div class="flex-item me-express">
+                合计
+            </div>
+            <div class="flex-item me-express align-right">
+                <span class="amount">￥199</span>
+            </div>
+        </div>
+        <div class="payoff">
+            <span>支付方式</span>
+            <div class="payoff-weixin">微信支付</div>
+        </div>
+<!--         <div class="flex-row express">
+            <div class="flex-item me-express">
+                支付方式
+            </div>
+            <div class="flex-item me-express align-right">
+                微信支付
+            </div>
+        </div> -->
+
+        <div class="used-coupon">
+            <a class="receive-btn" href="javascript:;">
+                <span>优惠券</span>
+                <div class="content">
+                    </i>已优惠<span>5</span>元<i class="arrow-right iconfont icon-right"></i>
+                </div>
+            </a>
+        </div>
+        
+    </div>
+  
+    <!-- 购物结算开始 -->
+        <div class="account submit-order">
+            <div class="flex-row">
+                <div class="flex-item">
+                    <p class="text">共1件商品</p>
+                    <p class="text">合计：<span class="total">￥199</span></p>
+                </div>
+                <div>
+                    <a href="#" class="calc">提交订单</a>
+                </div>
+            </div>
+        </div>
+      <!-- 购物结算结束 -->    
+   
+    <!-- 选择收货地址开始 -->
+    <div class="select-address">
+        <div class="person-address-page">
+            <header>
+                <div class="top-bar-container">
+                    <div class="title">选择地址</div>
+                    <div class="right-text" id="finish">完成</div>
+                </div>
+            </header>
+            <section class="app-body no-menu">
+                <div class="address-list">
+                    <div class="address-item display-flex align-items-center">
+                        <div class="rdo app-checkbox">
+                            <input type="radio" name="rdo" id='set-default'>
+                            <label class="iconfont " for="set-default"></label>
+                        </div>
+                        <div class="flex-1 text">
+                            <p class="info cl">
+                                <span class="name">黎老师</span>
+                                <span class="default">默认</span>
+                                <span class="tel">13500000000</span>
+                            </p>
+                            <p class="address-detail">广东省深圳市南山区南山街道南海大道3003号阳光华艺大厦1栋6AG</p>
+                        </div>
+                    </div>
+                    <div class="address-item display-flex align-items-center">
+                        <div class="rdo app-checkbox">
+                            <input type="radio" name="rdo" id='set-default2'>
+                            <label class="iconfont " for="set-default2"></label>
+                        </div>
+                        <div class="flex-1 text">
+                            <p class="info cl">
+                                <span class="name">黎老师</span>
+                                <span class="tel">13500000000</span>
+                            </p>
+                            <p class="address-detail">广东省深圳市南山区南山街道南海大道3003号阳光华艺大厦1栋6AG</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- 优惠卷 -->
+    <section class="coupon-area">
+        <div class="coupon-area-content">
+            <div class="title">请选择优惠卷</div>
+            <ul>
+                <li>
+                    <dl>
+                        <dt>
+                            <h3><span>10</span>元</h3>
+                            <p class="claim">订单满100元使用</p>
+                            <p class="time">有效期：2016.9.20-2016.11.30</p>
+                        </dt>
+                        <dd>
+                            <div class="select-bank app-checkbox checkbox-size">
+                                <input type="radio" id="RadioGroup1_0" name="RadioGroup1" checked="checked">
+                                <label for="RadioGroup1_0" class="iconfont"></label>
+                            </div>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                            <h3><span>10</span>元</h3>
+                            <p class="claim">订单满100元使用</p>
+                            <p class="time">有效期：2016.9.20-2016.11.30</p>
+                        </dt>
+                        <dd>
+                            <div class="select-bank app-checkbox checkbox-size">
+                                <input type="radio" id="RadioGroup1_1" name="RadioGroup1">
+                                <label for="RadioGroup1_1" class="iconfont"></label>
+                            </div>
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>
+                           <div class="do-not">不使用优惠卷</div>
+                        </dt>
+                        <dd>
+                            <div class="select-bank app-checkbox checkbox-size">
+                                <input type="radio" id="RadioGroup1_2" name="RadioGroup1">
+                                <label for="RadioGroup1_2" class="iconfont"></label>
+                            </div>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+            <div class="cancel">确定</div>
+        </div>
+    </section>
+    <!-- 选择收货地址结束 -->
+    <script src="./js/jquery.js"></script>
+    <script src="./js/touch.js"></script>
+    <script type="text/javascript" src='./js/coupon-tip.js'></script>
+    <script>
+    $(function() {
+        touch.on('.address-wrap', 'tap', function() {
+            $('.select-address').toggleClass('open');
+        });
+
+        touch.on('#finish', 'tap', function() {
+            $("#select-address").hide();
+            $("#address").show();
+            $('.select-address').toggleClass('open');
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/popover.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/personal.css">
+	<title></title>
+</head>
+<body class="main-bg">
+<header>
+  <div class="top-bar-container">
+    <a class=" iconfont icon-back top-bar-back" href="javascript:history.back(1)"></a>
+    <div class="title">提现</div>
+  </div>
+</header>
+<section class="app-body no-menu">
+	<div class="withdrawals-bank"><a href="select-bank.html">中国银行(尾号5833)<i class="iconfont icon-right"></i></a></div>
+	<div class="withdrawals-money">
+		<h2>本次最多提现<span>5.5</span>元</h2>
+		<div class="money-enter"><span>金额（元）</span><input name="" type="text" placeholder="请填写提现金额"></div>
+	</div>
+	<p class="withdrawals-exp"><a href="#" id="withdrawExp">提现说明</a></p>
+	<button class="new-address-btn" id="withdrawBtn">提现</button>
+</section>
+<script src="js/uib.min.js"></script>
+<script>
+    uib.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    document.getElementById("withdrawBtn").addEventListener('tap', function() {
+        var btnArray = ['取消', '确定'];
+        uib.confirm('提现金额会在一周内到达指定账户！', '提现成功！', btnArray, function(e) {
+            if (e.index == 1) {
+                window.location.href = '#';
+            } else {
+            }
+        })
+    });
+     document.getElementById("withdrawExp").addEventListener('tap', function() {
+        var btnArray = ['关闭'];
+        uib.confirm('<p style="text-align:left">1、您每次提现申请额度最高为1800元；每周提现申请额度最高位3000元，若您的提现申请额度已达到上限，您需要在下一周再次提交申请。</p><p style="text-align:left">2、我们每个工作日都会集中处理代理商的提现申请，转账后将会发送短信到您登记的手机。</p><p style="text-align:left">3、请您认真如实的填写银行卡账户信息，方便我们尽快为您办理提现；当您的信息确认无误，款项将于3-5个工作日退至您所填写的储蓄卡账户中，请耐心等待。</p><p style="text-align:left">4、您申请提现后，账户中对应的款项将暂时冻结，直至提现处理完成。</P>', '提现说明', btnArray, function(e) {
+           
+        })
+    });
+    </script>
+</body>
+</html>

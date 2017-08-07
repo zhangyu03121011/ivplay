@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/popover.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/personal.css">
+    <title>个人中心</title>
+</head>
+
+<body class="main-bg">
+    <section>
+        <section class="app-body no-header">
+            <div class="personal-center">
+                <!-- 未认证状态 -->
+                <!-- <div class="authenticate"><a href="Authentication-two.html">立即认证</a></div> -->
+                <!-- 已认证状态 -->
+                <div class="verified"><a href="account-management.html"><i class="iconfont icon-shezhi"></i></a></div>
+                <div class="head-portrait">
+                    <!-- 认证图标 -->
+                    <div class="side-ico"><img src="images/v.png"></div>
+                </div>
+                <div class="name">马小哈</div>
+                <div class="member-grade">铜牌会员</div>
+                <ul>
+                    <li>
+                        <a href="">
+                            <p class="money">0.00</p>
+                            <p class="types-of">总收入(元)</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <p class="money">100.00</p>
+                            <p class="types-of">贡献值(点)</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <P class="money">0.00</P>
+                            <p class="types-of">月收入(元)</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 提现 -->
+            <div class="withdraw">
+                <dl>
+                    <dd class="iconfont icon-jiage"></dd>
+                    <dt><a href="withdraw.html">去提现，还有0.00元未提现<i class="iconfont icon-right"></i></a></dt>
+                </dl>
+            </div>
+            <!-- 快捷菜单 -->
+            <div class="personal-menu">
+                <ul>
+                    <li><a href="order_me.html"><i class="iconfont icon-wodedingdan"></i><span>我的订单</span><i class="iconfont icon-right"></i></a></li>
+                    <li><a href="order_list.html"><i class="iconfont icon-dingdan"></i><span>销售订单</span><i class="iconfont icon-right"></i></a></li>
+                </ul>
+            </div>
+            <div class="personal-menu">
+                <ul>
+                    <li><a href="#" id="confirmBtn"><i class="iconfont icon-dianpu"></i><span>我的店铺</span><i class="iconfont icon-right"></i></a></li>
+                    <li><a href="coupon.html"><i class="iconfont icon-iconfontquan"></i><span>我的优惠卷</span><i class="iconfont icon-right"></i></a></li>
+                </ul>
+            </div>
+            <div class="personal-menu">
+                <ul>
+                    <li><a href="tuiguang.html"><i class="iconfont icon-tuiguang"></i><span>我的推广</span><i class="iconfont icon-right"></i></a></li>
+                    <li><a href="withdrawals-record.html"><i class="iconfont icon-jilu-copy"></i><span>提现记录</span><i class="iconfont icon-right"></i></a></li>
+                    <li><a href="allowance-details.html"><i class="iconfont icon-shouruxiangqing"></i><span>津贴明细</span><i class="iconfont icon-right"></i></a></li>
+                </ul>
+            </div>
+        </section>
+        <footer>
+            <div class='bottom-menu'>
+                <ul class='display-flex align-items-center'>
+                    <li class="flex-1 menu-item active">
+                        <a href="./index.html">
+                            <i class="menu-icon iconfont icon-youhui"></i>
+                            <div class='text'>优品</div>
+                        </a>
+                    </li>
+                    <li class="flex-1 menu-item">
+                        <a href="./products_list.html">
+                            <i type="tablet" class="menu-icon iconfont icon-shangpin"></i>
+                            <div class='text'>商品</div>
+                        </a>
+                    </li>
+                    <li class="flex-1 menu-item">
+                        <a href="./cart.html">
+                            <i class="menu-icon iconfont icon-gouwuche"></i>
+                            <div class='text'>购物车</div>
+                        </a>
+                    </li>
+                    <li class="flex-1 menu-item">
+                        <a>
+                            <i type="user" class="menu-icon iconfont icon-wo"></i>
+                            <div class='text'>我</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <script type="text/javascript" src="./js/lib/jquery220m.js"></script>
+        <script type="text/javascript" src="./js/lib/frozen.js"></script>
+        <script type="text/javascript" src="./js/touch.min.js"></script>
+        <script>
+        touch.on('#confirmBtn', 'tap', function(event) {
+             var dia=$.dialog({
+                content: '您暂未取得代理资格，无法使用该功能，赶快申请成为代理吧！轻轻松松获得额外收益',
+                button: ["取消", '确定']
+            });
+
+            dia.on("dialog:action",function(e){
+                if(e.index == 1){
+                   window.location.href = 'myStore-page.html';
+                }
+                else{
+                    return;
+                }                
+            });
+        });
+        </script>
+</body>
+
+</html>
