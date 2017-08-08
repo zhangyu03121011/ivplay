@@ -1,75 +1,23 @@
-document.writeln("<!-- Root element of PhotoSwipe. Must have class pswp. -->");
-document.writeln("<div class=\"pswp\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">");
-document.writeln("");
-document.writeln("    <!-- Background of PhotoSwipe.");
-document.writeln("         It\'s a separate element as animating opacity is faster than rgba(). -->");
-document.writeln("    <div class=\"pswp__bg\"><\/div>");
-document.writeln("");
-document.writeln("    <!-- Slides wrapper with overflow:hidden. -->");
-document.writeln("    <div class=\"pswp__scroll-wrap\">");
-document.writeln("");
-document.writeln("        <!-- Container that holds slides.");
-document.writeln("            PhotoSwipe keeps only 3 of them in the DOM to save memory.");
-document.writeln("            Don\'t modify these 3 pswp__item elements, data is added later on. -->");
-document.writeln("        <div class=\"pswp__container\">");
-document.writeln("            <div class=\"pswp__item\"><\/div>");
-document.writeln("            <div class=\"pswp__item\"><\/div>");
-document.writeln("            <div class=\"pswp__item\"><\/div>");
-document.writeln("        <\/div>");
-document.writeln("");
-document.writeln("        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->");
-document.writeln("        <div class=\"pswp__ui pswp__ui--hidden\">");
-document.writeln("");
-document.writeln("            <div class=\"pswp__top-bar\">");
-document.writeln("");
-document.writeln("                <!--  Controls are self-explanatory. Order can be changed. -->");
-document.writeln("");
-document.writeln("                <div class=\"pswp__counter\"><\/div>");
-document.writeln("");
-document.writeln("                <button class=\"pswp__button pswp__button--close\" title=\"Close (Esc)\"><\/button>");
-document.writeln("");
-document.writeln("                <button class=\"pswp__button pswp__button--share\" title=\"Share\"><\/button>");
-document.writeln("");
-document.writeln("                <button class=\"pswp__button pswp__button--fs\" title=\"Toggle fullscreen\"><\/button>");
-document.writeln("");
-document.writeln("                <button class=\"pswp__button pswp__button--zoom\" title=\"Zoom in\/out\"><\/button>");
-document.writeln("");
-document.writeln("                <!-- Preloader demo http:\/\/codepen.io\/dimsemenov\/pen\/yyBWoR -->");
-document.writeln("                <!-- element will get class pswp__preloader--active when preloader is running -->");
-document.writeln("                <div class=\"pswp__preloader\">");
-document.writeln("                    <div class=\"pswp__preloader__icn\">");
-document.writeln("                        <div class=\"pswp__preloader__cut\">");
-document.writeln("                            <div class=\"pswp__preloader__donut\"><\/div>");
-document.writeln("                        <\/div>");
-document.writeln("                    <\/div>");
-document.writeln("                <\/div>");
-document.writeln("            <\/div>");
-document.writeln("");
-document.writeln("            <div class=\"pswp__share-modal pswp__share-modal--hidden pswp__single-tap\">");
-document.writeln("                <div class=\"pswp__share-tooltip\"><\/div>");
-document.writeln("            <\/div>");
-document.writeln("");
-document.writeln("            <button class=\"pswp__button pswp__button--arrow--left\" title=\"Previous (arrow left)\">");
-document.writeln("            <\/button>");
-document.writeln("");
-document.writeln("            <button class=\"pswp__button pswp__button--arrow--right\" title=\"Next (arrow right)\">");
-document.writeln("            <\/button>");
-document.writeln("");
-document.writeln("            <div class=\"pswp__caption\">");
-document.writeln("                <div class=\"pswp__caption__center\"><\/div>");
-document.writeln("            <\/div>");
-document.writeln("");
-document.writeln("        <\/div>");
-document.writeln("");
-document.writeln("    <\/div>");
-document.writeln("");
-document.writeln("<\/div>");
-
-
+/**
+ * 朋友圈
+ */
 (function() {
+	//初始哈数据
+	initData();
 
-      var initPhotoSwipeFromDOM = function(gallerySelector) {
+	// execute above function
+	initPhotoSwipeFromDOM('.my-gallery');
 
+	$(".my-gallery>figure>div").each(function(){
+		$(this).height($(this).width());
+	});
+})();
+
+function initData() {
+	
+}
+
+var initPhotoSwipeFromDOM = function(gallerySelector) {
     // 解析来自DOM元素幻灯片数据（URL，标题，大小...）
     // (children of gallerySelector)
     var parseThumbnailElements = function(el) {
@@ -79,7 +27,8 @@ document.writeln("<\/div>");
             figureEl,
             linkEl,
             size,
-            item;
+            item,
+			divEl;
 
         for(var i = 0; i < numNodes; i++) {
 
@@ -89,9 +38,9 @@ document.writeln("<\/div>");
             if(figureEl.nodeType !== 1) {
                 continue;
             }
-
-            linkEl = figureEl.children[0]; // <a> element
-
+			divEl = figureEl.children[0];
+            linkEl = divEl.children[0]; // <a> element
+			
             size = linkEl.getAttribute('data-size').split('x');
 
             // 创建幻灯片对象
@@ -100,8 +49,6 @@ document.writeln("<\/div>");
                 w: parseInt(size[0], 10),
                 h: parseInt(size[1], 10)
             };
-
-
 
             if(figureEl.children.length > 1) {
                 // <figcaption> content
@@ -206,12 +153,18 @@ document.writeln("<\/div>");
 
         items = parseThumbnailElements(galleryElement);
 
-        // define options (if needed)
+        // 这里可以定义参数
         options = {
           barsSize: { 
             top: 100,
             bottom: 100
-          },           
+          }, 
+		   fullscreenEl : false,
+			shareButtons: [
+			{id:'wechat', label:'分享微信', url:'#'},
+			{id:'weibo', label:'新浪微博', url:'#'},
+			{id:'download', label:'保存图片', url:'{{raw_image_url}}', download:true}
+			],
 
             // define gallery index (for URL)
             galleryUID: galleryElement.getAttribute('data-pswp-uid'),
@@ -274,7 +227,19 @@ document.writeln("<\/div>");
     }
 };
 
-// execute above function
-initPhotoSwipeFromDOM('.my-gallery');
-
-    })();
+/**
+ * 展开更多
+ * @param obj
+ * @param id
+ */
+function more(obj,id) {
+	if ($('#txt'+id).is(":hidden")) {
+		$('#p'+id).hide();
+		$('#txt'+id).show();
+		obj.innerHTML='收起';
+	} else {
+		$('#p'+id).show();
+		$('#txt'+id).hide();
+		obj.innerHTML='全文';
+	}
+}

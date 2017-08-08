@@ -181,7 +181,7 @@
 		<script id="tmprecodes_left" type="text/x-dot-template">
 				<div class="recode">
 					<div class="date">{{=it.date}}</div>
-					<div class="imgContainer" data-key="{{=it.key}}" data-mpid="{{=it.mpid}}"  onclick="openWin(this)">
+					<div class="imgContainer" data-key="{{=it.key}}" data-openId="{{=it.openId}}" data-fileNewNames="{{=it.fileNewNames}}" data-title="{{=it.title}}"  onclick="openWin(this)">
 						<div style="z-index: 2;">
 							<img src="{{=it.url}}" class="originalImg" onload="fitImage(this.parentNode,this)" />
 							{{? it.qrc_type == 2}}
@@ -210,7 +210,7 @@
                         {{??}}
                         {{?}}
 					</div>
-					{{? it.random == 0}}
+					{{? it.random == 2}}
 						<div class="moneyTip">
 							金额固定:{{=it.amount}}元							 
 							{{? it.state == 0}} <!--正常-->

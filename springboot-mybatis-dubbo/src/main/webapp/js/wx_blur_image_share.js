@@ -5,10 +5,12 @@ var data=[];
 var canvasWidth = 400;
 var canvasHeight = 900;
 var id = COMMON.getUrlParam("id");
-var fileNames = COMMON.getUrlParam("fileNames");
-var title = COMMON.getUrlParam("title");
-var qrcSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/qrcode_" + fileNames;
-var blurSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/blur_" + fileNames;
+var fileNewNames = COMMON.getUrlParam("fileNewNames");
+var fileSuffix = fileNewNames.substring(fileNewNames.indexOf("."),fileNewNames.length);
+var fileName = fileNewNames.substring(0,fileNewNames.indexOf("."));
+var title = decodeURI(COMMON.getUrlParam("title"));
+var qrcSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/" + fileName + "_qrcode" + fileSuffix;
+var blurSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/"+ fileName + "_blur.jpg";
 var blur_image_share = (function() {
 	data.push(blurSrc);
 	data.push(qrcSrc);
@@ -42,7 +44,7 @@ function draw(){
 					ctx.font = '48px sans-serif';
 					ctx.textBaseline = 'top';
 					// 填充字符串
-					ctx.fillText(fileNames,380,60);
+					ctx.fillText(title,380,60);
 					ctx.fillText('长按图片识别二维码，查看高清原图',380,150);
 				}
 				else{

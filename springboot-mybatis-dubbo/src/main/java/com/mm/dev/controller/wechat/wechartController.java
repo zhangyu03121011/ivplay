@@ -195,6 +195,12 @@ public class wechartController{
 			} else if("4".equals(state)) {
 				//跳转我的文件列表
 				gotoPage = "/wx_my_list.html";
+			} else if("5".equals(state)) {
+				//跳转朋友圈首页
+				gotoPage = "/home/home.html";
+			} else if("6".equals(state)) {
+				//跳转朋友圈首页
+				gotoPage = "/pages/wx_upload_video.html";
 			}
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);

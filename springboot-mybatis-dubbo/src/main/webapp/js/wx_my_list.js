@@ -4,7 +4,7 @@
 var upload_list = (function() {
 	// 分页参数
 	var start = 0;
-	var count = 6;
+	var count = 1;
 	var flag = true;
 	var code = t = qmoreUrl = '';
 	
@@ -56,7 +56,9 @@ var upload_list = (function() {
 							}
 							dataInters = {
 								key : data[i].id,
-								mpid : 0,
+								openId : data[i].openId,
+								fileNewNames : data[i].fileNewNames,
+								title : data[i].title,
 								qrc_type : data[i].fileCategory,
 								date : myc.getTime((new Date(data[i].createTime))),
 								blur_url : blur_url,
@@ -135,7 +137,8 @@ window.onscroll = function() {
 } 
 
 function openWin(dom){
-	window.location.href = serverUrl + 'link/'+ $(dom).attr('data-mpid') +'/wx_qrc_setting?k=' + $(dom).attr('data-key');
+//	window.location.href = serverUrl + 'link/'+ $(dom).attr('data-mpid') +'/wx_qrc_setting?k=' + $(dom).attr('data-key');
+	window.location.href = 'wx_blur_image_share.html?id=' + $(dom).attr('data-openId') + '&title=' + encodeURI($(dom).attr('data-title')) + '&fileNewNames=' + $(dom).attr('data-fileNewNames');
 }
 
 function openReward(dom){
