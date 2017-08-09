@@ -158,7 +158,7 @@ public class wechartController{
 	@RequestMapping(value = "/callback", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView oauth2authorize(@RequestParam(value = "code") String authcode, @RequestParam(value = "state") String state,
-			@RequestParam(value = "fileNames", required = false) String fileNames, HttpServletRequest request, HttpServletResponse response)
+			@RequestParam(value = "fileNewNames", required = false) String fileNewNames, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		logger.info("获取网页授权code回调开始======" + authcode);
 		logger.info("获取网页授权state回调======" + state);
@@ -181,8 +181,8 @@ public class wechartController{
         		imagePath.append("wx_blur_image_share.html?");
         		imagePath.append("id=");
         		imagePath.append(openId);
-        		imagePath.append("&fileNames=");
-        		imagePath.append(fileNames);
+        		imagePath.append("&fileNewNames=");
+        		imagePath.append(fileNewNames);
 				gotoPage = imagePath.toString();
 			} else if("3".equals(state)) {
 				//跳转支付查看页面

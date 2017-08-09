@@ -1,5 +1,8 @@
 package com.mm.dev.service.user;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
@@ -53,6 +56,6 @@ public interface IUserService {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public Page<User> findUserFilesList(Pageable pageable) throws Exception;
+	public List<Map<String, String>> findUserFilesList(Pageable pageable) throws Exception;
 	
 }

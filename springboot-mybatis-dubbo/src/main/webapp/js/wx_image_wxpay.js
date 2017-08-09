@@ -46,7 +46,7 @@ function init() {
 		if(result && result.status) {
 			var data = result.data;
 			if(COMMON.isNotEmpty(data)) {
-				$("#tips-content").html('该内容由<img src="'+data.headimgurl+'" class="head_img">'+data.nickName+' 发布并收费');
+				$("#tips-content").html('该内容由<img src="'+data.headimgurl+'" class="head_img">'+decodeURIComponent(data.nickName)+' 发布并收费');
 			}
 		}
 	});

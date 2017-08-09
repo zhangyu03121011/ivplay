@@ -3,6 +3,7 @@ package com.mm.dev.entity.user;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.mm.dev.entity.BaseEntity;
@@ -13,7 +14,7 @@ import com.mm.dev.entity.BaseEntity;
  * @date 2017年8月4日 下午7:21:45
  */
 @Entity
-//@Table(name = "t_user")
+@Table(name = "t_user")
 public class User extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;

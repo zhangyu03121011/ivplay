@@ -27,42 +27,42 @@
 		</div>
 
 		<div class="contain" style="margin: 40px 0 0;">
-			<ul>
-				<li>
-					<div class="body">
-						<div class="logo">
-							<img src="img/tx2.jpg">
-						</div>
-						<div class="text">
-							<div class="title">小黄人</div>
-							<div class="txt">在宇宙中未知的地方有一个由12个人类殖民地组成的星际国家，人类为了方便制造了Cylons（机器人）为人类服务，但Cylons起来反抗人类，双方在血战之后停火，Cylons离开了殖民地去建立自己的家园。40年的和平让<span id="p1">...</span><span id="txt1" style="display:none;">人类放松了警惕，Cylons通过人类内部的间谍瘫痪了人类的防御系统，摧毁了Battlestar舰队，用核武器将殖民地的城市化为灰烬。Battlestar Galactica是唯一一艘幸存的航母，它在舰长Adama的指挥下带领几十艘各式各样的民船和近5万名幸存者逃离了殖民地的行星系统，开始了寻找人类的第13个殖民地——地球——的旅程。</span></div>
-							<div style="color: #88B1C5;" onclick="more(this,'1')">全文</div>
-							<div class="my-gallery" data-pswp-uid="1">
-							<figure><span>
-							  <a href="img/m3.jpg" data-size="670x712">
-							  <img style="width:80%;" src="img/th1.jpg">
-							  </a></span>
-							</figure>
-							  </div>
-							<div class="tm">
-								<div class="fl">1分钟前</div>
-								<div class="fr">评论</div>
+			<ul id="recodesLeft">
+				<script id="tmprecodes_left" type="text/x-dot-template">
+					<li>
+						<div class="body">
+							<div class="logo">
+								<img src="{{=it.headimgurl}}">
 							</div>
-							<div class="cmt">
-								<div class="fav line"><i class="iconfont">&#xe616;</i>小豪,李小爱</div>
-								<div><span>小豪：</span>什么</div>
-								<div><span>淘淘：</span>I use owl carousel to generate a slider, but at the same time I want to use Photoswipe, but I can't. When I use the Owl carousel plugin, the slider's inserted into the code with a speciel markup, where each item (image) has a class of .item and the image is located 3 layers deep into that div.</div>
+							<div class="text">
+								<div id="title" class="title">{{=it.nickName}}</div>
+								<div id="content" class="txt">
+										{{=it.title}}
+								</div>
+								<div style="color: #88B1C5;" onclick="more(this,'1')">全文</div>
+								<div class="my-gallery" data-pswp-uid="{{=it.index}}">
+									<figure>
+										<span>
+											  <a href="/{{=it.blurUrl}}" data-size="670x712">
+											  		<img style="width:80%;" src="/{{=it.blurUrl}}">
+											  </a>
+									  	</span>
+									</figure>
+								  </div>
 							</div>
 						</div>
-					</div>
-				</li>
-				<li>
+					</li>
+				</script>
+			
+			
+				
+				<!-- <li>
 					<div class="body">
 						<div class="logo"><img src="img/tx3.jpg"></div>
 						<div class="text">
 							<div class="title">小清新</div>
 							<div class="txt">买了一个更帅的电饭锅，可以手机远程操制的，开心</div>
-							<!--data-pswp-uid 是每个gallery的id不能重复-->
+							data-pswp-uid 是每个gallery的id不能重复
 							<div class="my-gallery" data-pswp-uid="2">
 							<figure>
 								<div><a href="img/s5.jpg" data-size="286x220"><img style="height:100%;" src="img/s5.jpg"></a></div>
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 					</div>
-				</li>
+				</li> -->
 				
 			</ul>
 		</div>
@@ -162,16 +162,14 @@
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>
             </div>
-
         </div>
-
     </div>
-
 </div>
-</body>
 <script src="js/jquery.min.js"></script>
 <script src="js/photoswipe.js"></script>
 <script src="js/photoswipe-ui-default.min.js"></script>
+<script src="../js/dot.min.js"></script>
+<script src="../js/myc.js"></script>
 <script type="text/javascript">
 	var initPhotoSwipeFromDOM = function(gallerySelector) {
 
@@ -405,4 +403,6 @@
  		}
  	}
 </script>
+<script src="js/home.js"></script>
+</body>
 </html>

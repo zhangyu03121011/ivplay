@@ -18,6 +18,7 @@
        	<result property="fileSuffic" column="file_suffic"/>
        	<result property="fileSuffic" column="file_suffic"/>
        	<result property="filePath" column="file_path"/>
+       	<result property="title" column="title"/>
 	</resultMap>
     <sql id="baseColumn">
     	id,
@@ -109,17 +110,16 @@
    			t.`open_id` = #{openId}
     </update>
     
-    <select id="findUserFilesList" resultMap="userFilesMap">
+    <select id="findUserFilesList" resultType="map">
     	SELECT
-    		t.id as uid, 
-			t.`nick_name`,
-			t.`open_id`,
+			t.`nick_name` as "nickName",
+			t.`open_id` as "openId",
 			t.`sex`,
 			t.`headimgurl`,
-			t2.id as ufid,
-			t2.`file_new_names`,
-			t2.`file_suffic`,
-			t2.`file_path`
+			t2.`file_new_names` as "fileNewNames",
+			t2.`file_suffic` as "fileSuffic",
+			t2.`file_path` as "filePath",
+			t2.title
 		FROM 
 			t_user t 
 		LEFT JOIN 

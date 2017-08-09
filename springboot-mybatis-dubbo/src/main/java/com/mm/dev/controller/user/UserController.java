@@ -1,6 +1,8 @@
 package com.mm.dev.controller.user;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +67,7 @@ public class UserController {
 	@RequestMapping(value = "/{start}/{count}/userFiles/list", method = RequestMethod.GET)
 	@ResponseBody
 	public ReturnMsg<Object> findUserFilesList(@PathVariable("start") int start,@PathVariable("count") int count,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Page<User> userFileList = null;
+		List<Map<String, String>> userFileList = null;
 		try {
 //			String openId = (String)UserSession.getSession(WechatConstant.OPEN_ID);
 			String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";

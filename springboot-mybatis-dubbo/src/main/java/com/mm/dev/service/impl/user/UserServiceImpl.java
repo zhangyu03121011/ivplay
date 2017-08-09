@@ -1,6 +1,8 @@
 package com.mm.dev.service.impl.user;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -162,7 +164,7 @@ public class UserServiceImpl implements IUserService {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public Page<User> findUserFilesList(Pageable pageable) throws Exception{
+	public List<Map<String, String>> findUserFilesList(Pageable pageable) throws Exception{
 		return userMapper.findUserFilesList(pageable);
 	}
 }

@@ -859,7 +859,7 @@ public class WechatServiceImpl implements IWechatService{
 					logger.info("获取微信头像，昵称等基本信息返回值：" + getUserInfoUrlObject);
 					user = new User();
 					String nickname = URLEncoder.encode((String)getUserInfoUrlObject.get("nickname"), "utf-8");;
-					user.setNickName(getUserInfoUrlObject.getString("nickname"));
+					user.setNickName(nickname);
 					user.setUserName(nickname);
 					user.setSex(getUserInfoUrlObject.getString("sex"));
 					user.setHeadimgurl(getUserInfoUrlObject.getString("headimgurl"));
