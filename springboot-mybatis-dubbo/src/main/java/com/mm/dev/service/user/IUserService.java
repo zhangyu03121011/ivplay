@@ -48,4 +48,11 @@ public interface IUserService {
 	 */
 	public User getuserBaseInfoByopenId(String openId) throws Exception;
 	
+	/**
+	 * @Description:朋友圈首页分页查询列表
+	 * @Datatime 2017年8月6日 下午9:42:44 
+	 * @return List<UserFiles>    返回类型
+	 */
+	public Page<User> findUserFilesList(Pageable pageable) throws Exception;
+	
 }

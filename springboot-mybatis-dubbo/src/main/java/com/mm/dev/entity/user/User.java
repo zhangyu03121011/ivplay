@@ -1,6 +1,9 @@
 package com.mm.dev.entity.user;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import com.mm.dev.entity.BaseEntity;
 
@@ -89,6 +92,9 @@ public class User extends BaseEntity{
      * 微信头像URL
      */
     private String headimgurl;
+    
+    @Transient
+    private List<UserFiles> userFilesList;
     
 	public String getOpenId() {
 		return openId;
@@ -212,5 +218,13 @@ public class User extends BaseEntity{
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public List<UserFiles> getUserFilesList() {
+		return userFilesList;
+	}
+
+	public void setUserFilesList(List<UserFiles> userFilesList) {
+		this.userFilesList = userFilesList;
 	}
 }

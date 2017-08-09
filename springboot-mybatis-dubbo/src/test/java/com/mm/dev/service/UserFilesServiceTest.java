@@ -13,6 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import sun.util.logging.resources.logging;
+
 import com.alibaba.fastjson.JSONObject;
 import com.common.util.UUIDGenerator;
 import com.mm.dev.config.ConfigProperties;
@@ -41,12 +43,12 @@ public class UserFilesServiceTest {
 		userFiles.setCreateTime(new Date());
 		userFiles.setUpdateTime(new Date());
 		userFiles.setFileCategory(WechatConstant.file_category_1);
-		userFiles.setFileNames("test.png");
-		userFiles.setFileNewNames("aaa.png");
-		userFiles.setFileSize("454121241");
-		userFiles.setFileSuffic("png");
+		userFiles.setFileNames("testbbb222.png");
+		userFiles.setFileNewNames("aaabbb222.png");
+		userFiles.setFileSize("123456");
+		userFiles.setFileSuffic("jpeg");
 		userFiles.setFilePath("");
-		userFiles.setOpenId("123466");
+		userFiles.setOpenId("1234667788");
 		userFiles.setBlur(configProperties.getBlur());
 		userFiles.setPrice(configProperties.getPrice());
 		userFiles.setPriceMin(configProperties.getPriceMin());

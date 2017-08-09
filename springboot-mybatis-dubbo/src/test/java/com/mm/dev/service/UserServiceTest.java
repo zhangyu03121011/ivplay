@@ -44,6 +44,13 @@ public class UserServiceTest {
 //    	logger.info("mybatis分页：{}",JSONObject.toJSONString(userAll));
 	}
 	
+	@Test
+	public void testfindUserFiles() throws Exception {
+		Sort sort = new Sort(Direction.DESC, "createTime");
+		Pageable pageable = new PageRequest(0,2, sort);
+		System.out.println(JSONObject.toJSONString(userService.findUserFilesList(pageable)));
+	}
+	
 	
 	public static void main(String[] args) {
 		Sort sort = new Sort(Direction.DESC, "id");

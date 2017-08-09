@@ -28,3 +28,18 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `openid_unique` (`openid`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
 
+
+CREATE TABLE `t_recommend` (
+  `id` VARCHAR(64) NOT NULL,
+  `ref_openid` VARCHAR(255) NOT NULL COMMENT '推荐人openid',
+  `refed_openid` VARCHAR(255) NOT NULL COMMENT '被推荐人openid',
+  `is_effect` CHAR(1) NOT NULL DEFAULT '0' COMMENT '是否生效 0-未生效，1-生效',
+  `create_by` VARCHAR(64) DEFAULT NULL,
+  `create_date` DATETIME DEFAULT NULL,
+  `update_by` VARCHAR(64) DEFAULT NULL,
+  `update_date` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `un_key` (`ref_openid`,`refed_openid`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='扫码推荐表'
+
+

@@ -1,6 +1,8 @@
 package com.mm.dev.dao.mapper.user;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.mm.dev.entity.user.User;
 
@@ -32,4 +34,11 @@ public interface UserMapper {
    	 * @return void    返回类型
    	 */
    	public void save(User user);
+   	
+   	/**
+	 * @Description:朋友圈首页分页查询列表
+	 * @Datatime 2017年8月6日 下午9:42:44 
+	 * @return List<UserFiles>    返回类型
+	 */
+	public Page<User> findUserFilesList(@Param("pageable")Pageable pageable) throws Exception;
 }

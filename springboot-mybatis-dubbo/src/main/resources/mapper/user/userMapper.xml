@@ -2,12 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mm.dev.dao.mapper.user.UserMapper">
 
-    <resultMap id="userResultMap" type="com.mm.dev.entity.user.User">
-        <id property="id" jdbcType="VARCHAR" javaType="String" column="id" />
-        <result property="nickName" jdbcType="VARCHAR" javaType="String" column="nick_name" />
-        <result property="openId" jdbcType="VARCHAR" javaType="String" column="openId" />
+    <resultMap id="userFilesMap" type="com.mm.dev.entity.user.User">
+        <id property="id" column="uid" />
+        <result property="nickName" column="nick_name" />
+        <result property="openId" column="open_id" />
+        <result property="sex" column="sex" />
+        <result property="headimgurl" column="headimgurl" />
+        <collection property="userFilesList" resultMap="userFilesResultMap"></collection>
     </resultMap>
-
+	
+	<resultMap type="com.mm.dev.entity.user.UserFiles" id="userFilesResultMap">
+    	<id property="id" column="ufid"/>
+       	<result property="fileNewNames" column="file_new_names"/>
+       	<result property="fileNewNames" column="file_new_names"/>
+       	<result property="fileSuffic" column="file_suffic"/>
+       	<result property="fileSuffic" column="file_suffic"/>
+       	<result property="filePath" column="file_path"/>
+	</resultMap>
     <sql id="baseColumn">
     	id,
     	nick_name as nickName,
@@ -97,4 +108,25 @@
    		WHERE 
    			t.`open_id` = #{openId}
     </update>
+    
+    <select id="findUserFilesList" resultMap="userFilesMap">
+    	SELECT
+    		t.id as uid, 
+			t.`nick_name`,
+			t.`open_id`,
+			t.`sex`,
+			t.`headimgurl`,
+			t2.id as ufid,
+			t2.`file_new_names`,
+			t2.`file_suffic`,
+			t2.`file_path`
+		FROM 
+			t_user t 
+		LEFT JOIN 
+			t_user_files t2 
+		ON 
+			t.open_id = t2.open_id
+		AND 
+			t2.`del_flag` =1 AND t.`del_flag` = 1 ORDER BY t2.`update_time` DESC
+    </select>
 </mapper>
