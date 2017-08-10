@@ -72,7 +72,6 @@ public class UserServiceImpl implements IUserService {
 	public void weixinRegister(HttpServletRequest request,String openId,String attenation) throws Exception{
 		try {
 			if (StringUtils.isNotEmpty(openId)) {
-				UserSession.setSession(WechatConstant.OPEN_ID, openId);
 				//根据openId查询出当前用户
 				User user = getuserBaseInfoByopenId(openId);
 				//老用户点击菜单授权

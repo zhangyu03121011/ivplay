@@ -46,11 +46,14 @@ var my = (function() {
 		}
 	}
 
-	function ajaxGet(url, callback) {
+	function ajaxGet(url, callback,async) {
+		if(async == undefined){
+			async = true;
+		}
 		$.ajax({
 			type: "GET",
 			url: web_get(url),
-			async:true,
+			async:async,
 			success : function(data, status, xhr){
 				web_res(data);
 				if (callback) callback(data, null, status);
@@ -120,6 +123,12 @@ var my = (function() {
 //		var url = serverUrl + 'data/' + p + '/' + getPageName() + '/' + path;
 		ajaxPost("", data, callback);
 	}
+	
+	function getUrlParam(key) {
+		var svalue = window.location.search.match(new RegExp("[\?\&]" + key
+				+ "=([^\&]*)(\&?)", "i"));
+		return svalue ? svalue[1] : svalue;
+	}
 
 	return {
 		isMobile: isMobile,
@@ -128,7 +137,8 @@ var my = (function() {
 		ajaxPost: ajaxPost,
 		getQuery: getQuery,
 		page: page,
-		ajax: ajax
+		ajax: ajax,
+		getUrlParam:getUrlParam
 	};
 })();
 

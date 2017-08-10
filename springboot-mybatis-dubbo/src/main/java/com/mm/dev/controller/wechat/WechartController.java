@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.common.util.DateUtil;
 import com.common.util.UUIDGenerator;
 import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.constants.WechatConstant;
@@ -179,10 +178,10 @@ public class WechartController{
 			//从微信获取openId
 			String openId = wechatService.queryWxuseridCallTX(authcode);
 			logger.info("获取网页授权获取openId:{}======",openId);
-			UserSession.setSession("openId", openId);
 			//普通用户注册(openId注册)
 			userService.weixinRegister(request,openId, WechatConstant.attention_status_1);
 			
+			UserSession.setSession(WechatConstant.OPEN_ID, openId);
 			if ("1".equals(state)) {
 				//上传图片
 				gotoPage = "/wx_upload_photo.html";
@@ -206,9 +205,9 @@ public class WechartController{
 				gotoPage = imagePath.toString();
 			} else if("4".equals(state)) {
 				//跳转我的文件列表
-				gotoPage = "/wx_my_list.html";
+				gotoPage = "/home/home.html?openId="+openId;
 			} else if("5".equals(state)) {
-				//跳转朋友圈首页
+				//跳转打赏圈首页
 				gotoPage = "/home/home.html";
 			} else if("6".equals(state)) {
 				//跳转朋友圈首页

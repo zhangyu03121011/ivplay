@@ -41,8 +41,7 @@ var image_pay = (function() {
 
 function init() {
 	//获取用户数据
-	var id = COMMON.getUrlParam("id");
-	AJAX.call("/user/queryUserInfo/"+id,"get","json","","true",function(result) {
+	AJAX.call("/user/queryUserInfo/","get","json","","true",function(result) {
 		if(result && result.status) {
 			var data = result.data;
 			if(COMMON.isNotEmpty(data)) {

@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.controller.wechat.WechartController;
 import com.mm.dev.entity.user.User;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.user.IUserService;
+import com.mm.dev.util.UserSession;
 import com.mm.dev.wechatUtils.ReturnMsgUtil;
 
 @Controller
@@ -42,14 +44,19 @@ public class UserController {
 	 * @Datatime 2017年8月5日 下午3:16:51 
 	 * @return void    返回类型
 	 */
-	@RequestMapping("/queryUserInfo/{openId}")
+	@RequestMapping("/queryUserInfo")
 	@ResponseBody
-	public ReturnMsg<User> queryUserInfo(@PathVariable String openId,HttpServletResponse response) throws Exception {
+	public ReturnMsg<User> queryUserInfo(HttpServletResponse response) throws Exception {
 		ReturnMsg<User> returnMsg = new ReturnMsg<>();
 		try {
-			User userInfo = userService.getuserBaseInfoByopenId(openId);
-			returnMsg.setStatus(true);
-			returnMsg.setData(userInfo);
+			String openId = (String)UserSession.getSession(WechatConstant.OPEN_ID);
+			if(StringUtils.isNotEmpty(openId)) {
+				User userInfo = userService.getuserBaseInfoByopenId(openId);
+				returnMsg.setStatus(true);
+				returnMsg.setData(userInfo);
+			} else {
+				returnMsg.setStatus(false);
+			}
 		} catch (Exception e) {
 			logger.error("根据openId获取用户信息异常",e);
 			returnMsg.setStatus(false);
@@ -65,16 +72,16 @@ public class UserController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{start}/{count}/userFiles/list", method = RequestMethod.GET)
 	@ResponseBody
-	public ReturnMsg<Object> findUserFilesList(@PathVariable("start") int start,@PathVariable("count") int count,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public ReturnMsg<Object> findUserFilesList(@PathVariable("start") int start,@PathVariable("count") int count,String openId,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Map<String, String>> userFileList = null;
 		try {
-//			String openId = (String)UserSession.getSession(WechatConstant.OPEN_ID);
-			String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";
-			if(StringUtils.isNotEmpty(openId)) {
+//			String id = (String)UserSession.getSession(WechatConstant.OPEN_ID);
+//			String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";
+//			if(StringUtils.isNotEmpty(openId)) {
 				Sort sort = new Sort(Direction.DESC, "updateTime");
 				Pageable pageable = new PageRequest(start,count, sort);
-				userFileList = userService.findUserFilesList(null,pageable);
-			}
+				userFileList = userService.findUserFilesList(openId,pageable);
+//			}
 		} catch (Exception e) {
 			logger.error("根据opoenId,文件分类查询列表异常",e);
 			return ReturnMsgUtil.error(ExceptionEnum.system_error);
