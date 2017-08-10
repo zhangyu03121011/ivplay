@@ -44,9 +44,6 @@ CREATE TABLE `t_recommend` (
   UNIQUE KEY `un_key` (`ref_openid`,`refed_openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='扫码推荐表'
 
-
-Create Table
-
 CREATE TABLE `t_order_payment` (
   `id` varchar(64) NOT NULL COMMENT '主键',
   `order_no` varchar(32) DEFAULT NULL COMMENT '订单编号',
@@ -71,14 +68,13 @@ CREATE TABLE `t_order_payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='支付订单表'
 
 
-
 CREATE TABLE `t_withdrawal_apply` (
   `id` varchar(64) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
   `apply_open_id` varchar(64) CHARACTER SET utf8mb4 NOT NULL COMMENT '申请人openId',
-  `apply_userName` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '申请人用户名',
+  `apply_user_name` varchar(64) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '申请人用户名',
   `apply_phone` varchar(11) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '申请人手机号',
   `apply_amount` decimal(10,2) DEFAULT NULL COMMENT '申请提现金额',
-  `apply_status` varchar(1) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '提现状态,0:未处理,1:处理失败,2:处理成功',
+  `apply_status` varchar(1) CHARACTER SET utf8mb4 DEFAULT '1' COMMENT '提现状态,1:未处理,2:处理成功,3:处理失败',
   `apply_time` timestamp NULL DEFAULT NULL COMMENT '申请提现时间',
   `card_no` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '提现卡号',
   `card_person_name` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '持卡人姓名',
