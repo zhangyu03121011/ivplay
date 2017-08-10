@@ -557,7 +557,7 @@ public class WechatServiceImpl implements IWechatService{
     }
     
     /**
-     * @Description: 根据访问token获取二维码ticketID
+     * @Description: 根据访问token获取推荐关注二维码
      * @DateTime:2017年7月31日 下午1:53:15
      * @return JSONObject
      * @throws
@@ -576,7 +576,7 @@ public class WechatServiceImpl implements IWechatService{
 			actionInfoParams.put("scene", sceneParams);
 			mapParames.put("action_name", "QR_LIMIT_STR_SCENE");
 			mapParames.put("action_info", actionInfoParams);
-			System.out.println(JSONObject.toJSONString(mapParames));
+			logger.info(JSONObject.toJSONString(mapParames));
 			jsonObject = WeixinUtil.doPostStr(url, JSONObject.toJSONString(mapParames));
 		}
 		logger.info("根据访问token获取二维码ticket返回值==={}",JSONObject.toJSONString(jsonObject));

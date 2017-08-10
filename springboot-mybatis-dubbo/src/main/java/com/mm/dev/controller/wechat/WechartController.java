@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.util.UUIDGenerator;
 import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.constants.WechatConstant;
+import com.mm.dev.entity.user.UserRecommend;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.WechatConfig;
 import com.mm.dev.entity.wechat.WechatPayConfig;
@@ -35,6 +37,7 @@ import com.mm.dev.enums.Payment_Status;
 import com.mm.dev.enums.Payment_Type;
 import com.mm.dev.enums.WXBankTypeEnum;
 import com.mm.dev.service.pay.IPayService;
+import com.mm.dev.service.user.IUserRecommendService;
 import com.mm.dev.service.user.IUserService;
 import com.mm.dev.service.wechat.IWechatService;
 import com.mm.dev.util.CheckUtil;
@@ -48,8 +51,8 @@ import com.mm.dev.util.UserSession;
  */
 @Controller
 @RequestMapping("/wechat")
-public class wechartController{
-	private Logger logger = LoggerFactory.getLogger(wechartController.class);
+public class WechartController{
+	private Logger logger = LoggerFactory.getLogger(WechartController.class);
 	
 	@Autowired
 	private IWechatService wechatService;
@@ -62,6 +65,9 @@ public class wechartController{
 	
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IUserRecommendService userRecommendService;
 	
 	/**
 	 * @Description: 接入验证
@@ -121,7 +127,12 @@ public class wechartController{
 					//带参数关注二维码
 					String qrscene = map.get("EventKey"); // qrscene_535d1d35e035441e93aa18883d3d84af
 					if (StringUtils.isNotEmpty(qrscene)) {
-						
+						UserRecommend userRecommend = new UserRecommend();
+						userRecommend.setRefedOpenid(fromUserName);
+						userRecommend.setRefOpenid(qrscene);
+						userRecommend.setCreateTime(new Date());
+						userRecommend.setUpdateTime(new Date());
+						userRecommendService.save(userRecommend);
 					}
 				} else if (MessageUtil.MESSAGE_UNSUBSCRIBE.equals(eventType)) { // 取消关注
 					logger.info("取消关注操作======");

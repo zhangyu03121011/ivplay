@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mm.dev.controller.wechat.wechartController;
+import com.mm.dev.controller.wechat.WechartController;
 import com.mm.dev.entity.user.User;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
@@ -33,7 +33,7 @@ import com.mm.dev.util.ReturnMsgUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	private Logger logger = LoggerFactory.getLogger(wechartController.class);
+	private Logger logger = LoggerFactory.getLogger(WechartController.class);
 	
 	@Autowired
 	private IUserService userService;

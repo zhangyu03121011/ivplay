@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -170,7 +171,8 @@ public class BaseEntity implements Serializable {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy == null ? null : createBy.trim();
 	}
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -186,7 +188,8 @@ public class BaseEntity implements Serializable {
 	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy == null ? null : updateBy.trim();
 	}
-
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getUpdateTime() {
 		return updateTime;
 	}

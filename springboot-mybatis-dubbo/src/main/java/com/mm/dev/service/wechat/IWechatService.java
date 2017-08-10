@@ -103,7 +103,7 @@ public interface IWechatService {
     public Boolean deleteFile(String rootPath) throws Exception;
     
     /**
-     * @Description: 根据访问token获取二维码ticketID
+     * @Description: 根据访问token获取推荐关注二维码
      * @DateTime:2017年7月31日 下午1:53:15
      * @return JSONObject
      * @throws

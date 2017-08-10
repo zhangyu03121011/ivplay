@@ -29,17 +29,23 @@ CREATE TABLE `t_user` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
 
 
+
+Create Table
+
 CREATE TABLE `t_recommend` (
-  `id` VARCHAR(64) NOT NULL,
-  `ref_openid` VARCHAR(255) NOT NULL COMMENT '推荐人openid',
-  `refed_openid` VARCHAR(255) NOT NULL COMMENT '被推荐人openid',
-  `is_effect` CHAR(1) NOT NULL DEFAULT '0' COMMENT '是否生效 0-未生效，1-生效',
-  `create_by` VARCHAR(64) DEFAULT NULL,
-  `create_date` DATETIME DEFAULT NULL,
-  `update_by` VARCHAR(64) DEFAULT NULL,
-  `update_date` DATETIME DEFAULT NULL,
+  `id` varchar(64) NOT NULL,
+  `ref_openid` varchar(255) NOT NULL COMMENT '推荐人openid',
+  `refed_openid` varchar(255) NOT NULL COMMENT '被推荐人openid',
+  `del_flag` char(2) NOT NULL DEFAULT '1' COMMENT '删除标记（1：否 2：是）',
+  `state` char(2) DEFAULT '1' COMMENT '1:有效 2：失效',
+  `descr` varchar(500) DEFAULT NULL COMMENT '描述',
+  `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `un_key` (`ref_openid`,`refed_openid`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='扫码推荐表'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='扫码推荐表'
+
 
 

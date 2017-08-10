@@ -1,0 +1,23 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mm.dev.dao.mapper.user.UserRecommendMapper">
+
+    <select id="findAllByOpenIdAndDelFlag" resultType="map">
+    	SELECT 
+			t.`nick_name` AS nickName,
+			t.`headimgurl`,
+			t.`sex`,
+			t2.create_time AS createTime
+			FROM t_user t
+			LEFT JOIN
+			`t_recommend` t2
+		ON 
+			t.`open_id` = t2.`refed_openid` 
+		AND 
+			t2.`ref_openid` = "123" 
+		AND 
+			t2.`del_flag` = 1
+		ORDER BY 
+			t2.`create_time` DESC
+    </select>
+</mapper>
