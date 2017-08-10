@@ -1,30 +1,22 @@
 package com.mm.dev.enums;
 
-public enum Payment_Method {
-	/** 在线支付 */
-	online("在线支付",0),
-
-	/** 线下支付 */
-	offline("线下支付",1),
-
-	/** 预存款支付 */
-	deposit("预存款支付",2),
+public enum PaymentMethodEnum {
 	
 	/** 微信jsapi支付 */
-	JSAPI("微信支付",4);
+	WECHATPAY("微信支付","1");
 
 	
 	// 成员变量
     private String description;
-    private int index;
+    private String index;
     
-    private Payment_Method(String description,int index) {
+    private PaymentMethodEnum(String description,String index) {
 		this.description = description;
 		this.index = index;
 	}
     
-    public static String getDescription(int index){
-    	for (Payment_Method t : Payment_Method.values()) {
+    public static String getDescription(String index){
+    	for (PaymentMethodEnum t : PaymentMethodEnum.values()) {
             if (t.getIndex() == index) {
                 return t.description;
             }
@@ -40,11 +32,11 @@ public enum Payment_Method {
 		this.description = description;
 	}
 
-	public int getIndex() {
+	public String getIndex() {
 		return index;
 	}
 
-	public void setIndex(int index) {
+	public void setIndex(String index) {
 		this.index = index;
 	}
     

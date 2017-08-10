@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,19 +25,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.common.util.DateUtil;
 import com.common.util.UUIDGenerator;
 import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.constants.WechatConstant;
+import com.mm.dev.entity.order.OrderPayment;
 import com.mm.dev.entity.user.UserRecommend;
 import com.mm.dev.entity.wechat.AccessToken;
 import com.mm.dev.entity.wechat.WechatConfig;
 import com.mm.dev.entity.wechat.WechatPayConfig;
-import com.mm.dev.entity.wechat.WeixinPayRes;
-import com.mm.dev.enums.Payment_Method;
-import com.mm.dev.enums.Payment_Status;
-import com.mm.dev.enums.Payment_Type;
+import com.mm.dev.enums.PaymentMethodEnum;
+import com.mm.dev.enums.PaymentStatusEnum;
 import com.mm.dev.enums.WXBankTypeEnum;
-import com.mm.dev.service.pay.IPayService;
+import com.mm.dev.service.order.IOrderPaymentService;
 import com.mm.dev.service.user.IUserRecommendService;
 import com.mm.dev.service.user.IUserService;
 import com.mm.dev.service.wechat.IWechatService;
@@ -61,7 +62,7 @@ public class WechartController{
 	private ConfigProperties configProperties;
 	
 	@Autowired
-	private IPayService payService;
+	private IOrderPaymentService orderPaymentService;
 	
 	@Autowired
 	private IUserService userService;
@@ -363,16 +364,15 @@ public class WechartController{
 //				orderService.updateProductSalesByOrderNO(resultMap.get("out_trade_no"));
 
 				// 组装订单支付信息
-				WeixinPayRes weixinPayResDto = new WeixinPayRes();
+				OrderPayment weixinPayResDto = new OrderPayment();
 				weixinPayResDto.setId(UUIDGenerator.generate());
-				weixinPayResDto.setAmount(resultMap.get("total_fee"));
+				weixinPayResDto.setAmount(new BigDecimal(resultMap.get("total_fee")));
 				weixinPayResDto.setAccount(resultMap.get("appid"));
 				weixinPayResDto.setPayer(resultMap.get("openid"));
 				weixinPayResDto.setOrderNo(resultMap.get("out_trade_no"));
-				weixinPayResDto.setPaymentDate(resultMap.get("time_end"));
-				weixinPayResDto.setPaymentMethod(String.valueOf(Payment_Method.JSAPI.getIndex()));
-				weixinPayResDto.setType(Payment_Type.payment.getIndex());
-				weixinPayResDto.setPaymentStatus(Payment_Status.success.getIndex());
+				weixinPayResDto.setPaymentTime(new Date(resultMap.get("time_end")));
+				weixinPayResDto.setPaymentMethod(PaymentMethodEnum.WECHATPAY.getIndex());
+				weixinPayResDto.setPaymentStatus(PaymentStatusEnum.success.getIndex());
 				weixinPayResDto.setPaymentBank(WXBankTypeEnum.getDescription(resultMap.get("bank_type")));
 				logger.info("orderNo====:" + resultMap.get("out_trade_no"));
 //				OrderTable orderByOrderNo = orderService.getOrderByOrderNo(resultMap.get("out_trade_no"));
@@ -381,7 +381,7 @@ public class WechartController{
 //					weixinPayResDto.setOrderTableId(id);
 //				}
 				logger.info("保存微信付款信息开始....");
-				payService.savePayInfo(weixinPayResDto);
+				orderPaymentService.savePayInfo(weixinPayResDto);
 				logger.info("保存微信付款信息结束....");
 
 				// 通知微信.异步确认成功.必写.不然会一直通知后台.八次之后就认为交易失败了.

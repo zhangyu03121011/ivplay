@@ -1,28 +1,28 @@
 package com.mm.dev.enums;
 
-public enum PaymentStatusEnum {
+public enum WithdrawalApplyStatusEnum {
 
-	/** 等待支付 */
-	wait("等待支付","1"),
+	/** 未处理 */
+	wait("未处理","1"),
 
-	/** 支付成功 */
-	success("支付成功","2"),
+	/** 处理成功 */
+	success("处理成功","2"),
 
-	/** 支付失败 */
-	failure("支付失败","3");
+	/** 处理失败 */
+	failure("处理失败","3");
 
 	
 	// 成员变量
     private String description;
     private String index;
     
-    private PaymentStatusEnum(String description,String index) {
+    private WithdrawalApplyStatusEnum(String description,String index) {
 		this.description = description;
 		this.index = index;
 	}
     
     public static String getDescription(String index){
-    	for (PaymentStatusEnum t : PaymentStatusEnum.values()) {
+    	for (WithdrawalApplyStatusEnum t : WithdrawalApplyStatusEnum.values()) {
             if (t.getIndex() == index) {
                 return t.description;
             }

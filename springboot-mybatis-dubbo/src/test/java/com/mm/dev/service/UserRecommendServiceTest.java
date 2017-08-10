@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
 import com.common.util.UUIDGenerator;
@@ -22,9 +19,7 @@ import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.entity.user.UserRecommend;
 import com.mm.dev.service.user.IUserRecommendService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UserRecommendServiceTest {
+public class UserRecommendServiceTest extends BaseTest{
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	

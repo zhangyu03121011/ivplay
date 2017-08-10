@@ -1,26 +1,21 @@
 package com.mm.dev.service;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mm.dev.dao.mapper.user.UserMapper;
 import com.mm.dev.entity.user.User;
 import com.mm.dev.service.user.IUserService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class UserServiceTest {
+public class UserServiceTest extends BaseTest{
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
