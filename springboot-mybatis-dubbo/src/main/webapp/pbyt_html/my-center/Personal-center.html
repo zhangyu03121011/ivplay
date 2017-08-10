@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>个人中心</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="css/public.css">
+	<link rel="stylesheet" type="text/css" href="css/personal-center.css">
+	<link rel="stylesheet" type="text/css" href="css/zdialog.css">
+</head>
+<body class="body-bg">
+	<section>
+		<div class="personal-box">
+			<div class="info">
+				<div class="avatar"><img src="images/avatar.jpg"></div>
+				<div class="info-show" id="confirmBtn">
+					<h2>猴哥我来了</h2>
+					<h3>15013785422</h3>
+				</div>
+				<div class="site"><a href="Account.html">设置</a></div>
+			</div>
+		</div>
+		<div class="cutover-box">
+			<div class="tab flex-row">
+				<a class="flex-item active" href="javascript:void(0)"><span>保险</span></a>
+				<a class="flex-item" href="javascript:void(0)"><span>电商</span></a>
+			</div>
+		</div>
+		<div id="tagContent">
+			<!-- 保险菜单 -->
+			<div class="quick-menu show">
+				<ul>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-wodedingdan"></i>
+							<span>我的订单</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-performance"></i>
+							<span>我的业绩</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-zhanghu"></i>
+							<span>我的账户</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 电商菜单 -->
+			<div class="quick-menu">
+				<ul>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-wodedingdan"></i>
+							<span>我的订单</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-dingdan"></i>
+							<span>销售订单</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-dianpu"></i>
+							<span>我的店铺</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-youhuijuan2"></i>
+							<span>我的优惠卷</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-tuiguang"></i>
+							<span>我的推广</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-jilu-copy"></i>
+							<span>提现记录</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="iconfont icon-shouruxiangqing"></i>
+							<span>津贴明细</span>
+							<i class="iconfont icon-right"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+<script type="text/javascript" src="js/jquery220m.js"></script>
+<script type="text/javascript" src="js/touch.min.js"></script>
+<script type="text/javascript" src="js/zdialog.js"></script>
+<script type="text/javascript">
+	$(function() {
+	    touch.on(".flex-item", "tap", function(event) {
+	    	event.currentTarget;
+	        $(".flex-item").removeClass("active");
+	        $(event.currentTarget).addClass("active");
+	        $("#tagContent .quick-menu").hide();
+	        $("#tagContent .quick-menu").eq($(event.currentTarget).index()).show();
+	    });
+	}); 
+	//  弹出层
+	$.DialogByZ.Confirm({Title: "", Content: "您暂未注册，无法使用该功能赶快<span style=color:#999;>注册</span>吧!",FunL:confirmL,FunR:Immediate})
+	function Immediate(){
+		$.DialogByZ.Close();
+		window.open("Registered.html","_self")
+	}
+	function confirmL(){
+		$.DialogByZ.Close();  
+	}
+</script>
+</body>
+</html>

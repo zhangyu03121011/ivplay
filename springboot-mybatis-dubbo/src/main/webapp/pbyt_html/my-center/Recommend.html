@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的推荐</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="css/public.css">
+	<link rel="stylesheet" type="text/css" href="css/personal-center.css">
+</head>
+<body class="body-bg">
+	<header>
+		<div class="head">
+			<div class="top-bar-back">
+				<a href="javascript:history.go(-1);" class="iconfont icon-back"></a>
+			</div>
+			我的推荐
+		</div>
+	</header>
+	<section class="content-top">
+		<div class="cutover-box">
+			<div class="tab flex-row">
+				<a class="flex-item active" href="javascript:void(0)"><span>我的推荐二维码</span></a>
+				<a class="flex-item" href="javascript:void(0)"><span>我要推荐</span></a>
+			</div>
+			<!-- 内容 -->
+			<div id="tagContent">
+				<div class="recommend-code img-box show">
+					<img src="images/code.jpg">
+					<p>立即分享有惊喜哦！</p>
+				</div>
+				<div class="recommend-code">
+					<div class="registered-form">
+						<dl id="refereeReg">
+							<dd>昵称</dd>
+							<dd>推荐时间</dd>
+							<dt>张三那</dt>
+							<dt>2017-12-12</dt>
+						</dl>
+		            </div>
+				</div>
+			</div>
+		</div>
+	</section>
+<script type="text/javascript" src="js/jquery220m.js"></script>
+<script type="text/javascript" src="js/touch.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+	    touch.on(".flex-item", "tap", function(event) {
+	    	event.currentTarget;
+	        $(".flex-item").removeClass("active");
+	        $(event.currentTarget).addClass("active");
+	        $("#tagContent .recommend-code").hide();
+	        $("#tagContent .recommend-code").eq($(event.currentTarget).index()).show();
+	    });
+	}); 
+</script>
+</body>
+</html>

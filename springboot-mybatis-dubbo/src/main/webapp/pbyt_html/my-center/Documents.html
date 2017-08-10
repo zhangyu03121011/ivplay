@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的证件</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="css/public.css">
+	<link rel="stylesheet" type="text/css" href="css/personal-center.css">
+	<link rel="stylesheet" type="text/css" href="css/lCalendar.css">
+</head>
+<body class="body-bg">
+	<header>
+		<div class="head">
+			<div class="top-bar-back">
+				<a href="javascript:history.go(-1);" class="iconfont icon-back"></a>
+			</div>
+			我的证件
+		</div>
+	</header>
+	<section class="content-top">
+		<div class="registered-form">
+			<ul class="application-agent Maker">
+	            <li>
+	            	<span>证件类型</span>
+	            	<select name="">
+		                <option>请选择</option>
+		                <option>身份证</option>
+            		</select>
+            		<i class="iconfont icon-right"></i>
+	            </li>
+	            <li><span>证件号码</span><input name="" type="text" placeholder="请输入您的证件号"></li>
+	            <li class="upload">
+	            	<span>证件照上传</span>
+	            	<div class="upload-image-box">
+			            <ul>
+			                <li>
+			                	<img src="images/avatar.jpg">
+			                	<div class="close-img iconfont icon-error"></div>
+			                </li>
+			                <li>
+			                    <div class="upload-btn-box iconfont icon-tianjia">
+			                        <input type="file" name="" class="upload-btn" multiple="multiple">
+			                    </div>
+			                </li>
+			            </ul>
+			       </div>
+	            </li>
+	            <li>
+	            	<span>性别</span>
+	            	<select name="">
+		                <option>请选择</option>
+		                <option>男</option>
+		                <option>女</option>
+            		</select>
+            		<i class="iconfont icon-right"></i>
+	            </li>
+	            <li>
+	            	<span>出生日期</span>
+	            	<input class="date" id="date" type="" readonly="" name="" placeholder="请选择出生日期" data-lcalendar="1988-01-11,2016-05-29">
+	            	<i class="iconfont icon-right"></i>
+	            </li>
+            </ul>
+		</div>
+		<button class="new-address-btn registered-btn">确定</button>
+	</section>
+	<script type="text/javascript" src="js/LCalendar.min.js"></script>
+	<script type="text/javascript" src="js/jquery220m.js"></script>
+	<script type="text/javascript">
+		// 日历控件
+	    var calendar = new LCalendar();
+	    calendar.init({
+	        'trigger': '#date',
+	        'type': 'date',
+	        'minDate': '1900-1-1', 
+	        'maxDate': new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+	    });
+	</script>
+</body>
+</html>

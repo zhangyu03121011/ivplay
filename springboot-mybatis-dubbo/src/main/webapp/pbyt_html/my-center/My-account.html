@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>我的账户</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="css/public.css">
+	<link rel="stylesheet" type="text/css" href="css/personal-center.css">
+</head>
+<body class="body-bg">
+	<header>
+		<div class="head">
+			<div class="top-bar-back">
+				<a href="javascript:history.go(-1);" class="iconfont icon-back"></a>
+			</div>
+			我的账户
+			<div class="quit"><a href="#">编辑</a></div>
+		</div>
+	</header>
+	<section class="content-top">
+		<div class="registered-form mt">
+			<!-- 账户有银行卡时显示该UL -->
+			<ul class="application-agent">
+	            <li>中国工商银行储蓄卡 ( 尾号3731 )</li>
+            </ul>
+            <!-- 账户没有银行卡以及点击编辑按钮显示该UL -->
+			<ul class="application-agent">
+	            <li><span>开户银行</span><input name="" type="text" placeholder="**银行(城市)分行 **支行"></li>
+	            <li><span>开户姓名</span><input name="" type="text" placeholder="请输入开户人姓名"></li>
+	            <li><span>开户卡号</span><input name="" type="text" placeholder="请输入银行卡号"></li>
+            </ul>
+		</div>
+		<button class="new-address-btn registered-btn">确定</button>
+	</section>
+</body>
+</html>
