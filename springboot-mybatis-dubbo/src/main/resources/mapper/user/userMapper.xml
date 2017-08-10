@@ -110,7 +110,7 @@
    			t.`open_id` = #{openId}
     </update>
     
-    <select id="findUserFilesList" resultType="map">
+    <select id="findUserFilesList" parameterType="string" resultType="map">
     	SELECT
 			t.`nick_name` as "nickName",
 			t.`open_id` as "openId",
@@ -126,7 +126,12 @@
 			t_user_files t2 
 		ON 
 			t.open_id = t2.open_id
-		AND 
-			t2.`del_flag` =1 AND t.`del_flag` = 1 ORDER BY t2.`update_time` DESC
+		<where>
+			t2.`del_flag` =1 AND t.`del_flag` = 1 
+			<if test="openId != null and openId != ''">
+				AND	t2.open_id = #{openId}
+			</if>
+		</where>			
+		ORDER BY t2.`update_time` DESC
     </select>
 </mapper>

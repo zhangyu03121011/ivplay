@@ -26,7 +26,7 @@ import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.user.IUserFilesService;
-import com.mm.dev.util.ReturnMsgUtil;
+import com.mm.dev.wechatUtils.ReturnMsgUtil;
 /**
  * @ClassName: wechartController 
  * @Description: 微信业务接口

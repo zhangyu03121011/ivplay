@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,7 +27,7 @@ import com.mm.dev.entity.user.User;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.user.IUserService;
-import com.mm.dev.util.ReturnMsgUtil;
+import com.mm.dev.wechatUtils.ReturnMsgUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -74,7 +73,7 @@ public class UserController {
 			if(StringUtils.isNotEmpty(openId)) {
 				Sort sort = new Sort(Direction.DESC, "updateTime");
 				Pageable pageable = new PageRequest(start,count, sort);
-				userFileList = userService.findUserFilesList(pageable);
+				userFileList = userService.findUserFilesList(null,pageable);
 			}
 		} catch (Exception e) {
 			logger.error("根据opoenId,文件分类查询列表异常",e);

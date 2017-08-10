@@ -56,6 +56,6 @@ public interface IUserService {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(Pageable pageable) throws Exception;
+	public List<Map<String, String>> findUserFilesList(String openId,Pageable pageable) throws Exception;
 	
 }

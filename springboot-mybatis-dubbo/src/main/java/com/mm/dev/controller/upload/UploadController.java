@@ -29,8 +29,8 @@ import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.upload.IUploadService;
 import com.mm.dev.service.wechat.IWechatService;
-import com.mm.dev.util.ReturnMsgUtil;
-import com.mm.dev.util.UserSession;
+import com.mm.dev.wechatUtils.ReturnMsgUtil;
+import com.mm.dev.wechatUtils.UserSession;
 
 /**
  * @Description: UploadController

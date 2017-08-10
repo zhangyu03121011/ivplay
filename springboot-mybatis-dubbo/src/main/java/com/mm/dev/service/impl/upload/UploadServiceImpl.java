@@ -37,7 +37,7 @@ import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.service.upload.IUploadService;
 import com.mm.dev.service.user.IUserFilesService;
 import com.mm.dev.service.wechat.IWechatService;
-import com.mm.dev.util.UserSession;
+import com.mm.dev.wechatUtils.UserSession;
 
 /**
  * @Description: UploadServiceImpl

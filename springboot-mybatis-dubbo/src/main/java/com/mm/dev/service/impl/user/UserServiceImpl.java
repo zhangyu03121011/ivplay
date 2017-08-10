@@ -22,7 +22,7 @@ import com.mm.dev.dao.mapper.user.UserMapper;
 import com.mm.dev.entity.user.User;
 import com.mm.dev.service.impl.wechat.WechatServiceImpl;
 import com.mm.dev.service.user.IUserService;
-import com.mm.dev.util.UserSession;
+import com.mm.dev.wechatUtils.UserSession;
 
 /**
  * @ClassName: UserServiceImpl 
@@ -164,7 +164,7 @@ public class UserServiceImpl implements IUserService {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(Pageable pageable) throws Exception{
-		return userMapper.findUserFilesList(pageable);
+	public List<Map<String, String>> findUserFilesList(String openId,Pageable pageable) throws Exception{
+		return userMapper.findUserFilesList(pageable,openId);
 	}
 }

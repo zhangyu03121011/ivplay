@@ -41,9 +41,9 @@ import com.mm.dev.service.order.IOrderPaymentService;
 import com.mm.dev.service.user.IUserRecommendService;
 import com.mm.dev.service.user.IUserService;
 import com.mm.dev.service.wechat.IWechatService;
-import com.mm.dev.util.CheckUtil;
-import com.mm.dev.util.MessageUtil;
-import com.mm.dev.util.UserSession;
+import com.mm.dev.wechatUtils.CheckUtil;
+import com.mm.dev.wechatUtils.MessageUtil;
+import com.mm.dev.wechatUtils.UserSession;
 /**
  * @ClassName: wechartController 
  * @Description: 微信业务接口
@@ -301,7 +301,6 @@ public class WechartController{
 	
 	/**
 	 * 获取微信支付签名
-	 * 
 	 * @param url
 	 * @return
 	 * @throws Exception

@@ -43,7 +43,7 @@ public class UserServiceTest extends BaseTest{
 	public void testfindUserFiles() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "createTime");
 		Pageable pageable = new PageRequest(0,2, sort);
-		System.out.println(JSONObject.toJSONString(userService.findUserFilesList(pageable)));
+		System.out.println(JSONObject.toJSONString(userService.findUserFilesList("o5z7ywOP7qycrtAAxIqDfgMbfcFY",pageable)));
 	}
 	
 	

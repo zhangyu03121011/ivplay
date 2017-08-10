@@ -59,9 +59,9 @@ import com.mm.dev.entity.wechat.WechatConfig;
 import com.mm.dev.entity.wechat.WechatPayConfig;
 import com.mm.dev.service.impl.redis.RedisServiceImpl;
 import com.mm.dev.service.wechat.IWechatService;
-import com.mm.dev.util.MD5Util;
-import com.mm.dev.util.MessageUtil;
-import com.mm.dev.util.WeixinUtil;
+import com.mm.dev.wechatUtils.MD5Util;
+import com.mm.dev.wechatUtils.MessageUtil;
+import com.mm.dev.wechatUtils.WeixinUtil;
 
 /**
  * @ClassName: IWechatService 

@@ -42,5 +42,5 @@ public interface UserMapper {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(@Param("pageable")Pageable pageable) throws Exception;
+	public List<Map<String, String>> findUserFilesList(@Param("pageable")Pageable pageable,@Param("openId") String openId) throws Exception;
 }
