@@ -28,8 +28,8 @@ import com.mm.dev.entity.user.User;
 import com.mm.dev.entity.wechat.ReturnMsg;
 import com.mm.dev.enums.ExceptionEnum;
 import com.mm.dev.service.user.IUserService;
-import com.mm.dev.util.UserSession;
 import com.mm.dev.wechatUtils.ReturnMsgUtil;
+import com.mm.dev.wechatUtils.UserSession;
 
 @Controller
 @RequestMapping("/user")
