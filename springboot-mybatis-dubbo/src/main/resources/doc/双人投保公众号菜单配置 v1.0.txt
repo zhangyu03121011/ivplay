@@ -65,7 +65,7 @@ APPKEY=d4624c36b6795d1d99dcf0547af5443d
 		{
 			"type":"view",
 			"name": "个人中心", 
-			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fmall.m.pingbyt.cn%2ff%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=10&connect_redirect=1#wechat_redirect"
+			"url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=7&connect_redirect=1#wechat_redirect"
         }
     ]
 }

@@ -210,8 +210,11 @@ public class WechartController{
 				//跳转打赏圈首页
 				gotoPage = "/home/home.html?userOpenId="+openId;
 			} else if("6".equals(state)) {
-				//跳转朋友圈首页
+				//跳转上传视频
 				gotoPage = "/pages/wx_upload_video.html";
+			} else if("7".equals(state)) {
+				//跳转个人中心
+				gotoPage = "/pbyt_html/personal.html";
 			}
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);
