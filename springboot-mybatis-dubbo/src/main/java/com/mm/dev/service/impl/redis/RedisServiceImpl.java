@@ -34,7 +34,7 @@ import com.mm.dev.service.redis.IRedisService;
  * @author Jacky
  * @date 2017年7月29日 下午1:43:14
  */
-@Service
+//@Service
 public class RedisServiceImpl implements IRedisService,RedisSerializer<Object>{
 	
 	Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);

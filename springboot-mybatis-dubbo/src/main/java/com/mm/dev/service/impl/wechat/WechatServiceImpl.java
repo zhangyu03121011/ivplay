@@ -75,8 +75,8 @@ public class WechatServiceImpl implements IWechatService{
 
 	private final Logger logger = LoggerFactory.getLogger(WechatServiceImpl.class);
 	
-	@Autowired
-	private RedisServiceImpl redisService;
+//	@Autowired
+//	private RedisServiceImpl redisService;
 	
 	@Autowired
 	private ConfigProperties configProperties;
