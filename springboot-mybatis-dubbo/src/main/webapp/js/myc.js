@@ -129,6 +129,21 @@ var my = (function() {
 				+ "=([^\&]*)(\&?)", "i"));
 		return svalue ? svalue[1] : svalue;
 	}
+	
+	/**
+	 * 判断对象是否为空
+	 */
+	function isNotEmpty(object) {
+		if(null != object && '' != object && undefined != object){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function getOpenId() {
+		return "wxf2e2669e9b5e12e4";
+	}
 
 	return {
 		isMobile: isMobile,
@@ -138,7 +153,9 @@ var my = (function() {
 		getQuery: getQuery,
 		page: page,
 		ajax: ajax,
-		getUrlParam:getUrlParam
+		getUrlParam:getUrlParam,
+		isNotEmpty : isNotEmpty,
+		getOpenId : getOpenId
 	};
 })();
 

@@ -10,6 +10,7 @@ var dataPswpUid = 0;
 //用户信息
 //当前用户id
 var openId = my.getUrlParam("openId");
+var userOpenId = my.getUrlParam("userOpenId");
 //当前用户头像
 var userHeadimgurl = null;
 //当前用户昵称
@@ -247,6 +248,11 @@ var userNickName = null;
 		
 })();
 
+function openBlurShare(openId) {
+	location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+my.getOpenId()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=3&connect_redirect=1#wechat_redirect";
+}
+
+
 function openMyHome(openId) {
 	location.href = "/home/home.html?openId="+openId;
 }
@@ -282,8 +288,12 @@ function initData(openId) {
 	}
 	//查询当前用户列表
 	var	urlPost = '/user/'+ start +'/' + count + '/userFiles/list?openId='+openId
+	
+	if(!my.isNotEmpty(userOpenId)) {
+		userOpenId = openId;
+	}
 	//获取当前用户头像昵称
-	my.ajaxGet('/user/queryUserInfo/',function(ret,err,status){
+	my.ajaxGet('/user/queryUserInfo/'+userOpenId,function(ret,err,status){
 		if(ret && ret.status){
 			var data = ret.data;
 			userHeadimgurl = data.headimgurl;

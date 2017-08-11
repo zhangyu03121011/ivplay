@@ -205,10 +205,10 @@ public class WechartController{
 				gotoPage = imagePath.toString();
 			} else if("4".equals(state)) {
 				//跳转我的文件列表
-				gotoPage = "/home/home.html?openId="+openId;
+				gotoPage = "/home/home.html?openId="+openId+"&userOpenId="+openId;
 			} else if("5".equals(state)) {
 				//跳转打赏圈首页
-				gotoPage = "/home/home.html";
+				gotoPage = "/home/home.html?userOpenId="+openId;
 			} else if("6".equals(state)) {
 				//跳转朋友圈首页
 				gotoPage = "/pages/wx_upload_video.html";
