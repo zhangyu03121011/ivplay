@@ -1,5 +1,10 @@
 package com.mm.dev.service.user;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Pageable;
+
 import com.mm.dev.entity.user.UserWithdrawalApply;
 
 
@@ -17,4 +22,11 @@ public interface IUserWithdrawalApplyService {
      * @throws
      */
     public void save(UserWithdrawalApply userWithdrawalApply) throws Exception;
+    
+    /**
+     * @Description: 分页查询我的提现列表
+     * @Datatime 2017年8月5日 下午6:15:42 
+     * @return Page<User>    返回类型
+     */
+	List<Map<String, String>> findAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception;
 }

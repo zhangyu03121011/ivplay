@@ -7,17 +7,21 @@
 			t.`nick_name` AS nickName,
 			t.`headimgurl`,
 			t.`sex`,
-			t2.create_time AS createTime
-			FROM t_user t
-			LEFT JOIN
+			t2.create_time AS createTime,
+			t2.`ref_openid`
+		FROM 
 			`t_recommend` t2
+		JOIN
+			t_user t
 		ON 
 			t.`open_id` = t2.`refed_openid` 
-		AND 
-			t2.`ref_openid` = "123" 
-		AND 
+			
+		WHERE 
 			t2.`del_flag` = 1
+		AND 
+			t2.`ref_openid` = #{openId}
 		ORDER BY 
 			t2.`create_time` DESC
+
     </select>
 </mapper>

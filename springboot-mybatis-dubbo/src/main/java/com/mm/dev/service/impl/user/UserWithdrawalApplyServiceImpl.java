@@ -1,11 +1,16 @@
 package com.mm.dev.service.impl.user;
 
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mm.dev.dao.jpa.user.UserWithdrawalApplyDao;
+import com.mm.dev.dao.mapper.user.UserWithdrawalApplyMapper;
 import com.mm.dev.entity.user.UserWithdrawalApply;
 import com.mm.dev.service.user.IUserWithdrawalApplyService;
 
@@ -23,6 +28,9 @@ public class UserWithdrawalApplyServiceImpl implements IUserWithdrawalApplyServi
     @Autowired
     private UserWithdrawalApplyDao userWithdrawalApplyDao;
     
+    @Autowired
+    private UserWithdrawalApplyMapper userWithdrawalApplyMapper;
+    
     /**
      * @Description: 保存提现申请记录
      * @DateTime:2017年8月10日 下午2:27:41
@@ -33,4 +41,13 @@ public class UserWithdrawalApplyServiceImpl implements IUserWithdrawalApplyServi
     	
     	userWithdrawalApplyDao.saveAndFlush(userWithdrawalApply);
     }
+    
+    /**
+     * @Description: 分页查询我的提现列表
+     * @Datatime 2017年8月5日 下午6:15:42 
+     * @return Page<User>    返回类型
+     */
+	public List<Map<String, String>> findAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception{
+		return userWithdrawalApplyMapper.findAllByApplyOpenIdAndDelFlag(openId, delFlag, pageable);
+	}
 }

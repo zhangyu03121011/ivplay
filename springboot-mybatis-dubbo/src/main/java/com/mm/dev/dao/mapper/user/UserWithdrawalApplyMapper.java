@@ -11,8 +11,8 @@ import org.springframework.data.domain.Pageable;
  * @author Jacky
  * @date 2017年8月4日 下午10:01:26
  */
-public interface UserRecommendMapper {
+public interface UserWithdrawalApplyMapper {
 
-	public List<Map<String, String>> findAllByOpenIdAndDelFlag(@Param("openId")String refOpenid, @Param("delFlag")String delFlag,Pageable pageable) throws Exception;
+	public List<Map<String, String>> findAllByApplyOpenIdAndDelFlag(@Param("openId")String refOpenid, @Param("delFlag")String delFlag,Pageable pageable) throws Exception;
    	
 }

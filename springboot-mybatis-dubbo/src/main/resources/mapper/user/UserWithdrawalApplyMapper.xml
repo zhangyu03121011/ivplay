@@ -1,0 +1,23 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mm.dev.dao.mapper.user.UserWithdrawalApplyMapper">
+
+    <select id="findAllByApplyOpenIdAndDelFlag" resultType="map">
+    	SELECT 
+			t.`nick_name` AS nickName,
+			t2.create_time AS createTime,
+			t2.`apply_amount`
+		FROM
+	    	t_withdrawal_apply t2
+		LEFT JOIN 
+			`t_user` t
+	    ON 
+	    	t.`open_id` = t2.`apply_open_id`
+	    WHERE
+	       t2.`del_flag` = 1 
+	    AND 
+	    	t.`open_id` = #{openId}
+    	ORDER BY 
+			t2.`create_time` DESC
+    </select>
+</mapper>

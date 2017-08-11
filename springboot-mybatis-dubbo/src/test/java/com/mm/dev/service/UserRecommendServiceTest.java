@@ -41,7 +41,7 @@ public class UserRecommendServiceTest extends BaseTest{
 	public void testFindAll() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageable = new PageRequest(0,50, sort);
-    	List<Map<String, String>> findAllByOpenIdAndDelFlag = userRecommendService.findAllByOpenIdAndDelFlag("1234", WechatConstant.delete_flag_1, pageable);
+    	List<Map<String, String>> findAllByOpenIdAndDelFlag = userRecommendService.findAllByOpenIdAndDelFlag("o5z7ywOP7qycrtAAxIqDfgMbfcFY", WechatConstant.delete_flag_1, pageable);
     	String jsonString = JSONObject.toJSONString(findAllByOpenIdAndDelFlag);
     	logger.info("jpa分页第一页：{}",jsonString);
 	}
