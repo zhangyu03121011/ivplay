@@ -61,6 +61,46 @@ public interface WechatConstant {
 	 * 已删除 无效
 	 */
 	String delete_flag_2 = "2";
+	
+	/**
+	 * 0:支出打赏
+	 */
+	String pay_type_0 = "0";
+	
+	/**
+	 * 1:进账打赏
+	 */
+	String pay_type_1 = "1";
+	
+	/**
+	 * 2:提现进账
+	 */
+	String pay_type_2 = "2";
+	
+	/**
+	 * 3：分享打赏
+	 */
+	String pay_type_3 = "3";
+	
+	/**
+	 * 4：退还的赏金
+	 */
+	String pay_type_4 = "4";
+	
+	/**
+	 * 5：内容审核费
+	 */
+	String pay_type_5 = "5";
+	
+	/**
+	 * 6：获得的提成
+	 */
+	String pay_type_6 = "6";
+	
+	/**
+	 * 7：系统退还
+	 */
+	String pay_type_7 = "7";
 }
 
 

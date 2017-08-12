@@ -53,7 +53,7 @@ public class WithdrawalApplyServiceTest extends BaseTest{
 	public void testFindAll() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageable = new PageRequest(0,50, sort);
-    	List<Map<String, String>> findAllByOpenIdAndDelFlag = userWithdrawalApplyService.findAllByOpenIdAndDelFlag("o5z7ywGOmRIxxoVqQmNbouU9zvJ4", WechatConstant.delete_flag_1, pageable);
+    	List<Map<String, String>> findAllByOpenIdAndDelFlag = userWithdrawalApplyService.queryAllByApplyOpenIdAndDelFlag("o5z7ywGOmRIxxoVqQmNbouU9zvJ4", WechatConstant.delete_flag_1, pageable);
     	String jsonString = JSONObject.toJSONString(findAllByOpenIdAndDelFlag);
     	logger.info("jpa分页第一页：{}",jsonString);
 	}

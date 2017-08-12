@@ -1,6 +1,5 @@
 package com.mm.dev.controller.user;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,14 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-import com.google.zxing.EncodeHintType;
-import com.mm.dev.config.ConfigProperties;
-import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.entity.wechat.ReturnMsg;
-import com.mm.dev.service.user.IUserRecommendService;
-import com.mm.dev.service.user.IUserWithdrawalApplyService;
-import com.mm.dev.service.wechat.IWechatService;
+import com.mm.dev.service.user.IUserInOutDetailService;
 import com.mm.dev.wechatUtils.ReturnMsgUtil;
 /**
  * @ClassName: wechartController 
@@ -35,12 +28,12 @@ import com.mm.dev.wechatUtils.ReturnMsgUtil;
  * @date 2017年7月31日 下午3:03:05
  */
 @Controller
-@RequestMapping("/userWithdrawal")
-public class UserWithdrawalApplyController{
-	private Logger logger = LoggerFactory.getLogger(UserWithdrawalApplyController.class);
+@RequestMapping("/userInOutDetail")
+public class UserInOutDetailController{
+	private Logger logger = LoggerFactory.getLogger(UserInOutDetailController.class);
 	
 	@Autowired
-	private IUserWithdrawalApplyService userWithdrawalApplyService;
+	private IUserInOutDetailService userInOutDetailService;
 	
 	/**
 	 * @Description: 分页查询我的提现记录
@@ -60,7 +53,7 @@ public class UserWithdrawalApplyController{
 			if(StringUtils.isNotEmpty(openId)) {
 				Sort sort = new Sort(Direction.DESC, "createTime");
 				Pageable pageable = new PageRequest(start,count, sort);
-				userWithdrawalRecordList = userWithdrawalApplyService.queryAllByApplyOpenIdAndDelFlag(openId, WechatConstant.delete_flag_1, pageable);
+				userWithdrawalRecordList = userInOutDetailService.queryAllByOpenIdAndDelFlag(openId, pageable);
 			}
 		} catch (Exception e) {
 			logger.error("分页查询我的推荐记录异常",e);

@@ -1,0 +1,35 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mm.dev.dao.mapper.user.UserInOutDetailMapper">
+
+    <select id="queryAllByOpenIdAndDelFlag" resultType="map">
+   		SELECT 
+			t.open_id AS openId,
+			t.`nick_name` AS nickName,
+			t.`headimgurl` AS userHeadImage,
+			t3.`nick_name` AS nickName,
+			t3.`headimgurl`,
+			t3.`open_id` AS traderOpenId,
+			t2.id,
+			t2.`pay_type` AS payType,
+			t2.`amount`,
+			t2.`fee`,
+			t2.create_time AS createTime
+		FROM
+	    	t_in_out_detail t2
+		LEFT JOIN 
+			`t_user` t
+	    ON 
+	    	t.`open_id` = t2.`open_id`
+	    	
+	    	LEFT JOIN t_user t3
+	    	ON 
+	    	t2.`trader_open_id` = t3.`open_id`
+	    WHERE
+	       t2.`del_flag` = 1 
+	    AND 
+	    	t.`open_id` = #{openId}
+   		ORDER BY 
+			t2.`create_time` DESC
+    </select>
+</mapper>

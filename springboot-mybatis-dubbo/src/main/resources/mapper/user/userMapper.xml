@@ -74,7 +74,7 @@
     	)
     </insert>
     
-    <select id="getuserBaseInfoByopenId" resultType="com.mm.dev.entity.user.User">
+    <select id="queryUserBaseInfoByopenId" resultType="com.mm.dev.entity.user.User">
     	SELECT
     		t.nick_name as nickName,
     		t.headimgurl,
@@ -110,7 +110,7 @@
    			t.`open_id` = #{openId}
     </update>
     
-    <select id="findUserFilesList" parameterType="string" resultType="map">
+    <select id="queryUserFilesList" parameterType="string" resultType="map">
     	SELECT
 			t.`nick_name` as "nickName",
 			t.`open_id` as "openId",

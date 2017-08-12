@@ -215,7 +215,17 @@ public class WechartController{
 			} else if("7".equals(state)) {
 				//跳转个人中心
 				gotoPage = "/pbyt_html/personal.html";
+			} else if("8".equals(state)) {
+				//跳转收支明细
+				gotoPage = "/wx_in_out_record.html";
+			} else if("9".equals(state)) {
+				//跳转我的推荐
+				gotoPage = "/wx_introducer.html";
+			} else if("10".equals(state)) {
+				//跳转提现页面
+				gotoPage = "/wx_withdraw.html";
 			}
+			
 		} catch (Exception e) {
 			logger.error("获取网页授权code回调异常" + e);
 		}
@@ -371,7 +381,7 @@ public class WechartController{
 				weixinPayResDto.setAccount(resultMap.get("appid"));
 				weixinPayResDto.setPayer(resultMap.get("openid"));
 				weixinPayResDto.setOrderNo(resultMap.get("out_trade_no"));
-				weixinPayResDto.setPaymentTime(new Date(resultMap.get("time_end")));
+//				weixinPayResDto.setPaymentTime(new Date(resultMap.get("time_end")));
 				weixinPayResDto.setPaymentMethod(PaymentMethodEnum.WECHATPAY.getIndex());
 				weixinPayResDto.setPaymentStatus(PaymentStatusEnum.success.getIndex());
 				weixinPayResDto.setPaymentBank(WXBankTypeEnum.getDescription(resultMap.get("bank_type")));

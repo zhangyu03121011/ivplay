@@ -38,7 +38,7 @@ function initData(openId) {
 		return false;
 	}
 	//查询当前用户列表
-	var	urlPost = '/user/'+ start +'/' + count + '/userFiles/list?openId='+openId
+	var	urlPost = '/userWithdrawal/'+ start +'/' + count + '/record/list';
 	
 	my.ajaxGet(urlPost,function(ret,err,status){
 		if(ret && ret.status){
@@ -47,17 +47,10 @@ function initData(openId) {
 				if(data.length){
 					var dataInters = '';
 					for(var i = 0; i < data.length; i++){
-						var blur_url = data[i].filePath;
-						if( -1 != blur_url.indexOf(".")) {
-							blur_url = blur_url.substring(0,blur_url.lastIndexOf(".")) + "_blur.jpg";
-						}
 						dataInters = {
-								key : data[i].id,
-								openId : data[i].openId,
+								createTime : myc.getTime((new Date(data[i].createTime))),
 								nickName : decodeURIComponent(data[i].nickName),
-								title : data[i].title,
-								headimgurl : data[i].headimgurl,
-								blurUrl : blur_url
+								applyAmount : data[i].applyAmount
 							};
 						createDatasLeft(dataInters);
 					}
@@ -70,7 +63,7 @@ function initData(openId) {
 				flag = false;
 			}
 		}
-	},false);
+	},true);
 }
 
 

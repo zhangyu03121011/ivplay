@@ -65,7 +65,7 @@ public class UserRecommendController{
 			JSONObject qrcodeTicketByToken = wechatService.getQrcodeTicketByToken(refOpenid);
 			if(null != qrcodeTicketByToken && StringUtils.isEmpty(qrcodeTicketByToken.getString("errcode"))) {
 				logger.info("从微信获取推荐关注二维码路径path={}",qrcodeTicketByToken.getString("url"));
-				qrcodeImagePath = qrcodeTicketByToken.getString("url");
+				qrcodeImagePath = qrcodeTicketByToken.getString("ticket");
 			} 
 		} catch (Exception e) {
 			logger.error("从微信获取推荐关注二维码路径异常",e);
@@ -91,7 +91,7 @@ public class UserRecommendController{
 			if(StringUtils.isNotEmpty(openId)) {
 				Sort sort = new Sort(Direction.DESC, "createTime");
 				Pageable pageable = new PageRequest(start,count, sort);
-				userRecommendRecordList = userRecommendService.findAllByOpenIdAndDelFlag(openId, WechatConstant.delete_flag_1, pageable);
+				userRecommendRecordList = userRecommendService.queryAllByOpenIdAndDelFlag(openId, WechatConstant.delete_flag_1, pageable);
 			}
 		} catch (Exception e) {
 			logger.error("分页查询我的推荐记录异常",e);

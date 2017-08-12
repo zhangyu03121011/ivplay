@@ -40,12 +40,16 @@ public class UserServiceTest extends BaseTest{
 	}
 	
 	@Test
-	public void testfindUserFiles() throws Exception {
+	public void testQueryUserFiles() throws Exception {
 		Sort sort = new Sort(Direction.DESC, "createTime");
 		Pageable pageable = new PageRequest(0,2, sort);
-		System.out.println(JSONObject.toJSONString(userService.findUserFilesList("o5z7ywOP7qycrtAAxIqDfgMbfcFY",pageable)));
+		System.out.println(JSONObject.toJSONString(userService.queryUserFilesList("o5z7ywOP7qycrtAAxIqDfgMbfcFY",pageable)));
 	}
 	
+	@Test
+	public void testQueryUserBae() throws Exception {
+		System.out.println(JSONObject.toJSONString(userService.queryUserBaseInfoByopenId("o5z7ywOP7qycrtAAxIqDfgMbfcFY")));
+	}
 	
 	public static void main(String[] args) {
 		Sort sort = new Sort(Direction.DESC, "id");

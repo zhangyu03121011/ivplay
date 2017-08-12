@@ -21,7 +21,7 @@ public interface UserMapper {
    	 * @return
    	 * @throws Exception
    	 */
-   	public User getuserBaseInfoByopenId(@Param("openId") String openId) throws Exception;
+   	public User queryUserBaseInfoByopenId(@Param("openId") String openId) throws Exception;
    	
    	/**
    	 * @Description: 更新用户信息
@@ -42,5 +42,5 @@ public interface UserMapper {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(@Param("pageable")Pageable pageable,@Param("openId") String openId) throws Exception;
+	public List<Map<String, String>> queryUserFilesList(@Param("pageable")Pageable pageable,@Param("openId") String openId) throws Exception;
 }

@@ -49,13 +49,13 @@ public interface IUserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public User getuserBaseInfoByopenId(String openId) throws Exception;
+	public User queryUserBaseInfoByopenId(String openId) throws Exception;
 	
 	/**
 	 * @Description:朋友圈首页分页查询列表
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(String openId,Pageable pageable) throws Exception;
+	public List<Map<String, String>> queryUserFilesList(String openId,Pageable pageable) throws Exception;
 	
 }

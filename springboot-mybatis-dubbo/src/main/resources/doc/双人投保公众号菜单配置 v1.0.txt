@@ -42,17 +42,17 @@ APPKEY=d4624c36b6795d1d99dcf0547af5443d
                 {
                     "type": "view", 
                     "name": "赏金提现", 
-                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000125&idx=1&sn=085cbbbd917da8e5afd43d379536e1bd&chksm=17b6ddd120c154c75efd020a940112187ebba5418399c251ee8779551b078b6dc885e20100ab&mpshare=1&scene=1&srcid=0423Scflks9CmaA7LpUSJfJo#rd"
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=10&connect_redirect=1#wechat_redirect"
                 }, 
                 {
                     "type": "view", 
                     "name": "收支明细", 
-                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000106&idx=1&sn=c273d3b20fb902fcf876a4b740aea3b2&chksm=17b6ddc620c154d02837a0c8a63e60504778b5ac28fab93a128df01eec12ada0d5826eab8e0b&mpshare=1&scene=1&srcid=04232CwVz01WLWLfpnLrW6yO#rd"
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=8&connect_redirect=1#wechat_redirect"
                 }, 
                 {
                     "type": "view", 
-                    "name": "我的粉丝榜", 
-                    "url": "https://mp.weixin.qq.com/s?__biz=MzIxMzM4ODczOQ==&mid=100000124&idx=1&sn=6ad503513ced03b16aa87e399c71a6bc&chksm=17b6ddd020c154c6e7153144ee04443f38f9765bdfaa03e0ddcc8fc0b62ce20c31d568dbbce3&mpshare=1&scene=1&srcid=0423QmyYshox65OVLGaMBo3c#rd"
+                    "name": "我的推荐", 
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf2e2669e9b5e12e4&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback&response_type=code&scope=snsapi_base&state=9&connect_redirect=1#wechat_redirect"
                 },
 				{
                     "type": "view", 

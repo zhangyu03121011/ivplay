@@ -53,7 +53,7 @@ public class UserController {
 		ReturnMsg<User> returnMsg = new ReturnMsg<>();
 		try {
 			if(StringUtils.isNotEmpty(openId)) {
-				User userInfo = userService.getuserBaseInfoByopenId(openId);
+				User userInfo = userService.queryUserBaseInfoByopenId(openId);
 				returnMsg.setStatus(true);
 				returnMsg.setData(userInfo);
 			} else {
@@ -82,7 +82,7 @@ public class UserController {
 //			if(StringUtils.isNotEmpty(openId)) {
 				Sort sort = new Sort(Direction.DESC, "updateTime");
 				Pageable pageable = new PageRequest(start,count, sort);
-				userFileList = userService.findUserFilesList(openId,pageable);
+				userFileList = userService.queryUserFilesList(openId,pageable);
 //			}
 		} catch (Exception e) {
 			logger.error("根据opoenId,文件分类查询列表异常",e);

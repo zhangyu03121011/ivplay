@@ -26,5 +26,5 @@ public interface IUserRecommendService {
      * @Datatime 2017年8月5日 下午6:15:42 
      * @return Page<User>    返回类型
      */
-	List<Map<String, String>> findAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception;
+	List<Map<String, String>> queryAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception;
 }

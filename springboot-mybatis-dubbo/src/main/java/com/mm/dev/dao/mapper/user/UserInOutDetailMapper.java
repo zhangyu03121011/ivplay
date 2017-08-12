@@ -7,12 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @Description: UserRecommendMapper
+ * @Description: UserInOutDetailMapper
  * @author Jacky
  * @date 2017年8月4日 下午10:01:26
  */
-public interface UserRecommendMapper {
+public interface UserInOutDetailMapper {
 
-	public List<Map<String, String>> queryAllByOpenIdAndDelFlag(@Param("openId")String refOpenid, @Param("delFlag")String delFlag,Pageable pageable) throws Exception;
+	public List<Map<String, String>> queryAllByOpenIdAndDelFlag(@Param("openId")String refOpenid,Pageable pageable) throws Exception;
    	
 }

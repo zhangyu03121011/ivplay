@@ -6,6 +6,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<link rel="stylesheet" type="text/css" href="css/public.css">
 	<link rel="stylesheet" type="text/css" href="css/personal-center.css">
+	<style type="text/css">
+		.nearby_left{
+				position: absolute;
+				left: 10px;
+				width: 45px;
+				height: 45px;
+				overflow: hidden;
+				display: inline-block;	
+			}
+	</style>
 </head>
 <body class="body-bg">
 	<header>
@@ -24,25 +34,28 @@
 			</div>
 			<!-- 内容 -->
 			<div id="tagContent">
-				<div class="recommend-code img-box show">
-					<img src="images/code.jpg">
-					<p>立即分享有惊喜哦！</p>
-				</div>
-				<div class="recommend-code">
-					<div class="registered-form">
-						<dl id="refereeReg">
-							<dd>昵称</dd>
-							<dd>推荐时间</dd>
-							<dt>张三那</dt>
-							<dt>2017-12-12</dt>
-						</dl>
-		            </div>
-				</div>
+				<script id="tmprecodes_left" type="text/x-dot-template">
+					<div class="recommend-code img-box show">
+						<img id="commendQrcode" src="">
+						<p>立即分享有惊喜哦！</p>
+					</div>
+					<div class="recommend-code">
+						<div class="registered-form">
+							<dl id="refereeReg">
+								<dt>{{=it.nickName}}</dt>
+								<dt>{{=it.createTime}}</dt>
+							</dl>
+			            </div>
+					</div>
+				</script>
 			</div>
 		</div>
 	</section>
-<script type="text/javascript" src="js/jquery220m.js"></script>
+<script src="../../js/jquery_v2.1.4.min.js"></script>
 <script type="text/javascript" src="js/touch.min.js"></script>
+<script src="../../js/dot.min.js"></script>
+<script src="../../js/myc.js"></script>
+<script src="../../js/recommend_record.js"></script>
 <script type="text/javascript">
 	$(function() {
 	    touch.on(".flex-item", "tap", function(event) {

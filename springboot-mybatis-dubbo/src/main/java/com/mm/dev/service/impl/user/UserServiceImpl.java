@@ -60,8 +60,8 @@ public class UserServiceImpl implements IUserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public User getuserBaseInfoByopenId(String openId) throws Exception{
-		User user = userMapper.getuserBaseInfoByopenId(openId);
+	public User queryUserBaseInfoByopenId(String openId) throws Exception{
+		User user = userMapper.queryUserBaseInfoByopenId(openId);
 		return user;
 	}
     
@@ -73,7 +73,7 @@ public class UserServiceImpl implements IUserService {
 		try {
 			if (StringUtils.isNotEmpty(openId)) {
 				//根据openId查询出当前用户
-				User user = getuserBaseInfoByopenId(openId);
+				User user = queryUserBaseInfoByopenId(openId);
 				//老用户点击菜单授权
 				if(null != user && (StringUtils.isNotEmpty(attenation) && WechatConstant.attention_status_1.equals(attenation))) {
 					return;
@@ -163,7 +163,7 @@ public class UserServiceImpl implements IUserService {
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型
 	 */
-	public List<Map<String, String>> findUserFilesList(String openId,Pageable pageable) throws Exception{
-		return userMapper.findUserFilesList(pageable,openId);
+	public List<Map<String, String>> queryUserFilesList(String openId,Pageable pageable) throws Exception{
+		return userMapper.queryUserFilesList(pageable,openId);
 	}
 }

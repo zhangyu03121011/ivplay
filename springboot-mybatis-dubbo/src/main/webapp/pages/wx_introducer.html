@@ -153,25 +153,27 @@
       <script src="./wx_introducer_files/fit_image.js.下载" type="text/javascript" charset="utf-8"></script>
    </head>
    <body>
+   <span style="width: 80%;float: right;"></span>
       <div class="records" id="records">
       <div class="top-me">推荐二维码<div class="right">(<span style="color:red;">长按</span>保存到手机再转发给好友)</div></div>
-      <div class="sceneUrl"><img src="http://mnsppds.huishengdianz.com/s/53/wx_introducer.html?p=f928b9bed111&amp;t=a31c237895d62e3c03d1bf1fef6cf5a6&amp;p=f928b9bed111&amp;response_type=code&amp;scope=snsapi_base&amp;state=STATE" alt="" id="sceneUrl"></div>
+      <div class="sceneUrl"><img src="" alt="" id="sceneUrl"></div>
       <div class="top-me">总共<span id="sum">0</span>人<span class="ticheng">对方提现的时候您可以分得<span class="bili" id="bili"></span><span class="bili">%</span>提成</span></div>
       <div class="no">您暂时还没有推荐过人哦！</div>
          <script id="tmprecodes" type="text/x-dot-template">
                <div class="rows clearfix">
                   <div class="heaerImage">
-                     <img src="{{=it.headerImage}}" onload="fitImage(this.parentNode,this)" />
+                     <img src="{{=it.headimgurl}}" onload="fitImage(this.parentNode,this)" />
                   </div>
                   <div class="content">
                      <div class="name">
-                        <span>{{=it.nickname}}</span>
+                        <span>{{=it.nickName}}</span>
                         {{? it.sex == 1}}
                            <i class="boy"></i>
                         {{?? it.sex == 2}}
                            <i class="girl"></i>
                         {{??}}   
                         {{?}}
+						<span>{{=it.createTime}}</span>
                      </div>
                   </div>
             </div>
@@ -208,105 +210,6 @@
       </div>
       <script src="./wx_introducer_files/dot.min.js.下载" type="text/javascript" charset="utf-8"></script>
       <script src="./wx_introducer_files/jquery_v2.1.4.min.js.下载" type="text/javascript" charset="utf-8"></script>
-      <script src="./wx_introducer_files/myc.js.下载" type="text/javascript" charset="utf-8"></script>
-      <script type="text/javascript">
-         var start = 0 , count = 20;
-         //获取url的参数
-         if(my.getQuery()){
-            p = my.getQuery().p;
-            code = my.getQuery().code;
-            t = my.getQuery().t;
-           // alert("p : " + p + ',code : ' + code);    
-            getInfo(1);  
-         }
-            
-         //获取信息
-        function getInfo(type){
-            myc.showProgress();           
-            if(type == 1){//第一次
-               var urlPost = 'load/'+ start +'/' + count + '?code=' + code + '&t=' + t;
-            }else{
-               var urlPost = 'load/'+ start +'/' + count;
-            }
-            my.ajax(urlPost,{},function(ret,err,status){
-               myc.hideProgress();
-                  // alert("获取信息：" + JSON.stringify(ret));
-               if(ret && ret.success){
-                    // alert(ret.success); 
-                    // alert(ret.introducerRate)
-                    $('#bili').html(ret.introducerRate);
-                    $('#sceneUrl').attr('src' , ret.sceneUrl)
-                        // alert(ret.sceneUrl)
-                  var data = ret.ownIntroducers;
-                  if(ret.ownIntroducersCount == 0){
-                     $('.no').css('display','block')
-                  }
-                  if(data){
-                     $('#sum').html(ret.ownIntroducersCount);
-                     if(data.length){                       
-                        var dataInters = '';
-                        for(var i = 0; i < data.length; i++){
-                           dataInters = {
-                              headerImage : data[i].headimgurl,
-                              sex : data[i].sex,
-                              nickname : data[i].nickname, 
-                              sceneUrl : data[i].sceneUrl                                                 
-                           }; 
-                           if(data[i].nickname){
-                              dataInters.nickname = data[i].nickname;
-                           }else{
-                              dataInters.nickname = '微信用户';
-                           }                             
-                           createDatas(dataInters);
-                        }
-                        start += data.length;   
-                     }
-                  }else{
-                     myc.toast({
-                        msg : '没有更多了'
-                     });
-                     flag = false;
-                  }                                   
-               }
-            });
-         }
-
-         
-         //传入数据源，利用模版生成HTML
-         function createDatas(dataInters) {
-            var interText = doT.template(document.getElementById("tmprecodes").innerText);
-            document.getElementById("records").insertAdjacentHTML('beforeEnd', interText(dataInters));
-         }        
-         //获取滚动条当前的位置 
-         function getScrollTop() {
-            var scrollTop = 0;
-            if (document.documentElement && document.documentElement.scrollTop) {
-               scrollTop = document.documentElement.scrollTop;
-            } else if (document.body) {
-               scrollTop = document.body.scrollTop;
-            }
-            return scrollTop;
-         }
-         //获取当前可是范围的高度 
-         function getClientHeight() {
-            var clientHeight = 0;
-            if (document.body.clientHeight && document.documentElement.clientHeight) {
-               clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
-            } else {
-               clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
-            }
-            return clientHeight;
-         }
-         //获取文档完整的高度 
-         function getScrollHeight() {
-            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-         }
-         window.onscroll = function() {               
-            if (getScrollTop() + getClientHeight() == getScrollHeight()) {//判断滚动条到达底部的条件,并自动触发下面AJAX                          
-               getInfo(2);
-            }
-         }
-      </script><div id="showProgressBackground" style="position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; background-color: rgba(0, 0, 0, 0.3); z-index: 999999; display: none;"></div><div id="showProgressContainer" style="position: fixed; left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); padding: 15px; border-radius: 5px; text-align: center; min-height: 115px; min-width: 115px; z-index: 999999; display: none;"><div class="showProgressLoading"></div><div id="showProgressTitle" style="padding: 5px 0;color:#fff">努力加载中...</div><div id="showProgressText" style="color:#fff">请稍候...</div></div>
-   
-
+      <script src="../js/myc.js" type="text/javascript" charset="utf-8"></script>
+      <script src="../js/wx_recommend_record.js" type="text/javascript" charset="utf-8"></script>
 </body></html>

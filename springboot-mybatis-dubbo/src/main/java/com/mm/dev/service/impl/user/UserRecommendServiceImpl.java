@@ -45,8 +45,8 @@ public class UserRecommendServiceImpl implements IUserRecommendService {
      * @Datatime 2017年8月5日 下午6:15:42 
      * @return Page<User>    返回类型
      */
-	public List<Map<String, String>> findAllByOpenIdAndDelFlag(String refOpenid, String delFlag,Pageable pageable) throws Exception {
-		return userRecommendMapper.findAllByOpenIdAndDelFlag(refOpenid, delFlag, pageable);
+	public List<Map<String, String>> queryAllByOpenIdAndDelFlag(String refOpenid, String delFlag,Pageable pageable) throws Exception {
+		return userRecommendMapper.queryAllByOpenIdAndDelFlag(refOpenid, delFlag, pageable);
 	}
 
   

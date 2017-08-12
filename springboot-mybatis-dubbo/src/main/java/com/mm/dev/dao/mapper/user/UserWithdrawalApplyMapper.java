@@ -13,6 +13,6 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserWithdrawalApplyMapper {
 
-	public List<Map<String, String>> findAllByApplyOpenIdAndDelFlag(@Param("openId")String refOpenid, @Param("delFlag")String delFlag,Pageable pageable) throws Exception;
+	public List<Map<String, String>> queryAllByApplyOpenIdAndDelFlag(@Param("openId")String refOpenid, @Param("delFlag")String delFlag,Pageable pageable) throws Exception;
    	
 }

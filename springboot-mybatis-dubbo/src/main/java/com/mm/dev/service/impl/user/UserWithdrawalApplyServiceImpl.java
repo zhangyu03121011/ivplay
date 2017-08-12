@@ -47,7 +47,7 @@ public class UserWithdrawalApplyServiceImpl implements IUserWithdrawalApplyServi
      * @Datatime 2017年8月5日 下午6:15:42 
      * @return Page<User>    返回类型
      */
-	public List<Map<String, String>> findAllByOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception{
-		return userWithdrawalApplyMapper.findAllByApplyOpenIdAndDelFlag(openId, delFlag, pageable);
+	public List<Map<String, String>> queryAllByApplyOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception{
+		return userWithdrawalApplyMapper.queryAllByApplyOpenIdAndDelFlag(openId, delFlag, pageable);
 	}
 }
