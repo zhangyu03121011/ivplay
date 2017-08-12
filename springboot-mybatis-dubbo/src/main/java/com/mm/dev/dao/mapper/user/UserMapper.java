@@ -24,6 +24,13 @@ public interface UserMapper {
    	public User queryUserBaseInfoByopenId(@Param("openId") String openId) throws Exception;
    	
    	/**
+	 * @Description: 根据openId获取用户账号信息
+	 * @Datatime 2017年8月5日 下午3:16:51 
+	 * @return void    返回类型
+	 */
+	public User queryUserBalanceInfoByOpenId(String openId) throws Exception;
+   	
+   	/**
    	 * @Description: 更新用户信息
    	 * @Datatime 2017年8月4日 下午10:02:10 
    	 * @return void    返回类型

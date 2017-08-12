@@ -29,9 +29,9 @@ a:hover, a:focus{text-decoration:none;}
 .contain .body .text{ float: left; width: 85%; text-align: left; padding-left: 10px;}
 .contain .body .text .my-gallery{ overflow: hidden;}
 .contain .body .text .my-gallery div{ width: 28%; overflow: hidden; float: left; margin-top: 5px;margin-right: 5px; }
-.contain .body .text .my-gallery img{  }
-.contain .body .text .title{ color: #576788; font-size: 1.8rem;}
-.contain .body .text .txt{color: #323232; font-size: 1.5rem;}
+.contain .body .text .my-gallery img{margin:10px 0px;}
+.contain .body .text .title{ color: #576788; font-size: 1.8rem;margin-bottom: 5px}
+.contain .body .text .txt{color: #323232; font-size: 1.5rem;line-height:18px;word-wrap:break-word; word-break:break-all;}
 .contain .body .text .tm{font-size: 1.4rem;    overflow: hidden;}
 .contain .body .text .tm .fl{float: left;  padding-left: 5px;}
 .contain .body .text .tm .fr{float: right; padding-right: 15px;}

@@ -1,5 +1,6 @@
 package com.mm.dev.entity.user;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -93,6 +94,31 @@ public class User extends BaseEntity{
      * 微信头像URL
      */
     private String headimgurl;
+    
+    /**
+     * 账户余额
+     */
+    private BigDecimal balance;
+    
+    /**
+     * 提现手续费比例
+     */
+    private String feeScale;
+    
+    /**
+     * 每天可提现次数
+     */
+    private String withdrawDayLimit;
+    
+    /**
+     * 总收入
+     */
+    private BigDecimal totalIncome;
+    
+    /**
+     * 每天最大提现额度
+     */
+    private BigDecimal withdrawDayMaxMoney;
     
     @Transient
     private List<UserFiles> userFilesList;
@@ -227,5 +253,45 @@ public class User extends BaseEntity{
 
 	public void setUserFilesList(List<UserFiles> userFilesList) {
 		this.userFilesList = userFilesList;
+	}
+
+	public String getWithdrawDayLimit() {
+		return withdrawDayLimit;
+	}
+
+	public void setWithdrawDayLimit(String withdrawDayLimit) {
+		this.withdrawDayLimit = withdrawDayLimit;
+	}
+
+	public BigDecimal getTotalIncome() {
+		return totalIncome;
+	}
+
+	public void setTotalIncome(BigDecimal totalIncome) {
+		this.totalIncome = totalIncome;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public String getFeeScale() {
+		return feeScale;
+	}
+
+	public void setFeeScale(String feeScale) {
+		this.feeScale = feeScale;
+	}
+
+	public BigDecimal getWithdrawDayMaxMoney() {
+		return withdrawDayMaxMoney;
+	}
+
+	public void setWithdrawDayMaxMoney(BigDecimal withdrawDayMaxMoney) {
+		this.withdrawDayMaxMoney = withdrawDayMaxMoney;
 	}
 }

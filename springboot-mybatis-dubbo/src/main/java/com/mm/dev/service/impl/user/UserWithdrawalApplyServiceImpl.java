@@ -1,5 +1,6 @@
 package com.mm.dev.service.impl.user;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -49,5 +50,9 @@ public class UserWithdrawalApplyServiceImpl implements IUserWithdrawalApplyServi
      */
 	public List<Map<String, String>> queryAllByApplyOpenIdAndDelFlag(String openId,String delFlag,Pageable pageable) throws Exception{
 		return userWithdrawalApplyMapper.queryAllByApplyOpenIdAndDelFlag(openId, delFlag, pageable);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(URLDecoder.decode("http%3A%2F%2Fmnsppds.huishengdianz.com%2Fs%2F54%2Fwx_withdraw.html%3Fp%3Df928b9bed111%26t%3Dc546213ad16ff1d4cf0df7925cdb4b1c&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"));
 	}
 }

@@ -64,6 +64,15 @@ public class UserServiceImpl implements IUserService {
 		User user = userMapper.queryUserBaseInfoByopenId(openId);
 		return user;
 	}
+	
+	/**
+	 * @Description: 根据openId获取用户账号信息
+	 * @Datatime 2017年8月5日 下午3:16:51 
+	 * @return void    返回类型
+	 */
+	public User queryUserBalanceInfoByOpenId(String openId) throws Exception{
+		return userMapper.queryUserBalanceInfoByOpenId(openId);
+	}
     
     /**
 	 * 保存用户信息

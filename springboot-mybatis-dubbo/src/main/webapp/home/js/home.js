@@ -10,7 +10,6 @@ var dataPswpUid = 0;
 //用户信息
 //当前用户id
 var openId = my.getUrlParam("openId");
-var userOpenId = my.getUrlParam("userOpenId");
 //当前用户头像
 var userHeadimgurl = null;
 //当前用户昵称
@@ -289,11 +288,8 @@ function initData(openId) {
 	//查询当前用户列表
 	var	urlPost = '/user/'+ start +'/' + count + '/userFiles/list?openId='+openId
 	
-	if(!my.isNotEmpty(userOpenId)) {
-		userOpenId = openId;
-	}
 	//获取当前用户头像昵称
-	my.ajaxGet('/user/queryUserInfo/'+userOpenId,function(ret,err,status){
+	my.ajaxGet('/user/queryUserInfo?openId='+openId,function(ret,err,status){
 		if(ret && ret.status){
 			var data = ret.data;
 			userHeadimgurl = data.headimgurl;
@@ -319,7 +315,7 @@ function initData(openId) {
 								key : data[i].id,
 								openId : data[i].openId,
 								nickName : decodeURIComponent(data[i].nickName),
-								title : data[i].title,
+								title : data[i].title+"范德萨发生法律房价房间打开了手机法兰克福佛挡杀佛方式方法松岛枫范德萨发生非法顺丰到付佛挡杀佛付付付多所付都是非法的方法",
 								headimgurl : data[i].headimgurl,
 								blurUrl : blur_url,
 								index : dataPswpUid
@@ -327,12 +323,12 @@ function initData(openId) {
 						createDatasLeft(dataInters);
 					}
 					start ++;
+				} else{
+					myc.toast({
+						msg : '没有更多了'
+					});
+					flag = false;
 				}
-			}else{
-				myc.toast({
-					msg : '没有更多了'
-				});
-				flag = false;
 			}
 		}
 	},false);

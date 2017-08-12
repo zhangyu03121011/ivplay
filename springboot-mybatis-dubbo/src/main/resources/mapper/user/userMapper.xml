@@ -84,6 +84,22 @@
 		WHERE
    			t.open_id = #{openId}
     </select>
+    
+    <select id="queryUserBalanceInfoByOpenId" resultType="com.mm.dev.entity.user.User">
+    	SELECT
+    		t.id,
+    		t.nick_name as nickName,
+    		t.headimgurl,
+    		t.balance,
+    		t.fee_scale as feeScale,
+    		t.withdraw_day_limit as withdrawDayLimit,
+    		t.total_income as totalIncome,
+    		t.withdraw_day_max_money as withdrawDayMaxMoney
+   		FROM
+   			t_user t
+		WHERE
+   			t.open_id = #{openId}
+    </select>
 
     <update id="updateUserInfo">
     	UPDATE 

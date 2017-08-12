@@ -52,6 +52,13 @@ public interface IUserService {
 	public User queryUserBaseInfoByopenId(String openId) throws Exception;
 	
 	/**
+	 * @Description: 根据openId获取用户账号信息
+	 * @Datatime 2017年8月5日 下午3:16:51 
+	 * @return void    返回类型
+	 */
+	public User queryUserBalanceInfoByOpenId(String openId) throws Exception;
+	
+	/**
 	 * @Description:朋友圈首页分页查询列表
 	 * @Datatime 2017年8月6日 下午9:42:44 
 	 * @return List<UserFiles>    返回类型

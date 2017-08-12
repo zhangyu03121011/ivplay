@@ -37,7 +37,7 @@ function initData(openId) {
 	if(!flag){
 		return false;
 	}
-	//查询当前用户列表
+	//查询当前用户提现列表
 	var	urlPost = '/userWithdrawal/'+ start +'/' + count + '/record/list';
 	
 	my.ajaxGet(urlPost,function(ret,err,status){

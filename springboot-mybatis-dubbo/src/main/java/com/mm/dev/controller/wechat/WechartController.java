@@ -205,7 +205,7 @@ public class WechartController{
 				gotoPage = imagePath.toString();
 			} else if("4".equals(state)) {
 				//跳转我的文件列表
-				gotoPage = "/home/home.html?openId="+openId+"&userOpenId="+openId;
+				gotoPage = "/home/home.html?openId="+openId;
 			} else if("5".equals(state)) {
 				//跳转打赏圈首页
 				gotoPage = "/home/home.html?userOpenId="+openId;
@@ -220,7 +220,7 @@ public class WechartController{
 				gotoPage = "/wx_in_out_record.html";
 			} else if("9".equals(state)) {
 				//跳转我的推荐
-				gotoPage = "/wx_introducer.html";
+				gotoPage = "/wx_introducer.html?openId="+openId;
 			} else if("10".equals(state)) {
 				//跳转提现页面
 				gotoPage = "/wx_withdraw.html";

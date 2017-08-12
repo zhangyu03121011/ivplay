@@ -51,6 +51,11 @@ public class UserServiceTest extends BaseTest{
 		System.out.println(JSONObject.toJSONString(userService.queryUserBaseInfoByopenId("o5z7ywOP7qycrtAAxIqDfgMbfcFY")));
 	}
 	
+	@Test
+	public void queryUserBalanceInfoByOpenId() throws Exception {
+		System.out.println(JSONObject.toJSONString(userService.queryUserBalanceInfoByOpenId("o5z7ywOP7qycrtAAxIqDfgMbfcFY")));
+	}
+	
 	public static void main(String[] args) {
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageable = new PageRequest(0,50, sort);

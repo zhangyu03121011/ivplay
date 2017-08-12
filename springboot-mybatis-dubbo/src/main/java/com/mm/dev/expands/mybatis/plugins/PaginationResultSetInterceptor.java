@@ -1,9 +1,13 @@
 package com.mm.dev.expands.mybatis.plugins;
 
-import com.mm.dev.expands.mybatis.dialect.Dialect;
-import com.mm.dev.expands.mybatis.dialect.MySql5Dialect;
-import com.mm.dev.expands.mybatis.dialect.OracleDialect;
-import com.mm.dev.expands.mybatis.dialect.SQLServer2005Dialect;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.binding.MapperMethod;
@@ -11,7 +15,11 @@ import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.DefaultResultSetHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
+import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
@@ -23,13 +31,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import com.mm.dev.expands.mybatis.dialect.Dialect;
+import com.mm.dev.expands.mybatis.dialect.MySql5Dialect;
+import com.mm.dev.expands.mybatis.dialect.OracleDialect;
+import com.mm.dev.expands.mybatis.dialect.SQLServer2005Dialect;
 
 @Intercepts({@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})})
 public class PaginationResultSetInterceptor implements Interceptor {
@@ -88,7 +93,9 @@ public class PaginationResultSetInterceptor implements Interceptor {
 
                 // 修改sql，用于返回总记录数
                 String sql = dialect.getCountString(originalSql);
-                Long totalRecord = getTotalRecord(configuration, sql);
+//                Long totalRecord = getTotalRecord(configuration, sql);
+                //@TODO
+                Long totalRecord = 0l;
                 
                 if (log.isDebugEnabled()) {
                     log.debug("Generate SQL : " + sql);
