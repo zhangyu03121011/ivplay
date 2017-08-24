@@ -7,15 +7,11 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 /**
  * @Description: jdk图片压缩处理 
  * @author Jacky
  * @date 2017年8月6日 下午2:22:51
  */
-@SuppressWarnings("restriction")
 public class ImgCompressUtil {  
     private Image img;  
     private int width;  
@@ -75,9 +71,7 @@ public class ImgCompressUtil {
         image.getGraphics().drawImage(img, 0, 0, w, h, null); // 绘制缩小后的图  
         File destFile = new File("C:\\temp\\456.jpg");  
         FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流  
-        // 可以正常实现bmp、png、gif转jpg  
-        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
-        encoder.encode(image); // JPEG编码  
-        out.close();  
+        ImageIO.write(image, "jpeg", out);
+        out.close(); 
     }  
 }  

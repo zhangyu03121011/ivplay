@@ -37,6 +37,6 @@ public class TestSpringBootController {
     @RequestMapping("/exception")
     @ResponseBody
     public String sayException() throws Exception{
-       throw new ServiceException(ExceptionEnum.success);
+       throw new ServiceException(ExceptionEnum.system_error);
     }
 }

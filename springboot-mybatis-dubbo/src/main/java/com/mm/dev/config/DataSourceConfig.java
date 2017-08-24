@@ -9,10 +9,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -30,20 +28,20 @@ import com.mm.dev.expands.mybatis.plugins.PaginationStatementInterceptor;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
-    @Autowired
-    private Environment env;
+//    @Autowired
+//    private Environment env;
 
     @Bean
     public DataSource dataSource(){
 
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
-        dataSource.setUrl(env.getProperty("spring.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.datasource.password"));
-        dataSource.setInitialSize(Integer.parseInt(env.getProperty("spring.datasource.initialSize")));
-        dataSource.setMinIdle(Integer.parseInt(env.getProperty("spring.datasource.minIdle")));
-        dataSource.setMaxActive(Integer.parseInt(env.getProperty("spring.datasource.maxActive")));
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://bdm248798114.my3w.com:3306/bdm248798114_db?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true");
+        dataSource.setUsername("bdm248798114");
+        dataSource.setPassword("jacky1991");
+        dataSource.setInitialSize(1);
+        dataSource.setMinIdle(1);
+        dataSource.setMaxActive(20);
 
         return dataSource;
     }
@@ -54,8 +52,8 @@ public class DataSourceConfig {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 
         // 获取properties中的对应配置信息
-        String mapperPackage = env.getProperty("spring.mybatis.mapperPackage");
-        String dialect = env.getProperty("spring.mybatis.dialect");
+        String mapperPackage = "/mapper/*/*Mapper.xml";
+        String dialect = "mysql";
 
         Properties properties = new Properties();
         properties.setProperty("dialect", dialect);

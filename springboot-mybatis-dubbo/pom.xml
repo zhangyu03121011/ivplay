@@ -20,12 +20,12 @@
 	</properties>
 	<dependencies>
 		<!-- 热部署配置 -->
-<!-- 	    <dependency>     -->
-<!-- 	        <groupId>org.springframework.boot</groupId>     -->
-<!-- 	        <artifactId>spring-boot-devtools</artifactId>     -->
-<!-- 	       	<optional>true</optional> -->
-<!-- 	       	<scope>runtime</scope> -->
-<!-- 	    </dependency>     -->
+	    <dependency>    
+	        <groupId>org.springframework.boot</groupId>    
+	        <artifactId>spring-boot-devtools</artifactId>    
+	       	<optional>true</optional>
+	       	<scope>runtime</scope>
+	    </dependency>    
 		<dependency>
 			<groupId>springboot</groupId>
 			<artifactId>springboot-common-util</artifactId>
