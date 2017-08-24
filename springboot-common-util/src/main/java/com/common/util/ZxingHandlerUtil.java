@@ -1,4 +1,4 @@
-package com.mm.dev.config;
+package com.common.util;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -33,7 +33,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  * @author DF
  * @version 2014-02-28
  */
-public class ZxingHandler {
+public class ZxingHandlerUtil {
 
 	/**
 	 * 条形码编码

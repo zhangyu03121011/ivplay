@@ -19,6 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class DevApplication {
 	private static final Logger logger = LoggerFactory.getLogger(DevApplication.class);
+	
     public static void main(String[] args) {
     	long currentTimeMillis = System.currentTimeMillis();
         SpringApplication.run(DevApplication.class, args);
@@ -35,7 +36,7 @@ public class DevApplication {
         MultipartConfigFactory factory = new MultipartConfigFactory();  
         //文件最大  
         factory.setMaxFileSize("10240KB"); //KB,MB  
-        /// 设置总上传数据总大小  
+        //设置总上传数据总大小  
         factory.setMaxRequestSize("102400KB");  
         return factory.createMultipartConfig();  
     }  

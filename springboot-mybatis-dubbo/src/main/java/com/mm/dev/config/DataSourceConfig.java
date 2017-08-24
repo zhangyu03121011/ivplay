@@ -28,12 +28,8 @@ import com.mm.dev.expands.mybatis.plugins.PaginationStatementInterceptor;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
-//    @Autowired
-//    private Environment env;
-
-    @Bean
+	 @Bean
     public DataSource dataSource(){
-
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://bdm248798114.my3w.com:3306/bdm248798114_db?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true");
@@ -42,23 +38,17 @@ public class DataSourceConfig {
         dataSource.setInitialSize(1);
         dataSource.setMinIdle(1);
         dataSource.setMaxActive(20);
-
         return dataSource;
     }
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-
         // 获取properties中的对应配置信息
         String mapperPackage = "/mapper/*/*Mapper.xml";
         String dialect = "mysql";
-
         Properties properties = new Properties();
         properties.setProperty("dialect", dialect);
-
-
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setConfigurationProperties(properties);
         // 设置MapperLocations路径
