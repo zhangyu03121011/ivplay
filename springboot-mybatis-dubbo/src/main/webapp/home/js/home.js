@@ -297,7 +297,6 @@ function initData(openId) {
 			$("#userHeadimgurl").attr("src",userHeadimgurl);
 			$("#userNickName").text(decodeURIComponent(userNickName));
 		}
-		
 	})
 	my.ajaxGet(urlPost,function(ret,err,status){
 		if(ret && ret.status){

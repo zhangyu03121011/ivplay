@@ -1,5 +1,7 @@
 package com.mm.dev.dao.mapper.user;
 
+import java.util.Map;
+
 
 /**
  * @Description: userMapper
@@ -14,4 +16,11 @@ public interface UserFilesMapper {
 	 * @return void    返回类型
 	 */
 	public void deleteById(String id) throws Exception;
+	
+	/**
+	 * @Description: 根据ID查询模糊图片信息
+	 * @Datatime 2017年8月7日 下午9:55:50 
+	 * @return void    返回类型
+	 */
+	public Map<String, String> queryBlurInfoById(String id) throws Exception;
 }

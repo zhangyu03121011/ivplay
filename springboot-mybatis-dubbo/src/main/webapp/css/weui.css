@@ -374,7 +374,7 @@ z-index:
   margin-top: 1.17647059em;
   background-color: #FFFFFF;
   line-height: 1.47058824;
-  font-size: 17px;
+  font-size: 14px;
   overflow: hidden;
   position: relative;
 }
@@ -569,7 +569,7 @@ z-index:
 }
 .weui-label {
   display: block;
-  width: 105px;
+  width: 85px;
   word-wrap: break-word;
   word-break: break-all;
 }
@@ -579,7 +579,7 @@ z-index:
   outline: 0;
   -webkit-appearance: none;
   background-color: transparent;
-  font-size: inherit;
+  font-size: 14px;
   color: inherit;
   height: 1.47058824em;
   line-height: 1.47058824;

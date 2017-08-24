@@ -1,8 +1,11 @@
 package com.mm.dev.controller.user;
 
 import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.mm.dev.config.ConfigProperties;
 import com.mm.dev.constants.WechatConstant;
 import com.mm.dev.entity.user.UserFiles;
 import com.mm.dev.entity.wechat.ReturnMsg;
@@ -40,6 +50,9 @@ public class UserFilesController{
 	
 	@Autowired
 	private IUserFilesService userFileService;
+	
+	@Autowired
+	private ConfigProperties configProperties;
 	
 	/**
 	 * @Description: 根据opoenId,文件分类查询列表
@@ -66,9 +79,15 @@ public class UserFilesController{
 		return ReturnMsgUtil.success(userFileList);
 	}
 	
+	/**
+	 * @Description: 根据id查询上传的信息
+	 * @Datatime 2017年8月12日 下午7:48:17 
+	 * @return ReturnMsg<Object>    返回类型
+	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ReturnMsg<Object> deleteById(@PathVariable("id") String id,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public ReturnMsg<Object> findById(@PathVariable("id") String id,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 //			String openId = (String)UserSession.getSession(WechatConstant.OPEN_ID);
 			String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";
@@ -81,5 +100,59 @@ public class UserFilesController{
 		}
 		return ReturnMsgUtil.success();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ReturnMsg<Object> deleteById(@PathVariable("id") String id,HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Map<String, String> blurInfoMap = null;
+		try {
+//			String openId = (String)UserSession.getSession(WechatConstant.OPEN_ID);
+			String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";
+			if(StringUtils.isNotEmpty(openId)) {
+				blurInfoMap = userFileService.queryBlurInfoById(id);
+			}
+		} catch (Exception e) {
+			logger.error("根据opoenId,文件分类查询列表异常",e);
+			return ReturnMsgUtil.error(ExceptionEnum.system_error);
+		}
+		return ReturnMsgUtil.success(blurInfoMap);
+	}
+	
+	/**
+	 * @Description: 根据ID获取打赏二维码
+	 * @DateTime:2017年8月10日 上午11:29:22
+	 * @return ReturnMsg<Object>
+	 * @throws
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/getPayShareQrImage")
+	@ResponseBody
+	public ReturnMsg<Object> getPayShareQrImage(String id,HttpServletRequest request, HttpServletResponse response){
+		String qrcodeImagePath = null;
+		if(StringUtils.isNotEmpty(id)) {
+			Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+			// 指定纠错等级
+			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+			// 指定编码格式
+			hints.put(EncodeHintType.CHARACTER_SET, "GBK");
+			//设值白框间距
+			hints.put(EncodeHintType.MARGIN, 1);
+			
+			try {
+				BitMatrix bitMatrix = new MultiFormatWriter().encode("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+configProperties.getAPPID()+"&redirect_uri=http%3a%2f%2fjacky.tunnel.qydev.com%2fwechat%2fcallback?id="+id+"&response_type=code&scope=snsapi_base&state=3&connect_redirect=1#wechat_redirect",
+						BarcodeFormat.QR_CODE, configProperties.getWidth(), configProperties.getHeight(), hints);
+				response.setContentType("image/jpeg");  
+				// 将图像输出到Servlet输出流中。  
+				ServletOutputStream sos = response.getOutputStream();  
+				MatrixToImageWriter.writeToStream(bitMatrix, "jpeg", sos);
+				sos.close();  
+			} catch (Exception e) {
+				logger.error("根据ID获取打赏二维码异常",e);
+			} 
+		}
+		return ReturnMsgUtil.success(qrcodeImagePath);
+	}
+	
 }
 

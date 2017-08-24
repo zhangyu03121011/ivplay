@@ -66,4 +66,9 @@ public class UserFilesServiceTest extends BaseTest{
 	public void testDeleteById() throws Exception {
 		userFilesService.deleteById("402881e45dbc8c52015dbc8c52a50000");
 	}
+	
+	@Test
+	public void testQueryBlurInfoById() throws Exception {
+		System.out.println(JSONObject.toJSONString(userFilesService.queryBlurInfoById("4028cf815dc580ff015dc580ff2f0000")));
+	}
 }

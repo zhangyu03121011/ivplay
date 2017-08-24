@@ -39,6 +39,11 @@ public class UserFiles extends BaseEntity {
 	private String filePath;
 	
 	/**
+	 * 模糊图片存储路径
+	 */
+	private String blurFilePath;
+	
+	/**
 	 * 文件后缀
 	 */
 	private String fileSuffic;
@@ -169,5 +174,13 @@ public class UserFiles extends BaseEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getBlurFilePath() {
+		return blurFilePath;
+	}
+
+	public void setBlurFilePath(String blurFilePath) {
+		this.blurFilePath = blurFilePath;
 	}
 }

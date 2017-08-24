@@ -5,7 +5,7 @@
 	<groupId>springboot</groupId>
 	<artifactId>springboot-mybatis-dubbo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>springboot-mybatis-dubbo</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -19,6 +19,13 @@
 		<java.version>1.7</java.version>
 	</properties>
 	<dependencies>
+		<!-- 热部署配置 -->
+<!-- 	    <dependency>     -->
+<!-- 	        <groupId>org.springframework.boot</groupId>     -->
+<!-- 	        <artifactId>spring-boot-devtools</artifactId>     -->
+<!-- 	       	<optional>true</optional> -->
+<!-- 	       	<scope>runtime</scope> -->
+<!-- 	    </dependency>     -->
 		<dependency>
 			<groupId>springboot</groupId>
 			<artifactId>springboot-common-util</artifactId>
@@ -47,6 +54,12 @@
             		<artifactId>spring-boot-starter-logging</artifactId>
             	</exclusion>
             </exclusions>
+        </dependency>
+        <!-- 这里指定打包的时候不再需要tomcat相关的包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -123,15 +136,15 @@
 		    <artifactId>xstream</artifactId>
 		    <version>1.4.7</version>
 		</dependency>
-		
 	</dependencies>
 	
 	<build>
 		<finalName>springboot-mybatis-dubbo</finalName>
 		<outputDirectory>${project.basedir}/target/classes/</outputDirectory>
 		<plugins>
+		
 			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
-            <plugin>  
+           <!--  <plugin>  
                 <groupId>org.apache.maven.plugins</groupId>  
                 <artifactId>maven-jar-plugin</artifactId>  
                 <configuration>  
@@ -179,11 +192,23 @@
 			        </goals>
 			      </execution>
 			    </executions>
-			  </plugin>
+			</plugin> -->
+			
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
 			</plugin>
+			<!-- maven打包的时候告诉maven不需要web.xml,否刚会报找不到web.xml错误 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>

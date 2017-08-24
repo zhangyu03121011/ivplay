@@ -1,6 +1,7 @@
 package com.mm.dev.service.impl.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -67,5 +68,14 @@ public class UserFilesServiceImpl implements IUserFilesService {
 	 */
 	public void deleteById(String id) throws Exception {
 		userFilesMapper.deleteById(id);
+	}
+	
+	/**
+	 * @Description: 根据ID查询模糊图片信息
+	 * @Datatime 2017年8月7日 下午9:55:50 
+	 * @return void    返回类型
+	 */
+	public Map<String, String> queryBlurInfoById(String id) throws Exception {
+		return userFilesMapper.queryBlurInfoById(id);
 	}
 }

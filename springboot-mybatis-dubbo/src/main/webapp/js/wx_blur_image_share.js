@@ -4,20 +4,32 @@
 var data=[];
 var canvasWidth = 400;
 var canvasHeight = 900;
-var id = COMMON.getUrlParam("id");
-var fileNewNames = COMMON.getUrlParam("fileNewNames");
-var fileSuffix = fileNewNames.substring(fileNewNames.indexOf("."),fileNewNames.length);
-var fileName = fileNewNames.substring(0,fileNewNames.indexOf("."));
-var title = decodeURI(COMMON.getUrlParam("title"));
-var qrcSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/" + fileName + "_qrcode" + fileSuffix;
-var blurSrc = COMMON.rootPath + "/" + COMMON.imageFolder + "/" + id + "/"+ fileName + "_blur.jpg";
+var blurFileId = my.getUrlParam("id");
+var title = null;
+var qrcSrc = "/userFiles/getPayShareQrImage?id="+blurFileId;
+var blurSrc = null;
+
+/**
+ * 查看模糊图片
+ */
 var blur_image_share = (function() {
+	//获取当前用户头像昵称
+	my.ajaxGet('/userFiles/query/'+blurFileId,function(ret,err,status){
+		if(ret && ret.status){
+			var data = ret.data;
+			title = data.title;
+			blurSrc = "/"+data.blurFilePath;
+		}
+	},false)
+	
 	data.push(blurSrc);
 	data.push(qrcSrc);
 	getImgNaturalDimensions(callback,qrcSrc,1);
 	getImgNaturalDimensions(callback,blurSrc,2);
 	
 })();
+
+//合并图片
 function draw(){
 	var c = document.getElementById("canvas"),
 	ctx = c.getContext('2d'),
@@ -27,6 +39,8 @@ function draw(){
 	ctx.rect(0,0,c.width,c.height);
 	ctx.fillStyle='rgba(225,225,225,0.5)';
 	ctx.fill();
+	drawing(0);
+	
 	function drawing(n){
 		if(n<len){
 			var img=new Image;
@@ -58,7 +72,6 @@ function draw(){
 			$("#img1").attr("src",c.toDataURL());
 		}
 	}
-	drawing(0);
 }
 
 function getImgNaturalDimensions(callback,imgSrc,n) {
@@ -71,9 +84,9 @@ function getImgNaturalDimensions(callback,imgSrc,n) {
 
 // 获取图片的原始尺寸
 function callback(width,height,n) {
-	canvasWidth += width;
 	canvasHeight += height;
 	if(n == 2) {
+		canvasWidth += width;
 		// 生成画布
 		draw();
 	}

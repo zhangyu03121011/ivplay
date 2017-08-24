@@ -6,52 +6,54 @@ package com.mm.dev.enums;
  * @date 2017年8月3日 下午7:13:48
  */
 public enum ExceptionEnum {
+	/** 成功 */
+	success("成功",0),
 	/** 系统内部异常 */
-	system_error("系统内部异常","500"),
+	system_error("系统内部异常",500),
 	
 	/** 参数不能为空 */
-	param_not_null("参数不能为空", "1001"), 
+	param_not_null("参数不能为空", 1001), 
 	
 	/** 未登录 */
-	not_login("未登录", "1002"), 
+	not_login("未登录", 1002), 
 	
 	/** 该用户已存在 */
-	user_exist("该会员已存在", "1003"),
+	user_exist("该会员已存在", 1003),
 	
 	/** 该用户不存在 */
-	user_not_exist("该会员不存在","1004")
+	user_not_exist("该会员不存在",1004)
 	;
 
-	private String value;
-	private String index;
+	private String msg;
+	private Integer code;
 
-	private ExceptionEnum(String value, String index) {
-		this.value = value;
-		this.index = index;
+	private ExceptionEnum(String msg, Integer code) {
+		this.msg = msg;
+		this.code = code;
 	}
 
-	public static String getvalue(String index) {
+	public static String getMsg(Integer code) {
 		for (ExceptionEnum t : ExceptionEnum.values()) {
-			if (t.getIndex().equals(index)) {
-				return t.value;
+			if (t.getCode().equals(code)) {
+				return t.msg;
 			}
 		}
 		return null;
 	}
 
-	public String getValue() {
-		return value;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public String getIndex() {
-		return index;
+	public Integer getCode() {
+		return code;
 	}
 
-	public void setIndex(String index) {
-		this.index = index;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 }

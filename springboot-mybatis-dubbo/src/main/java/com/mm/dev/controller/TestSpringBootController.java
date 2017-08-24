@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mm.dev.enums.ExceptionEnum;
+import com.mm.dev.exception.ServiceException;
 import com.mm.dev.service.user.IUserService;
 
 /**
@@ -31,5 +33,10 @@ public class TestSpringBootController {
     public String sayHello(Pageable pageable) throws Exception{
         return "hello SpringBoot! -- userId:";
     }
-
+    
+    @RequestMapping("/exception")
+    @ResponseBody
+    public String sayException() throws Exception{
+       throw new ServiceException(ExceptionEnum.success);
+    }
 }

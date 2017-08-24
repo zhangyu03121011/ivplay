@@ -58,7 +58,8 @@ public class UploadController {
 	@RequestMapping(value = "/image",method=RequestMethod.POST)
 	@ResponseBody
 	public ReturnMsg<Object> fileUpload(UserFiles userFiles,HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		String openId = (String)UserSession.getSession("openId");
+//		String openId = (String)UserSession.getSession("openId");
+		String openId = "o5z7ywOP7qycrtAAxIqDfgMbfcFY";
         try {
         	if(StringUtils.isNotEmpty(openId)) {
         		StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
