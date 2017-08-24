@@ -1,52 +1,64 @@
 package com.mm.dev.entity.wechat;
-
 /**
- * 手机返回JSON信息
- * 
- * @author kevin
- *
+ * @ClassName: Result 
+ * @Description: http请求返回的最外层对象
+ * @author zhangxy
+ * @date 2017年8月24日 上午9:23:34
  */
 public class ReturnMsg<T> {
 
-	
-	private String code; //错误编码
+    /** 错误码. */
+    private Integer code;
 
-	private String msg;  //错误消息
+    /** 提示信息. */
+    private String msg;
+    
+    /** 请求URL */
+    private String url;
 
-	private boolean status = true; //false 时才有code   msg
+    /** 具体的内容. */
+    private T data;
+    
+    /** 返回状态 */
+    private Boolean status;
 
-	private T data;
+    public Integer getCode() {
+        return code;
+    }
 
-	public String getCode() {
-		return code;
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+	public String getUrl() {
+		return url;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public boolean isStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
-
 }
